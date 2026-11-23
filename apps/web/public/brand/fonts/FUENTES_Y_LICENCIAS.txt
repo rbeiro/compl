@@ -1,0 +1,72 @@
+COMPI — TIPOGRAFÍAS Y LICENCIAS
+Versión del paquete: 1.0 · Descarga: 09/11/2026
+
+Las familias incluidas proceden exclusivamente de Google Fonts. Los datos
+binarios no se han modificado. Los nombres de archivo se han simplificado
+para integrarlos en una web; los nombres internos de las fuentes se conservan.
+
+1. FRAUNCES
+
+Uso en CompI: titulares y textos editoriales destacados. Preferencia peso 500;
+se admite 400. Usar SOFT=0 y WONK=0, con tamaño óptico automático en la web.
+No usar esta fuente para volver a escribir o aproximar el logotipo: el logo
+es el SVG de assets/logo, con sus letras conservadas como formas.
+
+Archivos web:
+  Fraunces-latin-variable.woff2
+  Fraunces-latin-ext-variable.woff2
+
+Archivo original para escritorio:
+  Fraunces-variable.ttf
+
+Ejes del TTF: opsz 9–144; wght 100–900; SOFT 0–100; WONK 0–1.
+Versión interna del TTF: Version 1.000;[b76b70a41].
+Licencia: SIL Open Font License 1.1. Texto íntegro: OFL-Fraunces.txt.
+
+Ficha: https://fonts.google.com/specimen/Fraunces
+Repositorio: https://github.com/google/fonts/tree/main/ofl/fraunces
+Autor/proyecto: https://github.com/undercasetype/Fraunces
+
+2. MANROPE
+
+Uso en CompI: texto, navegación, botones, formularios, tablas y números.
+Pesos recomendados: 400 cuerpo; 500 navegación; 600 etiquetas y acciones.
+La fuente incluye números tabulares (tnum) para alinear costes y cantidades.
+
+Archivos web:
+  Manrope-latin-variable.woff2
+  Manrope-latin-ext-variable.woff2
+
+Archivo original para escritorio:
+  Manrope-variable.ttf
+
+Eje del TTF: wght 200–800. Versión interna del TTF: Version 4.505.
+Licencia: SIL Open Font License 1.1. Texto íntegro: OFL-Manrope.txt.
+Se ha usado la distribución de Google Fonts, no una versión comercial distinta.
+
+Ficha: https://fonts.google.com/specimen/Manrope
+Repositorio: https://github.com/google/fonts/tree/main/ofl/manrope
+
+3. USO Y REDISTRIBUCIÓN
+
+Conservar los textos OFL y los avisos de copyright al redistribuir los archivos
+de fuentes. Leer las licencias completas incluidas: contienen sus condiciones,
+incluidas las relativas a modificaciones y nombres reservados.
+No se necesita una petición a servidores externos para cargar las WOFF2 de este
+kit: web/compi-theme.css referencia los archivos locales.
+
+4. COBERTURA Y TRAZABILIDAD
+
+El CSS carga los subconjuntos Latin y Latin-ext mediante unicode-range.
+Los TTF originales contienen los caracteres probados para ES/PT/CA/FR/EN:
+ÁÉÍÓÚ áéíóú ñ ç € ¿ ¡ y cifras 0–9. La cobertura completa depende de la fuente.
+Para otros sistemas de escritura, revisar cobertura antes de ampliar idiomas.
+
+fonts/sources.json registra URL exacta de cada descarga, tamaño y SHA-256.
+Las WOFF2 se obtuvieron de las respuestas de Google Fonts CSS API con esta
+solicitud de ejes variables:
+https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&family=Manrope:wght@200..800&display=swap
+
+Licencias oficiales:
+https://github.com/google/fonts/blob/main/ofl/fraunces/OFL.txt
+https://github.com/google/fonts/blob/main/ofl/manrope/OFL.txt

@@ -1,0 +1,50 @@
+{
+  "Meta": {
+    "title": "CompI · El portal de tu cocina",
+    "description": "CompI reúne las guías de emplatado, las fichas técnicas y el correo interno del equipo de cocina de tu hotel."
+  },
+  "Common": {
+    "skipToContent": "Saltar al contenido",
+    "homeLabel": "CompI · Inicio",
+    "homePageLabel": "CompI · Página de inicio",
+    "testEnvironment": "Entorno de pruebas",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "enterPortal": "Entrar al portal",
+    "teamAccess": "Acceso del equipo",
+    "publicNav": "Navegación pública",
+    "workspaceNav": "Navegación del entorno de trabajo",
+    "myWorkspace": "Mi entorno de trabajo"
+  },
+  "Landing": {
+    "navProject": "El proyecto",
+    "navTools": "Herramientas",
+    "kicker": "Para equipos de cocina de hotel",
+    "titleStart": "El portal de",
+    "titleEnd": "tu cocina.",
+    "lead": "Las guías de emplatado, las fichas técnicas y el correo de tu equipo, reunidos en un mismo espacio.",
+    "learnMore": "Conocer el proyecto",
+    "heroAlt": "Un chef coloca brotes con pinzas sobre un pescado emplatado.",
+    "projectTitleStart": "Una referencia para",
+    "projectTitleEnd": "cada servicio.",
+    "projectBody1": "En una cocina de hotel, un mismo plato pasa por distintas manos. Con CompI, cocina y sala consultan la misma guía de emplatado. La fotografía del plato, la vajilla y las indicaciones de servicio están juntas para resolver dudas en el pase.",
+    "projectBody2": "El chef organiza las fichas por hotel y outlet. Cada empleado accede a los documentos de su equipo y puede dejar al siguiente turno los detalles del servicio en el correo interno.",
+    "toolsAlt": "Cuaderno de cocina abierto junto a hierbas frescas y utensilios de preparación.",
+    "toolsTitle": "Dentro del portal.",
+    "platingTitle": "Guías de emplatado",
+    "platingBody": "Consulta las guías publicadas de cada outlet, revisa el montaje y descarga la versión en Word o PDF.",
+    "recipesTitle": "Fichas técnicas",
+    "recipesBody": "Con permiso de edición, introduce ingredientes, cantidades, alérgenos y pasos de emplatado. Revisa el resultado y guarda la ficha como borrador antes de publicarla.",
+    "mailTitle": "Correo interno",
+    "mailBody": "Escribe a tus compañeros del hotel, responde a los avisos del turno y organiza tus mensajes con favoritos y carpetas personales."
+  },
+  "Login": {
+    "intro": "Entra con tu cuenta de empleado para abrir el espacio de trabajo de tu hotel.",
+    "email": "Correo del empleado",
+    "password": "Contraseña",
+    "forgotPassword": "He olvidado mi contraseña",
+    "errorCredentials": "Comprueba el correo y la contraseña.",
+    "errorRateLimit": "Demasiados intentos. Espera un momento antes de volver a entrar.",
+    "errorNetwork": "No se ha podido conectar con el servicio de acceso. Vuelve a intentarlo."
+  }
+}

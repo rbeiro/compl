@@ -1,0 +1,50 @@
+{
+  "Meta": {
+    "title": "CompI · Le portail de votre cuisine",
+    "description": "CompI réunit les guides de dressage, les fiches techniques et la messagerie interne de la brigade de votre hôtel."
+  },
+  "Common": {
+    "skipToContent": "Aller au contenu",
+    "homeLabel": "CompI · Accueil",
+    "homePageLabel": "CompI · Page d’accueil",
+    "testEnvironment": "Environnement de test",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "enterPortal": "Accéder au portail",
+    "teamAccess": "Accès du personnel",
+    "publicNav": "Navigation du site",
+    "workspaceNav": "Navigation de l’espace de travail",
+    "myWorkspace": "Mon espace de travail"
+  },
+  "Landing": {
+    "navProject": "Le projet",
+    "navTools": "Outils",
+    "kicker": "Pour les brigades de cuisine d’hôtel",
+    "titleStart": "Le portail de",
+    "titleEnd": "votre cuisine.",
+    "lead": "Retrouvez les guides de dressage, les fiches techniques et la messagerie de votre équipe au même endroit.",
+    "learnMore": "Découvrir le projet",
+    "heroAlt": "Un chef dépose de jeunes pousses à la pince sur un poisson déjà dressé.",
+    "projectTitleStart": "Un repère pour",
+    "projectTitleEnd": "chaque service.",
+    "projectBody1": "Dans une cuisine d’hôtel, un même plat passe entre plusieurs mains. Avec CompI, la cuisine et la salle consultent le même guide de dressage. Au passe, la photo du plat, la vaisselle à utiliser et les consignes de service permettent de lever les doutes.",
+    "projectBody2": "Le chef classe les fiches par hôtel et par point de restauration. Chacun peut consulter les documents de son équipe et transmettre les consignes à l’équipe suivante par la messagerie interne.",
+    "toolsAlt": "Un carnet de cuisine ouvert à côté d’herbes fraîches et d’ustensiles.",
+    "toolsTitle": "Dans le portail.",
+    "platingTitle": "Guides de dressage",
+    "platingBody": "Consultez les guides publiés pour chaque point de restauration, vérifiez le dressage et téléchargez la version Word ou PDF.",
+    "recipesTitle": "Fiches techniques",
+    "recipesBody": "Si vous disposez des droits de modification, renseignez les ingrédients, les quantités, les allergènes et les étapes de dressage. Vérifiez la fiche et enregistrez-la en brouillon avant de la publier.",
+    "mailTitle": "Messagerie interne",
+    "mailBody": "Écrivez à vos collègues de l’hôtel, répondez aux messages de l’équipe de service et organisez vos échanges à l’aide des favoris et des dossiers personnels."
+  },
+  "Login": {
+    "intro": "Connectez-vous avec votre compte professionnel pour accéder à l’espace de travail de votre hôtel.",
+    "email": "Adresse e-mail de l’employé",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "errorCredentials": "Vérifiez votre adresse e-mail et votre mot de passe.",
+    "errorRateLimit": "Trop de tentatives. Patientez un instant avant de vous reconnecter.",
+    "errorNetwork": "Impossible de joindre le service de connexion. Réessayez."
+  }
+}

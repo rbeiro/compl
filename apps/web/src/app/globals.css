@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/*
+ * CompI brand tokens, ported from legacy/public/brand/web/compi-theme.css.
+ * Use the semantic names (bg-background, text-primary, border-line...) in components.
+ */
+@theme {
+  /* Approved brand palette */
+  --color-green: #23603f;
+  --color-green-hover: #1b4c32;
+  --color-green-active: #153e29;
+  --color-green-soft: #e9efe8;
+  --color-plum: #672557;
+  --color-taupe: #b1a180;
+  --color-sand: #d2be92;
+  --color-ivory: #e4d3ba;
+
+  /* Neutrals and states */
+  --color-paper: #faf7f2;
+  --color-ink: #242c27;
+  --color-muted: #566158;
+  --color-line: #d9d4c9;
+  --color-line-strong: #737a70;
+  --color-error: #922d3b;
+  --color-error-soft: #f8ecef;
+  --color-warning: #6a531c;
+  --color-warning-soft: #f2ead8;
+
+  /* Semantic aliases */
+  --color-background: var(--color-paper);
+  --color-surface: #ffffff;
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-green);
+  --color-on-primary: #ffffff;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope", Arial, sans-serif;
+
+  --text-display: clamp(2rem, 1.1rem + 3.7vw, 3.5rem);
+  --text-display--line-height: 1.14;
+  --text-heading: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  --text-heading--line-height: 1.14;
+
+  --radius-control: 0.5rem;
+  --radius-panel: 0.75rem;
+  --radius-large: 1rem;
+
+  --container-content: 72rem;
+  --spacing-target: 2.75rem; /* minimum touch target */
+  --shadow-subtle: 0 8px 28px rgb(36 44 39 / 0.06);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background font-sans text-foreground leading-[1.6] antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-medium text-balance;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}

@@ -17,3 +17,8 @@ datos-locales/
 *.log
 .DS_Store
 Thumbs.db
+
+# Next.js / monorepo
+.next/
+.turbo/
+*.tsbuildinfo
