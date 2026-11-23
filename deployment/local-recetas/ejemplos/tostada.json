@@ -1,0 +1,343 @@
+{
+  "schema_version": "1.0",
+  "dish_id": "oleos-tostada",
+  "outlet_id": "oleos",
+  "document_type": "plating_guide",
+  "name_es": "Tostada de aguacate con tomate cherry y frutos secos",
+  "name_en": "Avocado toast with cherry tomatoes and nuts",
+  "section": "Vegetarianos",
+  "ingredients": [
+    {
+      "id": "i1",
+      "name_es": "Pan pochon",
+      "quantity": 1,
+      "unit": "unidad",
+      "original_measure": "1 unidad",
+      "optional": false,
+      "preparation": "Tostada de pan pochon",
+      "image_label": "Pan pochon (1 unidad)",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i2",
+      "name_es": "Aguacate",
+      "quantity": 45,
+      "unit": "g",
+      "original_measure": "45 g",
+      "optional": false,
+      "preparation": "Laminado y sopleteado",
+      "image_label": "Aguacate laminado braseado",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i3",
+      "name_es": "Tomate cherry confitado",
+      "quantity": 3,
+      "unit": "unidad",
+      "original_measure": "3 unidades",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Tomate cherry confitado (3 unidades)",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i4",
+      "name_es": "Aceite verde",
+      "quantity": 2,
+      "unit": "g",
+      "original_measure": "2 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Aceite verde",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i5",
+      "name_es": "Almendra laminada tostada",
+      "quantity": 3,
+      "unit": "g",
+      "original_measure": "3 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Almendra laminada tostada",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i6",
+      "name_es": "Brote de guisante",
+      "quantity": 2,
+      "unit": "unidad",
+      "original_measure": "2 unidades",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Brotes de guisante (2 unidades)",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i7",
+      "name_es": "Mix flores",
+      "quantity": 5,
+      "unit": "unidad",
+      "original_measure": "5 unidades",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Mix de flores (5 unidades)",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i8",
+      "name_es": "Sal maldon",
+      "quantity": 2,
+      "unit": "g",
+      "original_measure": "2 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Sal maldon",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i9",
+      "name_es": "Hummus",
+      "quantity": null,
+      "unit": "desconocida",
+      "original_measure": "Cantidad no especificada",
+      "optional": false,
+      "preparation": "Capa entre pan y aguacate",
+      "image_label": "Hummus",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "pendiente"
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "action": "Tostar 1 rebanada de pan pochon por ambos lados. Mientras tanto, laminar 45 g de aguacate y sopletear ligeramente su superficie.",
+      "observation": "Tostado uniforme; evitar quemar el pan y el aguacate.",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk"
+      ]
+    },
+    {
+      "number": 2,
+      "action": "Centrar la tostada en el plato plano blanco. Untar una capa de hummus sobre el pan y disponer encima el aguacate laminado braseado. Pincelar con 2 g de aceite verde y repartir 2 g de sal maldon.",
+      "observation": "Extender el hummus de forma uniforme y mantener las láminas de aguacate ordenadas.",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk"
+      ]
+    },
+    {
+      "number": 3,
+      "action": "Distribuir 3 tomates cherry confitados sobre el aguacate. Decorar con 5 flores, 2 brotes de guisante y 3 g de almendra laminada tostada, siguiendo la ilustración.",
+      "observation": "Reparto equilibrado, sin ocultar el aguacate; brotes y flores frescos.",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk"
+      ]
+    },
+    {
+      "number": 4,
+      "action": "Revisar el emplatado y cubrir el plato con la campana de servicio de Oleos para el traslado.",
+      "observation": "Borde limpio; campana sin tocar la decoración.",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk"
+      ]
+    }
+  ],
+  "service_info": {
+    "es": "Tostada vegetariana de pan pochon con hummus, aguacate laminado braseado, tomates cherry confitados y almendra laminada tostada. Terminada con aceite verde, brotes de guisante, flores y sal maldon.",
+    "en": "Vegetarian pochon toast with hummus, sliced charred avocado, confit cherry tomatoes and toasted flaked almonds. Finished with green oil, pea shoots, edible flowers and Maldon salt."
+  },
+  "portion": {
+    "grams": 250,
+    "basis": "declarada",
+    "display": "250 g",
+    "calculation_note": "Ración declarada por el usuario. No hay pesos unitarios ni cantidad de hummus para reconstruirla.",
+    "source_refs": [
+      "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "pass_minutes": 6,
+  "station": "Calientes",
+  "dishware": "Plato plano blanco",
+  "channel_zone": "Oleos",
+  "exterior_service": "Plato plano blanco con ribete dorado y campana de servicio de Oleos",
+  "allergens": [
+    {
+      "name": "Gluten",
+      "ingredient_ids": [
+        "i1"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "verification": "declarado"
+    },
+    {
+      "name": "Frutos de cáscara (almendra)",
+      "ingredient_ids": [
+        "i5"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "verification": "declarado"
+    },
+    {
+      "name": "Sésamo",
+      "ingredient_ids": [
+        "i9"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "verification": "declarado"
+    },
+    {
+      "name": "Sulfitos",
+      "ingredient_ids": [
+        "i9"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "verification": "declarado"
+    }
+  ],
+  "traces": {
+    "items": [
+      "Frutos secos"
+    ],
+    "status": "declarado_con_trazas",
+    "display_legacy": "Frutos secos",
+    "source_refs": [
+      "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "adaptations": [
+    {
+      "text": "Pan sin gluten",
+      "removed_ingredient_ids": [],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "suitability_verified": false
+    },
+    {
+      "text": "Sin hummus",
+      "removed_ingredient_ids": [
+        "i9"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "suitability_verified": false
+    },
+    {
+      "text": "Sin almendra laminada",
+      "removed_ingredient_ids": [
+        "i5"
+      ],
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "suitability_verified": false
+    }
+  ],
+  "diet": {
+    "label": "vegetariano",
+    "verification": "declarado",
+    "source_refs": [
+      "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "non_allergen_restrictions": [],
+  "metadata": {
+    "code": "Oleos",
+    "visible_version": "00",
+    "date": "2026-10-20",
+    "document_status": "BORRADOR",
+    "approval_evidence_id": null
+  },
+  "source_refs": [
+    "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+    "user_instructions_in_this_project"
+  ],
+  "provenance": [
+    {
+      "path": "/",
+      "status": "declarado",
+      "source_refs": [
+        "1Tp6r-KLkJ0r5Nf4GgOQE_ityrlblbBgk",
+        "user_instructions_in_this_project"
+      ],
+      "note": "Ejemplo reconstruido desde instrucciones visibles y Word actual, no una validación de producto o aprobación nueva."
+    }
+  ],
+  "unresolved": [
+    {
+      "path": "/allergens",
+      "issue": "Declaraciones conservadas del proyecto; este paquete no incluye una nueva comprobación de etiquetas y matriz de proveedor.",
+      "blocks": [
+        "allergen_clearance"
+      ]
+    },
+    {
+      "path": "/metadata/approval_evidence_id",
+      "issue": "No consta aprobación nueva; el documento observado mantiene BORRADOR.",
+      "blocks": [
+        "content_approval"
+      ]
+    },
+    {
+      "path": "/ingredients/8/quantity",
+      "issue": "No se indicó cantidad de hummus; no inventarla.",
+      "blocks": [
+        "data_completion"
+      ]
+    }
+  ]
+}

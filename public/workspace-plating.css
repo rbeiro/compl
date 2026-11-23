@@ -1,0 +1,78 @@
+.ws-plating{--green:#23603f;--green-dark:#194930;--line:#e3ded4;--paper:#fffefa;--ink:#242c27;--muted:#626d64;color:var(--ink);font:400 16px/1.55 Manrope,Arial,sans-serif;min-width:0}
+.ws-plating .kit-icon{height:18px;width:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.ws-plating .kit-page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:25px}
+.ws-plating .kit-page-title{font:500 clamp(30px,2.7vw,42px)/1.14 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 0,"WONK" 0;letter-spacing:-.04em;color:var(--green-dark);margin:0}
+.ws-plating .kit-page-desc{font-size:14px;color:var(--muted);margin:10px 0 0}
+.ws-plating .kit-eyebrow{font-size:10px;font-weight:600;line-height:1.5;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);display:block;margin:0 0 8px}
+.ws-plating .kit-btn,.ws-plating .kit-plain-icon{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 17px;border:1px solid transparent;border-radius:7px;font:600 13px/1.3 Manrope,Arial,sans-serif;text-decoration:none;cursor:pointer}
+.ws-plating .kit-btn.kit-primary{background:var(--green);border-color:var(--green);color:#fff}
+.ws-plating .kit-btn.kit-primary:hover,.ws-plating .kit-btn.kit-primary:focus-visible{background:var(--green-dark);border-color:var(--green-dark);color:#fff}
+.ws-plating .kit-secondary,.ws-plating .kit-plain-icon{background:var(--paper);border-color:#d8d3c8;color:var(--ink)}
+.ws-plating .kit-btn:disabled,.ws-plating .kit-plain-icon:disabled{opacity:.48;cursor:default}
+.ws-plating .kit-plain-icon{width:44px;height:44px;padding:0;color:var(--green)}
+.ws-plating .kit-review{flex:none}
+.ws-plating [hidden]{display:none!important}
+.ws-plating .kit-message:empty{display:none}
+.ws-plating .kit-guide-filter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr);align-items:start;gap:14px;margin-top:25px}
+.ws-plating .kit-filter-field{min-width:0;display:flex;flex-direction:column;gap:6px;margin:0;font:500 12px/1.45 Manrope,Arial,sans-serif;color:var(--muted)}
+.ws-plating .kit-guide-search,.ws-plating .kit-filter-field select{background-color:var(--select-paper);color:var(--select-green);border:1px solid var(--select-green);border-radius:9px;width:100%;min-height:44px;margin:0}
+.ws-plating .kit-filter-field select{padding:9px 11px;color:var(--select-green);font:500 13px/1.5 Manrope,Arial,sans-serif}
+.ws-plating .kit-search-field{position:relative}
+.ws-plating .kit-search-field>label{margin:0;font:inherit}
+.ws-plating .kit-guide-popup{position:absolute;z-index:8;inset-inline:0;top:calc(100% + 5px);background:var(--select-paper);color:var(--select-green);border:1px solid var(--select-green);border-radius:9px;box-shadow:0 10px 28px rgb(36 44 39/.12);overflow:hidden}
+.ws-plating .kit-guide-suggestions{position:relative;max-height:min(18rem,38vh);overflow-y:auto;overscroll-behavior:contain}
+.ws-plating .kit-guide-option{display:grid;gap:2px;align-content:center;padding:7px 12px;min-height:44px;cursor:pointer;overflow-wrap:anywhere;font-size:13px}
+.ws-plating .kit-guide-option small{font-size:11px;color:inherit}
+.ws-plating .kit-guide-option:hover,.ws-plating .kit-guide-option[aria-selected="true"]{outline:1px solid var(--select-green);outline-offset:-2px}
+.ws-plating .kit-suggestion-hint{font-size:11px;line-height:1.4;padding:8px 12px;margin:0;color:var(--select-green);border-top:1px solid var(--line)}
+.ws-plating .kit-guide-search{display:flex;align-items:center;gap:8px;padding:0 11px}
+.ws-plating .kit-guide-search input{flex:1;min-width:0;width:100%;min-height:40px;padding:0;border:0;border-radius:0;outline:0;background:transparent;color:var(--select-green);box-shadow:none;font:400 14px/1.5 Manrope,Arial,sans-serif}
+.ws-plating .kit-guide-search input::placeholder{color:var(--select-green);opacity:1}
+.ws-plating .kit-guide-search:focus-within,.ws-plating .kit-filter-field select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.ws-plating .kit-filter-info{display:flex;align-items:center;gap:12px;min-height:42px;margin-bottom:8px;color:var(--muted);font-size:12px}
+.ws-plating .kit-empty{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;color:var(--muted)}
+.ws-plating .kit-guide-workspace{padding:0;overflow:hidden;border-radius:12px;background:var(--paper);border:1px solid var(--line);min-width:0}
+.ws-plating .kit-guide-top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 26px;border-bottom:1px solid var(--line)}
+.ws-plating .kit-guide-top .kit-eyebrow,.ws-plating .kit-guide-step-header .kit-eyebrow{font-size:9px;margin:0}
+.ws-plating .kit-guide-top h2{font:500 27px/1.15 Fraunces,Georgia,serif;color:var(--ink);letter-spacing:-.025em;margin:8px 0 0;overflow-wrap:anywhere}
+.ws-plating .kit-guide-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.ws-plating .kit-switch{flex:none;width:25px;height:14px;background:#c5c8bf;border-radius:20px;position:relative;display:block;margin-inline-start:4px}
+.ws-plating .kit-switch::after{content:'';position:absolute;left:2px;top:2px;width:10px;height:10px;border-radius:50%;background:#fff}
+.ws-plating .kit-switch.on{background:var(--green)}
+.ws-plating .kit-switch.on::after{transform:translateX(11px)}
+.ws-plating .kit-guide-columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,1fr);min-height:410px}
+.ws-plating .kit-guide-picture{position:relative;min-width:0;min-height:410px;overflow:hidden;background:#fff;isolation:isolate}
+.ws-plating .kit-guide-picture>img{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;border:0;object-fit:contain}
+.ws-plating .kit-guide-picture>img{z-index:1}
+.ws-plating .kit-picture-placeholder{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;color:var(--muted);font-size:13px}
+.ws-plating .kit-picture-placeholder>.kit-icon{height:36px;width:36px}
+.ws-plating .kit-guide-instructions{min-width:0;padding:26px 24px;display:flex;flex-direction:column}
+.ws-plating .kit-guide-step-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:24px}
+.ws-plating .kit-guide-step-header>span+span{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ws-plating .kit-steps{display:flex;flex-direction:column;gap:13px}
+.ws-plating .kit-step{display:flex;align-items:flex-start;gap:12px;text-align:start;background:transparent;border:0;border-radius:4px;color:var(--ink);font:inherit;padding:10px 0;min-height:44px;cursor:pointer;opacity:.7}
+.ws-plating .kit-step:hover,.ws-plating .kit-step.current,.ws-plating .kit-step.completed{opacity:1}
+.ws-plating .kit-step-number{height:27px;width:27px;display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);border-radius:50%;flex:none;font-size:9px;font-weight:600}
+.ws-plating .kit-step.current .kit-step-number{background:var(--green);border-color:var(--green);color:var(--paper)}
+.ws-plating .kit-step.completed .kit-step-number{color:var(--green);background:#edf2e9;border-color:#edf2e9}
+.ws-plating .kit-step>span:last-child{display:flex;flex-direction:column;gap:7px;padding-top:4px;min-width:0;overflow-wrap:anywhere}
+.ws-plating .kit-step strong{font-size:14px;font-weight:600;line-height:1.45}
+.ws-plating .kit-step-description,.ws-plating .kit-no-steps,.ws-plating .kit-message{font-size:13px;color:var(--muted);line-height:1.65}
+.ws-plating .kit-guide-bottom{margin-top:auto;padding-top:30px}
+.ws-plating .kit-guide-progress{display:block;width:100%;height:3px;appearance:none;border:0;border-radius:4px;overflow:hidden;background:#ece7dd;color:var(--green)}
+.ws-plating .kit-guide-progress::-webkit-progress-bar{background:#ece7dd}
+.ws-plating .kit-guide-progress::-webkit-progress-value{background:var(--green)}
+.ws-plating .kit-guide-progress::-moz-progress-bar{background:var(--green)}
+.ws-plating .kit-guide-navigation{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
+.ws-plating .kit-guide-navigation .kit-btn{font-size:12px;padding:11px 15px}
+.ws-plating .kit-guide-footer{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding:16px 24px;font-size:12px;color:var(--muted)}
+.ws-plating .kit-guide-footer>span{display:flex;align-items:center;gap:6px}
+.ws-plating .kit-footer-reference{margin-inline-start:auto;font-size:10px}
+.ws-plating :is(a,button):focus-visible{outline:3px solid var(--green);outline-offset:3px}
+@media(min-width:1500px){.ws-plating .kit-guide-columns,.ws-plating .kit-guide-picture{min-height:470px}.ws-plating .kit-guide-instructions{padding:30px}}
+@media(max-width:1180px){.ws-plating .kit-guide-columns{grid-template-columns:minmax(0,1fr) minmax(260px,.9fr)}}
+@media(max-width:850px){.ws-plating .kit-guide-top{align-items:flex-start;flex-direction:column}.ws-plating .kit-guide-actions{justify-content:flex-start}.ws-plating .kit-guide-filter{grid-template-columns:repeat(2,minmax(0,1fr))}.ws-plating .kit-search-field{grid-column:1/-1}}
+@media(max-width:800px){.ws-plating .kit-guide-columns{grid-template-columns:minmax(0,1fr)}.ws-plating .kit-guide-picture{width:100%;min-height:0;aspect-ratio:4/3}.ws-plating .kit-guide-instructions{min-height:260px}.ws-plating .kit-guide-top{padding:20px}.ws-plating .kit-page-head{align-items:flex-start}.ws-plating .kit-footer-reference{margin-inline-start:0}}
+@media(max-width:520px){.ws-plating .kit-page-head{flex-direction:column;gap:16px}.ws-plating .kit-page-title{font-size:34px}.ws-plating .kit-page-desc{font-size:13px}.ws-plating .kit-guide-filter{gap:10px}.ws-plating .kit-guide-top h2{font-size:26px}.ws-plating .kit-guide-footer{padding:15px 20px;gap:14px}.ws-plating .kit-guide-instructions{padding:24px 20px}.ws-plating .kit-btn{font-size:12px;padding-inline:12px}.ws-plating .kit-step strong{font-size:13px}}
+@media(max-width:480px){.ws-plating .kit-guide-filter{grid-template-columns:1fr}.ws-plating .kit-guide-popup{min-width:0}}
+@media(prefers-reduced-motion:no-preference){.ws-plating .kit-switch::after,.ws-plating .kit-btn{transition:background .16s,border-color .16s,transform .16s}}

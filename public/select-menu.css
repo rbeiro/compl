@@ -1,0 +1,96 @@
+/* Keep the original select as the form control, including native labels and validation. */
+:root {
+  --select-paper:var(--compi-white,#fff);
+  --select-green:var(--compi-green,#23603f);
+  --select-chevron:url('/brand/select-chevron.svg?v=29');
+}
+select:not([multiple]):is(:not([size]),[size="0"],[size="1"]) {
+  appearance:none; min-width:0; padding-inline-end:2.3rem;
+  background-color:var(--select-paper);background-image:var(--select-chevron);
+  background-repeat:no-repeat;background-size:.77rem .62rem;background-position:right .8rem center;
+  border-color:var(--select-green);border-radius:8px;color:var(--select-green);cursor:pointer;
+}
+input:is([type=date],[type=month],[type=time]):not([hidden]) {
+  background-color:var(--select-paper);border-color:var(--select-green);color:var(--select-green);
+}
+@media (forced-colors:none) {
+  input[type=time]::-webkit-calendar-picker-indicator {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2323603f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 6.5V12l4 2.5'/%3E%3C/svg%3E");
+  }
+}
+[dir=rtl] select:not([multiple]):is(:not([size]),[size="0"],[size="1"]) {background-position:left .8rem center;}
+select:not(:disabled):hover {box-shadow:inset 0 0 0 1px var(--select-green);}
+select:focus-visible {outline:2px solid var(--select-green);outline-offset:2px;}
+[data-language-picker]::after {
+  content:'';display:block;flex:0 0 .65rem;height:.55rem;background:var(--select-chevron) center/contain no-repeat;pointer-events:none;
+}
+[data-language-picker] select:not([multiple]) {padding:0;background:none;box-shadow:none;}
+@media(max-width:440px) {
+  [data-language-picker]::after {display:none;}
+}
+@media(forced-colors:active) {
+  select:not([multiple]):is(:not([size]),[size="0"],[size="1"]) {appearance:auto;background-image:none;}
+  [data-language-picker]::after {display:none;}
+}
+
+/* Native customizable selects preserve platform keyboard, type-ahead, accessibility and form semantics. */
+@supports (appearance:base-select) and selector(::picker(select)) {
+  select:not([multiple]):is(:not([size]),[size="0"],[size="1"]),::picker(select) {appearance:base-select;}
+  select:not([multiple]):is(:not([size]),[size="0"],[size="1"]) {
+    display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+    padding-inline-end:.82rem;background-image:none;
+  }
+  select::picker-icon {content:'';flex:none;width:.77rem;height:.62rem;margin-inline-start:auto;background:var(--select-chevron) center/contain no-repeat;transition:rotate .19s ease;}
+  select:open::picker-icon {rotate:180deg;}
+  [data-language-picker] select:not([multiple]) {
+    /* Leave the globe and current language visible under the real focusable trigger. */
+    color:transparent;background:transparent;border:0;opacity:1;padding:0;font-size:0;
+  }
+  [data-language-picker] select::picker-icon {display:none;}
+  ::picker(select) {
+    box-sizing:border-box;width:max-content;min-width:min(anchor-size(width),calc(100vw - 16px));
+    max-width:calc(100vw - 16px);max-height:min(22.5rem,60dvh);
+    margin-block:.3rem;padding:.3rem;border:1px solid var(--select-green);border-radius:11px;
+    background:var(--select-paper);color:var(--select-green);
+    box-shadow:0 12px 32px #183c292b,0 2px 6px #183c2912;
+    font:500 .9rem/1.4 var(--compi-font-body,system-ui);text-align:start;overflow:auto;overscroll-behavior:contain;
+  }
+  select option {display:flex;align-items:center;gap:.65rem;min-height:42px;padding:.52rem .72rem;
+    border-radius:6px;white-space:normal;overflow-wrap:anywhere;text-align:start;color:var(--select-green);background:var(--select-paper);}
+  select optgroup {color:var(--select-green);font:650 .78rem/1.35 var(--compi-font-body,system-ui);}
+  select option:hover,select option:focus {outline:1px solid var(--select-green);outline-offset:-2px;}
+  select option:checked {font-weight:650;}
+  select option:disabled {opacity:.58;cursor:default;}
+  select option::checkmark {content:'✓';order:1;margin-inline-start:auto;color:var(--select-green);}
+  select option[hidden],select optgroup[hidden] {display:none;}
+  [data-language-picker] select option,[data-language-picker] select optgroup {font:500 .9rem/1.4 var(--compi-font-body,system-ui);}
+}
+.compi-select-list {
+  box-sizing:border-box;position:fixed;z-index:1100;inset:auto;margin:0;padding:.3rem;width:max-content;
+  overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;
+  background:var(--select-paper);color:var(--select-green);border:1px solid var(--select-green);border-radius:11px;
+  box-shadow:0 12px 32px #183c292b,0 2px 6px #183c2912;font:500 .9rem/1.4 var(--compi-font-body,system-ui);text-align:start;
+}
+.compi-select-list:focus {outline:none;}
+.compi-select-group {padding:.48rem .72rem .25rem;color:var(--select-green);font-size:.78rem;font-weight:650;}
+.compi-select-option {display:flex;align-items:center;justify-content:space-between;gap:.65rem;min-height:42px;padding:.52rem .72rem;
+  border-radius:6px;cursor:pointer;color:var(--select-green);background:var(--select-paper);white-space:normal;overflow-wrap:anywhere;}
+.compi-select-option[aria-selected=true] {font-weight:650;}
+.compi-select-option[aria-selected=true]::after {content:'✓';flex:none;color:var(--select-green);}
+.compi-select-option.is-active,.compi-select-option:hover {outline:1px solid var(--select-green);outline-offset:-2px;}
+.compi-select-option[aria-disabled=true] {opacity:.58;cursor:default;}
+@media(pointer:coarse) {
+  .compi-select-option {min-height:46px;}
+  @supports (appearance:base-select) and selector(::picker(select)) {select option {min-height:46px;}}
+}
+@media(prefers-reduced-motion:no-preference) {
+  @keyframes compi-picker-open {from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .compi-select-list:not([data-menu-motion]) {animation:compi-picker-open .16s ease-out;}
+  @supports (appearance:base-select) and selector(::picker(select)) {select:open::picker(select) {animation:compi-picker-open .16s ease-out;}}
+}
+@media(prefers-reduced-motion:reduce) {select::picker-icon {transition:none;}}
+@media(forced-colors:active) {
+  .compi-select-list {color:CanvasText;background:Canvas;border-color:CanvasText;}
+  .compi-select-option.is-active {outline:2px solid Highlight;}
+  .compi-select-option[aria-selected=true]::after {color:Highlight;}
+}

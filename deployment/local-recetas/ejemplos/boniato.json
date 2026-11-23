@@ -1,0 +1,268 @@
+{
+  "schema_version": "1.0",
+  "dish_id": "oleos-boniato",
+  "outlet_id": "oleos",
+  "document_type": "plating_guide",
+  "name_es": "Boniato con aguacate y flores",
+  "name_en": "Sweet potato with avocado and flowers",
+  "section": "Vegetarianos",
+  "ingredients": [
+    {
+      "id": "i1",
+      "name_es": "Boniato asado",
+      "quantity": 75,
+      "unit": "g",
+      "original_measure": "75 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Boniato asado",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i2",
+      "name_es": "Aguacate",
+      "quantity": 20,
+      "unit": "g",
+      "original_measure": "20 g",
+      "optional": false,
+      "preparation": "Laminado y sopleteado",
+      "image_label": "Aguacate laminado braseado",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i3",
+      "name_es": "Mix flores",
+      "quantity": 3,
+      "unit": "unidad",
+      "original_measure": "3 unidades",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Mix de flores (3 unidades)",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i4",
+      "name_es": "Brote venecres",
+      "quantity": 2,
+      "unit": "unidad",
+      "original_measure": "2 unidades",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Brotes venecres (2 unidades)",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i5",
+      "name_es": "Vinagreta de arce",
+      "quantity": 5,
+      "unit": "g",
+      "original_measure": "5 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Vinagreta de arce",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i6",
+      "name_es": "AOVE",
+      "quantity": 5,
+      "unit": "g",
+      "original_measure": "5 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "AOVE",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    },
+    {
+      "id": "i7",
+      "name_es": "Sal maldon",
+      "quantity": 2,
+      "unit": "g",
+      "original_measure": "2 g",
+      "optional": false,
+      "preparation": "",
+      "image_label": "Sal maldon",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "evidence_status": "declarado"
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "action": "Laminar 20 g de aguacate y sopletear ligeramente su superficie.",
+      "observation": "Láminas regulares; dorado superficial sin quemar el aguacate.",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k"
+      ]
+    },
+    {
+      "number": 2,
+      "action": "Disponer 75 g de boniato asado en el centro del plato plano blanco. Colocar el aguacate sobre el boniato, centrado y paralelo a su eje longitudinal.",
+      "observation": "Boniato caliente, con el montaje centrado y estable.",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k"
+      ]
+    },
+    {
+      "number": 3,
+      "action": "Pincelar el aguacate con 5 g de AOVE y repartir 2 g de sal maldon.",
+      "observation": "Brillo uniforme; distribuir la sal de forma equilibrada.",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k"
+      ]
+    },
+    {
+      "number": 4,
+      "action": "Finalizar con 3 flores y 2 brotes venecres. Repartir 5 g de vinagreta de arce alrededor del boniato, siguiendo la ilustración, y cubrir con la campana de servicio de Oleos.",
+      "observation": "Flores y brotes frescos; borde limpio y campana sin tocar la decoración.",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k"
+      ]
+    }
+  ],
+  "service_info": {
+    "es": "Plato vegano de boniato asado con aguacate laminado braseado. Terminado con flores, brotes venecres, aceite de oliva virgen extra, sal maldon y vinagreta de arce.",
+    "en": "Vegan roasted sweet potato with sliced charred avocado. Finished with edible flowers, Venecres shoots, extra virgin olive oil, Maldon salt and maple vinaigrette."
+  },
+  "portion": {
+    "grams": 110,
+    "basis": "estimada",
+    "display": "110 g aprox.",
+    "calculation_note": "Documento actual: 110 g aprox. Componentes expresados en gramos suman 107 g; faltan pesos de flores y brotes. No equivale a pesada comprobada.",
+    "source_refs": [
+      "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "pass_minutes": 5,
+  "station": "Calientes",
+  "dishware": "Plato plano blanco",
+  "channel_zone": "Oleos",
+  "exterior_service": "Plato plano blanco con ribete dorado y campana de servicio de Oleos",
+  "allergens": [
+    {
+      "name": "Sulfitos",
+      "ingredient_ids": [],
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "verification": "declarado"
+    }
+  ],
+  "traces": {
+    "items": [],
+    "status": "declarado_sin_trazas",
+    "display_legacy": "Ninguna",
+    "source_refs": [
+      "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "adaptations": [
+    {
+      "text": "Sin vinagreta",
+      "removed_ingredient_ids": [
+        "i5"
+      ],
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "suitability_verified": false
+    }
+  ],
+  "diet": {
+    "label": "vegano",
+    "verification": "declarado",
+    "source_refs": [
+      "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+      "user_instructions_in_this_project"
+    ]
+  },
+  "non_allergen_restrictions": [],
+  "metadata": {
+    "code": "Oleos",
+    "visible_version": "00",
+    "date": "2026-10-20",
+    "document_status": "BORRADOR",
+    "approval_evidence_id": null
+  },
+  "source_refs": [
+    "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+    "user_instructions_in_this_project"
+  ],
+  "provenance": [
+    {
+      "path": "/",
+      "status": "declarado",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "note": "Ejemplo reconstruido desde instrucciones visibles y Word actual, no una validación de producto o aprobación nueva."
+    },
+    {
+      "path": "/allergens/0",
+      "status": "declarado",
+      "source_refs": [
+        "1PuwjprlItPQoJpMDB-tZ4rowc8gdds7k",
+        "user_instructions_in_this_project"
+      ],
+      "note": "El usuario declara sulfitos y adaptación sin vinagreta, pero no se aporta receta/etiqueta de la vinagreta para confirmar su origen o concentración."
+    }
+  ],
+  "unresolved": [
+    {
+      "path": "/allergens",
+      "issue": "Declaraciones conservadas del proyecto; este paquete no incluye una nueva comprobación de etiquetas y matriz de proveedor.",
+      "blocks": [
+        "allergen_clearance"
+      ]
+    },
+    {
+      "path": "/metadata/approval_evidence_id",
+      "issue": "No consta aprobación nueva; el documento observado mantiene BORRADOR.",
+      "blocks": [
+        "content_approval"
+      ]
+    },
+    {
+      "path": "/traces/display_legacy",
+      "issue": "La referencia muestra Ninguna; la regla general pide campo vacío. Conservar en reproducción exacta y resolver en normalización autorizada.",
+      "blocks": []
+    },
+    {
+      "path": "/portion",
+      "issue": "Ración estimada heredada; sin pesos unitarios de flores/brotes ni pesada final.",
+      "blocks": []
+    }
+  ]
+}

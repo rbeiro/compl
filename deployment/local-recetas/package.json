@@ -1,0 +1,1 @@
+{"name":"compi-local-recetas","private":true,"type":"module","scripts":{"test":"node test.mjs"},"devDependencies":{"@electric-sql/pglite":"^0.3.0","ajv":"^8.17.1"}}

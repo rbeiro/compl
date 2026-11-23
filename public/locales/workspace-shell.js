@@ -1,0 +1,28 @@
+// English, Catalan, Italian, Portuguese, French and Arabic.
+export default {
+  'Inicio':['Home','Inici','Home','Início','Accueil','الرئيسية'],
+  'Equipo':['Team','Equip','Squadra','Equipa','Équipe','الفريق'],
+  'Recetas':['Recipes','Receptes','Ricette','Receitas','Recettes','الوصفات'],
+  'Escandallos':['Recipe costing','Escandalls','Costi ricetta','Custos das receitas','Coûts des recettes','تكاليف الوصفات'],
+  'Plating Guides':['Plating Guides','Guies d’emplatat','Guide all’impiattamento','Guias de empratamento','Guides de dressage','أدلة تقديم الأطباق'],
+  'Generación de recetas':['Recipe generation','Generació de receptes','Generazione di ricette','Geração de receitas','Génération de recettes','إنشاء الوصفات'],
+  'Archivo':['Archive','Arxiu','Archivio','Arquivo','Archives','الأرشيف'],
+  'Correo':['Mail','Correu','Posta','Correio','Messagerie','البريد'],
+  'Seguridad':['Security','Seguretat','Sicurezza','Segurança','Sécurité','الأمان'],
+  'Navegación principal':['Main navigation','Navegació principal','Navigazione principale','Navegação principal','Navigation principale','التنقل الرئيسي'],
+  'Abrir menú':['Open menu','Obre el menú','Apri il menu','Abrir menu','Ouvrir le menu','فتح القائمة'],
+  'Cerrar menú':['Close menu','Tanca el menú','Chiudi il menu','Fechar menu','Fermer le menu','إغلاق القائمة'],
+  'Tu cocina, en armonía.':['Your kitchen, in harmony.','La teva cuina, en harmonia.','La tua cucina, in armonia.','A tua cozinha, em harmonia.','Votre cuisine, en harmonie.','مطبخك في تناغم.'],
+  'Consulta la actividad y las fichas de tu equipo.':['See your team’s activity and recipe sheets.','Consulta l’activitat i les fitxes del teu equip.','Consulta le attività e le schede della tua squadra.','Consulta a atividade e as fichas da tua equipa.','Consultez l’activité et les fiches de votre équipe.','اطّلع على نشاط فريقك وبطاقات الوصفات.'],
+  'Crear ficha':['Create sheet','Crea una fitxa','Crea scheda','Criar ficha','Créer une fiche','إنشاء بطاقة'],
+  'Ver recetario':['View recipe book','Veure el receptari','Apri il ricettario','Ver o receituário','Voir le recueil de recettes','عرض كتاب الوصفات'],
+  'Tu espacio de trabajo':['Your workspace','El teu espai de treball','Il tuo spazio di lavoro','O teu espaço de trabalho','Votre espace de travail','مساحة عملك'],
+  'Ver horarios':['View schedules','Veure horaris','Vedi i turni','Ver horários','Voir les plannings','عرض الجداول'],
+  'Resumen del catálogo':['Catalog overview','Resum del catàleg','Riepilogo del catalogo','Resumo do catálogo','Aperçu du catalogue','نظرة عامة على الكتالوج'],
+  'Hoteles':['Hotels','Hotels','Hotel','Hotéis','Hôtels','الفنادق'],
+  'Outlets':['Outlets','Punts de restauració','Punti di ristorazione','Pontos de restauração','Points de restauration','منافذ تقديم الطعام'],
+  'Borradores':['Drafts','Esborranys','Bozze','Rascunhos','Brouillons','المسودات'],
+  'En tu recetario':['In your recipe book','Al teu receptari','Nel tuo ricettario','No teu receituário','Dans votre recueil de recettes','في كتاب وصفاتك'],
+  'Estado de las fichas':['Recipe sheet status','Estat de les fitxes','Stato delle schede','Estado das fichas','État des fiches','حالة بطاقات الوصفات'],
+  'Publicadas':['Published','Publicades','Pubblicate','Publicadas','Publiées','المنشورة']
+};

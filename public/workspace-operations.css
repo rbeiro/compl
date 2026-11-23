@@ -1,0 +1,31 @@
+.ws-main-content .team-toolbar {display:flex;align-items:flex-end;gap:.85rem;justify-content:space-between;flex-wrap:wrap;margin:1.2rem 0}
+.team-toolbar label {width:min(100%,23rem);font-size:.86rem;color:var(--ws-muted)}
+.ws-main-content .team-roster {border:0;background:transparent;overflow:visible}
+.team-roster table {display:block;width:100%;min-width:0}
+.team-roster thead {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.ws-main-content .team-roster tbody {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr));gap:1rem;align-items:stretch}
+.ws-main-content .team-roster tr {display:flex;flex-direction:column;align-items:stretch;min-width:0;padding:1rem 1.15rem;margin:0;border:1px solid var(--ws-line);border-radius:12px;background:var(--ws-paper)}
+.ws-main-content .team-roster tr[hidden],.ws-main-content .team-empty[hidden],.ws-main-content .team-roster[hidden] {display:none}
+.ws-main-content .team-roster td {display:block;padding:.25rem 0;border:0;overflow-wrap:anywhere;white-space:normal;font-size:.91rem}
+.ws-main-content .team-roster td:first-child {display:flex;align-items:center;gap:.72rem;color:var(--ws-deep);font:500 1.35rem/1.22 var(--compi-font-display);padding-bottom:.6rem}
+.team-initials {display:grid;place-items:center;flex:none;width:2.7rem;height:2.7rem;border-radius:50%;background:#e1eadd;color:var(--ws-green);font:650 .84rem var(--compi-font-body)}
+.team-roster tr:nth-child(3n + 2) .team-initials {background:#ede6d6;color:#665533}
+.team-roster tr:nth-child(3n) .team-initials {background:#ede3e7;color:#684755}
+.ws-main-content .team-roster td::before {display:none}
+.ws-main-content .team-roster td:nth-child(4)::before,.ws-main-content .team-roster td:nth-child(5)::before {display:block;content:attr(data-label);font-size:.71rem;font-weight:600;color:var(--ws-muted)}
+.team-roster td:nth-child(2) {color:var(--ws-muted)}
+.team-roster td small {display:block}
+.team-roster td select {width:100%}
+.ws-main-content .team-roster td:last-child {display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;border-top:1px solid var(--ws-line);padding:.75rem 0 0;margin:.55rem 0 0}
+.team-roster td:last-child .download {margin:0;font-size:.81rem}
+.team-roster .feedback:empty {display:none}
+.team-empty {padding:1rem;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:12px}
+.ws-main-content .schedule {min-width:0}
+.ws-main-content .sched-tabs,.ws-main-content .generator-tabs {gap:.3rem;padding:.25rem;border:1px solid var(--ws-line);border-radius:12px;background:var(--ws-paper);width:fit-content;max-width:100%}
+.ws-main-content .sched-tab,.ws-main-content .generator-tabs [role=tab] {border:0;border-radius:8px;min-height:40px}
+.ws-main-content .sched-tab[aria-pressed=true],.ws-main-content .generator-tabs [aria-selected=true] {background:var(--ws-green);color:#fff}
+.ws-main-content .sched-stats {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.4rem),1fr));gap:.7rem;border:0;padding:0}
+.ws-main-content .sched-stats>div {padding:.85rem 1rem;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:12px}
+.ws-main-content .schedule-scroll {border-radius:12px}
+.ws-main-content .generator-tabs {display:flex;flex-wrap:wrap}
+@media(max-width:600px){.team-toolbar label{width:100%}.ws-main-content .sched-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}

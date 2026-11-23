@@ -1,0 +1,16 @@
+[data-motion-number] {display:inline-block; font-variant-numeric:tabular-nums;}
+.mail-star,.kit-review {position:relative;}
+.mail-star > [data-motion-sparks] {display:block;}
+[data-motion-sparks] {position:absolute; inset:0; pointer-events:none;}
+[data-motion-sparks] i {position:absolute; top:15%; left:50%; width:3px; height:6px; border-radius:2px; background:#67946c; opacity:0;}
+[data-motion-sparks] i:first-child {margin-inline-start:-6px;}
+[data-motion-sparks] i:nth-child(2) {background:#aa8552;}
+[data-motion-sparks] i:last-child {margin-inline-start:6px;}
+@media (prefers-reduced-motion:no-preference) {
+  html:has(body.home-page) {scroll-behavior:smooth;}
+  .home-text-link > span {display:inline-block;}
+  :is(.workspace-card,.folder,.download,.home-button,.switch-link,.mail-folder,.mail-star,.sched-tab,.sched-arrow,.app-nav button) {
+    transition:background-color .16s,border-color .16s,box-shadow .18s;
+  }
+  #main a.ws-metric:hover {transform:none;}
+}

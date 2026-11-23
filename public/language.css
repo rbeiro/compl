@@ -1,0 +1,62 @@
+[data-language-picker] {
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.42rem;
+  min-width:44px; min-height:44px; flex:none; padding:.35rem .7rem;
+  border:1px solid var(--compi-green); border-radius:var(--compi-radius-control, .5rem);
+  color:var(--compi-green); background:var(--compi-white);
+}
+[data-language-picker]:hover,[data-language-picker]:focus-within {box-shadow:inset 0 0 0 1px var(--compi-green);}
+[data-language-picker]:focus-within {outline:2px solid var(--compi-green);outline-offset:2px;}
+[data-language-picker] .language-globe {width:1.1rem;height:1.1rem;fill:none;stroke:currentColor;stroke-width:1.65;flex:none;}
+[data-language-picker] .language-name {font:600 .83rem/1.3 var(--compi-font-body);}
+[data-language-picker] select {
+  cursor:pointer;position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;
+  opacity:0;min-height:0;
+}
+.app-nav {min-width:0;}
+[dir=rtl] .workspace-photo {right:auto;left:0;}
+[dir=rtl] .workspace-hero::before {background:linear-gradient(270deg,#194e35 0%,#194e35 55%,rgb(25 78 53 / .88) 62%,transparent 78%);}
+[dir=rtl] .switch-link[aria-current]::after,[dir=rtl] .folder>.icon,[dir=rtl] .row .formats {margin-left:0;margin-inline-start:auto;}
+[dir=rtl] #apps-panel {left:0;right:auto;}
+[dir=rtl] table,[dir=rtl] .mail-folder,[dir=rtl] .mail-row-open {text-align:start;}
+[dir=rtl] .mail-panel-head h2 {margin:0;margin-inline-end:auto;}
+[dir=rtl] .input-wrap .icon {left:auto;right:1rem;}
+[dir=rtl] .input-wrap input {padding-inline-end:1rem;padding-inline-start:2.95rem;}
+[dir=rtl] .landing a .icon,[dir=rtl] .workspace-card>.icon,[dir=rtl] .folder>.icon {scale:-1 1;}
+[lang=ar] body {--compi-font-body:Tahoma,'Segoe UI',Arial,sans-serif;--compi-font-display:Georgia,'Noto Naskh Arabic',Tahoma,serif;}
+[lang=ar] .compi :is(h1,h2,h3,.home-kicker,.workspace-hotel) {letter-spacing:normal;line-height:1.35;}
+[dir=rtl] :is(input[type=email],input[autocomplete=one-time-code]) {direction:ltr;text-align:start;}
+@media(max-width:960px) {
+  .masthead-inner:has([data-language-picker]) {column-gap:.8rem;}
+  [data-language-picker] {padding:.35rem;}
+  [data-language-picker] .language-name {display:none;}
+}
+@media(max-width:720px) {
+  .masthead-inner:has([data-language-picker]) {flex-wrap:wrap;}
+  .masthead-inner:has(.app-nav:not([hidden])) [data-language-picker] {order:-1;}
+  .masthead-inner:has(.app-nav:not([hidden])) .brand {order:-2;}
+  .masthead-inner:has(.app-nav:not([hidden])) .app-nav {order:2;}
+  .masthead-inner:has(.app-nav:not([hidden])) .lab-context {margin-inline-start:auto;}
+  .masthead-inner .workspace-link {margin-right:0;margin-inline-end:auto;}
+}
+@media(max-width:420px) {
+  .masthead-inner:has([data-language-picker]) {column-gap:.4rem;}
+  .masthead-inner:has([data-language-picker]) .brand img {width:clamp(72px,19vw,96px);}
+  .masthead-inner:has([data-language-picker]) .header-access {padding-inline:.55rem;}
+  .app-nav :is(button,.workspace-link) {white-space:normal;}
+}
+[dir=rtl] .public-nav,[dir=rtl] .foot-access {margin-left:0;margin-inline-start:auto;}
+.localized-file {position:relative;display:inline-flex;justify-self:start;}
+.localized-file input[type=file] {position:absolute;inset:0;width:100%;height:100%;min-width:0;opacity:0;cursor:pointer;}
+.localized-file:focus-within {outline:2px solid var(--compi-green);outline-offset:2px;}
+
+@media (prefers-reduced-motion:no-preference) {
+  @supports (appearance:base-select) and selector(::picker(select)) {
+    @keyframes language-choice-open {
+      from {opacity:.18;translate:0 8px;}
+      to {opacity:1;translate:0 0;}
+    }
+    [data-language-picker] select:open::picker(select) {animation:language-choice-open .175s cubic-bezier(.2,0,.38,.9);}
+  }
+}
+.language-progress{position:fixed;inset-inline-end:1rem;bottom:1rem;z-index:3000;max-width:min(90vw,26rem);padding:.55rem .9rem;border:1px solid #a5b4a6;border-radius:.65rem;background:#fff;color:#194535;font:inherit;font-size:.83rem;box-shadow:0 2px 12px #20372a22}
+.language-progress[hidden]{display:none}

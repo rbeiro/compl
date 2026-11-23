@@ -1,0 +1,25 @@
+// Common culinary and service terminology used across guides, costing and purchase rates.
+export default {
+'Emplatado paso a paso':['Plating sequence','Emplatat pas a pas','Impiattamento passo dopo passo','Empratamento passo a passo','Dressage pas à pas','خطوات التقديم'],
+'Vajilla':['Tableware','Vaixella','Stoviglie','Louça','Vaisselle','أدوات التقديم'],
+'Ración':['Portion','Ració','Porzione','Porção','Portion','حصة'],
+'Tiempo de pase':['Time to serve','Temps de servei','Tempo di servizio','Tempo de serviço','Temps de dressage','وقت التقديم'],
+'AOVE':['Extra virgin olive oil','Oli d’oliva verge extra','Olio extravergine di oliva','Azeite virgem extra','Huile d’olive vierge extra','زيت زيتون بكر ممتاز'],
+'Sofrito':['Sofrito','Sofregit','Soffritto','Refogado','Sofrito','قاعدة خضار مطهوة ببطء'],
+'Bogavante':['Lobster','Llamàntol','Astice','Lavagante','Homard','كركند'],
+'Yema confitada':['Confit egg yolk','Rovell confitat','Tuorlo confit','Gema confitada','Jaune d’œuf confit','صفار بيض كونفي'],
+'Alérgenos':['Allergens','Al·lèrgens','Allergeni','Alergénios','Allergènes','مسببات الحساسية'],
+'Gluten':['Gluten','Gluten','Glutine','Glúten','Gluten','غلوتين'],
+'Huevo':['Egg','Ou','Uovo','Ovo','Œuf','بيض'],
+'Leche':['Milk','Llet','Latte','Leite','Lait','حليب'],
+'Lactosa':['Lactose','Lactosa','Lattosio','Lactose','Lactose','لاكتوز'],
+'Crustáceos':['Crustaceans','Crustacis','Crostacei','Crustáceos','Crustacés','قشريات'],
+'Moluscos':['Molluscs','Mol·luscs','Molluschi','Moluscos','Mollusques','رخويات'],
+'Frutos secos':['Tree nuts','Fruita seca de closca','Frutta a guscio','Frutos de casca rija','Fruits à coque','مكسرات شجرية'],
+'Sulfitos':['Sulphites','Sulfits','Solfiti','Sulfitos','Sulfites','كبريتيت'],
+'Información para sala':['Service notes','Informació per a sala','Informazioni per la sala','Informação para a equipa de sala','Informations pour le service','معلومات لفريق الخدمة'],
+'Acción / posición en el plato':['Action / position on the plate','Acció / posició al plat','Azione / posizione nel piatto','Ação / posição no prato','Geste / position dans l’assiette','الإجراء / الموضع في الطبق'],
+'Referencias':['References','Referències','Riferimenti','Referências','Références','المراجع'],
+'Rendimiento':['Yield','Rendiment','Resa','Rendimento','Rendement','المردود'],
+'Precio aplicado':['Applied price','Preu aplicat','Prezzo applicato','Preço aplicado','Prix appliqué','السعر المطبّق']
+};

@@ -1,0 +1,1 @@
+Bergamot and Firefox Translations runtime, MPL-2.0. Source: https://github.com/browsermt/bergamot-translator and https://codeberg.org/mkljczk/bergamot-translator (0.4.16). The engine and worker adapter derive from runonweb (MIT), https://github.com/midudev/runonweb.ai . Models: Mozilla Firefox Translations, MPL-2.0.

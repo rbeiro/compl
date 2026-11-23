@@ -1,0 +1,38 @@
+.compi-pdf-document {width:100%;min-width:0;color:var(--compi-ink,#1e3429);margin-block:1rem 1.5rem}
+.pdf-controls {display:flex;align-items:center;justify-content:center;gap:.75rem;padding:.35rem .55rem;margin-bottom:.85rem;min-width:0}
+.pdf-controls .pdf-page-label {display:flex;align-items:center;gap:.5rem;width:auto;margin:0;color:var(--compi-muted,#52625a);font-size:.9rem;font-weight:500}
+.pdf-page-select {min-height:42px;width:auto;max-width:6rem;margin:0;padding:.35rem .55rem;border:1px solid var(--compi-line-strong,#a8b7a9);border-radius:8px;background:var(--compi-white,#fff);font:inherit;color:var(--compi-green,#285c44)}
+.pdf-step {display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border:1px solid var(--compi-line,#d4dacf);border-radius:8px;background:var(--compi-white,#fff);color:var(--compi-green,#285c44);padding:0;cursor:pointer}
+.pdf-step span {display:block;font:400 1.7rem/1 Georgia,serif}
+.pdf-step:disabled {opacity:.4;cursor:default}
+[dir=rtl] .pdf-step span {transform:scaleX(-1)}
+.pdf-pages {display:grid;gap:1.15rem;width:100%}
+.pdf-page {width:100%;max-width:56rem;min-width:0;margin:0 auto;scroll-margin-block-start:5.5rem;display:block}
+.pdf-paper {position:relative;min-width:0;width:100%;isolation:isolate;background:#fff;box-shadow:0 1px 7px #16291f12;outline:1px solid var(--compi-line,#d4dacf)}
+.pdf-paper canvas {display:block;width:100%;height:auto}
+.pdf-page figcaption {padding-top:.45rem;color:var(--compi-muted,#59695e);font-size:.8rem;text-align:end}
+.pdf-page-error {display:grid;position:absolute;inset:0;place-content:center;justify-items:center}
+.pdf-page-error .download {width:fit-content}
+.pdf-status {color:var(--compi-muted,#59695e)}
+/* Selectable text geometry follows the pinned PDF.js TextLayer coordinate system. */
+.pdf-text {--min-font-size:1;--min-font-size-inv:calc(1 / var(--min-font-size));--text-scale-factor:calc(var(--total-scale-factor) * var(--min-font-size));--scale-round-x:1px;--scale-round-y:1px;position:absolute;inset:0;overflow:clip;color-scheme:only light;line-height:1;text-align:initial;text-size-adjust:none;-webkit-text-size-adjust:none;forced-color-adjust:none;transform-origin:0 0}
+.pdf-text :is(span,br) {color:transparent;position:absolute;white-space:pre;cursor:text;transform-origin:0 0}
+.pdf-text > :not(.markedContent),.pdf-text .markedContent span:not(.markedContent) {--font-height:0;--rotate:0deg;--scale-x:1;font-size:calc(var(--text-scale-factor) * var(--font-height));transform:rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv))}
+.pdf-text .markedContent {display:contents}
+.pdf-text ::selection {background:rgb(82 144 193 / 38%)}
+.pdf-text[data-main-rotation="90"] {transform:rotate(90deg) translateY(-100%)}
+.pdf-text[data-main-rotation="180"] {transform:rotate(180deg) translate(-100%,-100%)}
+.pdf-text[data-main-rotation="270"] {transform:rotate(270deg) translateX(-100%)}
+.pdf-preview-retry {margin-block:.3rem .8rem}
+.guide-editor .edit-form {display:grid;grid-template-columns:minmax(0,26rem) fit-content(18rem);align-items:end;gap:.65rem 1rem}
+.guide-editor .edit-form>label {display:grid;gap:.4rem;align-self:stretch;min-width:0;margin:0}
+.guide-editor .edit-form>label input {margin:0}
+.guide-editor .edit-form>.download {align-self:end;width:fit-content;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.guide-editor .feedback {grid-column:1/-1}
+.guide-editor .guide-file-field {display:flex;align-items:center;gap:.5rem .75rem;min-width:0;flex-wrap:wrap}
+.guide-editor .localized-file {max-width:100%;flex:0 0 auto;display:inline-flex;align-items:center;position:relative;overflow:hidden;border-radius:var(--compi-radius-control,8px)}
+.guide-editor .localized-file .download {width:auto;pointer-events:none}
+.guide-editor .localized-file input[type=file] {position:absolute;inset:0;min-height:0;width:100%;height:100%;margin:0;padding:0;opacity:0}
+.guide-editor .guide-file-name {display:block;min-width:0;max-width:100%;overflow-wrap:anywhere;font-size:.875rem;font-weight:400;color:var(--compi-muted,#59695e)}
+.guide-editor .edit-form .download .icon,.toolbar .download .icon {position:static;flex:0 0 1.15rem;transform:none}
+@media(max-width:690px){.guide-editor .edit-form {grid-template-columns:minmax(0,1fr);gap:.5rem}.guide-editor .edit-form>.download {justify-self:start}.pdf-controls {gap:.4rem}.pdf-page {scroll-margin-block-start:4.5rem}}

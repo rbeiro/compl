@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="application-name" content="CompI"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self' https://dzfwdxhbldnfqowrnhxf.supabase.co https://huggingface.co https://*.hf.co https://*.huggingface.co; worker-src 'self'; frame-src blob:; img-src 'self' blob: data:; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="theme-color" content="#23603F">
+<title>CompI · El portal de tu cocina</title>
+<meta data-i18n-attr="content" name="description" content="CompI reúne las guías de emplatado, las fichas técnicas y el correo interno del equipo de cocina de tu hotel.">
+<link rel="icon" href="/brand/assets/favicon/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/brand/assets/favicon/favicon.ico">
+<link rel="apple-touch-icon" href="/brand/assets/app/apple-touch-icon.png"><link rel="manifest" href="/brand/portal.webmanifest">
+<link rel="stylesheet" href="/brand/web/compi-theme.css"><link rel="stylesheet" href="/portal.css?v=28">
+<link rel="stylesheet" href="/portada.css?v=17"><link rel="stylesheet" href="/horarios.css?v=30">
+<link rel="stylesheet" href="/workspace.css?v=17">
+<link rel="stylesheet" href="/motion.css?v=19">
+<link rel="stylesheet" href="/language.css?v=31">
+<link rel="stylesheet" href="/workspace-shell.css?v=27">
+<link rel="stylesheet" href="/workspace-recipes.css?v=31">
+<link rel="stylesheet" href="/workspace-costs.css?v=29">
+<link rel="stylesheet" href="/workspace-plating.css?v=29">
+<link rel="stylesheet" href="/workspace-operations.css?v=28">
+<link rel="stylesheet" href="/pdf-reader.css">
+<link rel="stylesheet" href="/workspace-pickers.css?v=30">
+<link rel="stylesheet" href="/select-menu.css?v=29">
+<script type="module" src="/select-menu.js?v=27"></script>
+<script type="module" src="./i18n.js"></script>
+<script type="module" src="/portal.js?v=31"></script>
+</head><body class="compi home-page">
+<a class="skip" href="#main" data-i18n="Saltar al contenido">Saltar al contenido</a>
+<header class="masthead"><div class="shell masthead-inner">
+  <a class="brand" href="#/inicio" aria-label="CompI · Inicio" data-i18n-attr="aria-label"><img src="/brand/assets/logo/compi-logo-green.svg" alt="CompI" width="1226" height="327"></a>
+  <span class="lab-context" id="portal-context" hidden data-i18n="Entorno de pruebas">Entorno de pruebas</span>
+  <nav id="public-nav" class="public-nav" aria-label="Navegación pública" data-i18n-attr="aria-label">
+    <a href="#proyecto" data-i18n="El proyecto">El proyecto</a><a href="#herramientas" data-i18n="Herramientas">Herramientas</a>
+    <a class="home-button header-access" href="#/acceso" data-portal-link><span data-i18n="Iniciar sesión">Iniciar sesión</span><svg class="icon" aria-hidden="true"><use href="/brand/ui.svg#arrow"/></svg></a>
+  </nav>
+  <nav class="app-nav" id="app-nav" aria-label="Navegación del entorno de trabajo" hidden data-i18n-attr="aria-label">
+    <button id="logout" type="button" title="Cerrar sesión" aria-label="Cerrar sesión" hidden data-i18n-attr="title aria-label"><svg class="icon" aria-hidden="true"><use href="/brand/ui.svg#logout"/></svg><span class="logout-label" data-i18n="Cerrar sesión">Cerrar sesión</span></button>
+  </nav>
+  <div data-language-picker></div>
+</div></header>
+<main id="main" class="home-view" tabindex="-1"><div class="landing">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="home-wrap hero-grid">
+      <div class="hero-copy">
+        <p class="home-kicker" data-i18n="Para equipos de cocina de hotel">Para equipos de cocina de hotel</p>
+        <h1 id="home-title"><span data-i18n="El portal de">El portal de</span> <br><span data-i18n="tu cocina.">tu cocina.</span></h1>
+        <p class="hero-lead" data-i18n="Las guías de emplatado, las fichas técnicas y el correo de tu equipo, reunidos en un mismo espacio.">Las guías de emplatado, las fichas técnicas y el correo de tu equipo, reunidos en un mismo espacio.</p>
+        <div class="hero-actions">
+          <a class="home-button" href="#/acceso" data-portal-link><span data-i18n="Entrar al portal">Entrar al portal</span><svg class="icon" aria-hidden="true"><use href="/brand/ui.svg#arrow"/></svg></a>
+          <a class="home-text-link" href="#proyecto"><bdi data-i18n="Conocer el proyecto">Conocer el proyecto</bdi> <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="/brand/photo/emplatado.webp" alt="Un chef coloca brotes con pinzas sobre un pescado emplatado." width="1122" height="1402" fetchpriority="high" data-i18n-attr="alt">
+      </figure>
+    </div>
+  </section>
+  <section id="proyecto" class="home-project home-wrap" aria-labelledby="project-title" tabindex="-1">
+    <div><p class="home-kicker" data-i18n="El proyecto">El proyecto</p><h2 id="project-title"><span data-i18n="Una referencia para">Una referencia para</span> <br class="desktop-br"><span data-i18n="cada servicio.">cada servicio.</span></h2></div>
+    <div class="project-copy"><p data-i18n="En una cocina de hotel, un mismo plato pasa por distintas manos. Con CompI, cocina y sala consultan la misma guía de emplatado. La fotografía del plato, la vajilla y las indicaciones de servicio están juntas para resolver dudas en el pase.">En una cocina de hotel, un mismo plato pasa por distintas manos. Con CompI, cocina y sala consultan la misma guía de emplatado. La fotografía del plato, la vajilla y las indicaciones de servicio están juntas para resolver dudas en el pase.</p>
+    <p data-i18n="El chef organiza las fichas por hotel y outlet. Cada empleado accede a los documentos de su equipo y puede dejar al siguiente turno los detalles del servicio en el correo interno.">El chef organiza las fichas por hotel y outlet. Cada empleado accede a los documentos de su equipo y puede dejar al siguiente turno los detalles del servicio en el correo interno.</p></div>
+  </section>
+  <section id="herramientas" class="home-tools" aria-labelledby="tools-title" tabindex="-1">
+    <div class="home-wrap tools-grid">
+      <figure class="tools-photo"><img src="/brand/photo/cuaderno-de-cocina.webp" alt="Cuaderno de cocina abierto junto a hierbas frescas y utensilios de preparación." width="1200" height="800" loading="lazy" decoding="async" data-i18n-attr="alt"></figure>
+      <div class="tools-copy"><p class="home-kicker" data-i18n="Herramientas">Herramientas</p><h2 id="tools-title" data-i18n="Dentro del portal.">Dentro del portal.</h2>
+        <details name="home-tools" open><summary data-i18n="Guías de emplatado">Guías de emplatado</summary><p data-i18n="Consulta las guías publicadas de cada outlet, revisa el montaje y descarga la versión en Word o PDF.">Consulta las guías publicadas de cada outlet, revisa el montaje y descarga la versión en Word o PDF.</p></details>
+        <details name="home-tools"><summary data-i18n="Fichas técnicas">Fichas técnicas</summary><p data-i18n="Con permiso de edición, introduce ingredientes, cantidades, alérgenos y pasos de emplatado. Revisa el resultado y guarda la ficha como borrador antes de publicarla.">Con permiso de edición, introduce ingredientes, cantidades, alérgenos y pasos de emplatado. Revisa el resultado y guarda la ficha como borrador antes de publicarla.</p></details>
+        <details name="home-tools"><summary data-i18n="Correo interno">Correo interno</summary><p data-i18n="Escribe a tus compañeros del hotel, responde a los avisos del turno y organiza tus mensajes con favoritos y carpetas personales.">Escribe a tus compañeros del hotel, responde a los avisos del turno y organiza tus mensajes con favoritos y carpetas personales.</p></details>
+      </div>
+    </div>
+  </section>
+  <footer class="home-footer"><div class="home-wrap foot-inner">
+    <a href="#/inicio" aria-label="CompI · Página de inicio" data-i18n-attr="aria-label"><img src="/brand/assets/logo/compi-logo-ivory.svg" alt="CompI" width="1226" height="327"></a>
+    <span data-i18n="Entorno de pruebas">Entorno de pruebas</span>
+    <a class="foot-access" data-portal-link href="#/acceso"><span data-i18n="Acceso del equipo">Acceso del equipo</span><svg class="icon" aria-hidden="true"><use href="/brand/ui.svg#arrow"/></svg></a>
+  </div></footer>
+</div></main>
+<template id="auth-template"><div class="auth-layout">
+  <div class="auth-content"><h1 data-i18n="Iniciar sesión">Iniciar sesión</h1>
+<p class="intro" data-i18n="Entra con tu cuenta de empleado para abrir el espacio de trabajo de tu hotel.">Entra con tu cuenta de empleado para abrir el espacio de trabajo de tu hotel.</p>
+<form id="login" method="post" action="/">
+  <label><span data-i18n="Correo del empleado">Correo del empleado</span><span class="input-wrap"><svg class="icon" aria-hidden="true" focusable="false"><use href="/brand/ui.svg#mail"></use></svg><input name="email" type="email" autocomplete="username" maxlength="254" required></span></label>
+  <label><span data-i18n="Contraseña">Contraseña</span><span class="input-wrap"><svg class="icon" aria-hidden="true" focusable="false"><use href="/brand/ui.svg#lock"></use></svg><input name="password" type="password" autocomplete="current-password" maxlength="512" required></span></label>
+  <button type="submit" class="download primary" disabled><span data-i18n="Entrar al portal">Entrar al portal</span><svg class="icon" aria-hidden="true" focusable="false"><use href="/brand/ui.svg#arrow"></use></svg></button>
+  <p role="alert" class="error"></p>
+</form>
+<a href="#/recuperar" data-i18n="He olvidado mi contraseña">He olvidado mi contraseña</a>
+<noscript data-i18n="Activa JavaScript para iniciar sesión y consultar los documentos.">Activa JavaScript para iniciar sesión y consultar los documentos.</noscript></div>
+  <div class="auth-photo" aria-hidden="true"><img src="/brand/photo/emplatado.webp" alt="" width="960" height="1200" fetchpriority="high"></div>
+</div></template>
+</body></html>

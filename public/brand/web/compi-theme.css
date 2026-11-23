@@ -1,0 +1,245 @@
+/* CompI · Identidad web v1 · 09/11/2026
+   Mantener web/, fonts/ y assets/ como carpetas hermanas.
+   El logo se carga como archivo SVG: no se recompone con texto o CSS.
+   Fuentes originales de Google Fonts; licencias en ../fonts/.
+*/
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Fraunces-latin-ext-variable.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Fraunces-latin-variable.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/Manrope-latin-ext-variable.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/Manrope-latin-variable.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Paleta de marca aprobada. */
+  --compi-green: #23603F;
+  --compi-plum: #672557;
+  --compi-taupe: #B1A180;
+  --compi-sand: #D2BE92;
+  --compi-ivory: #E4D3BA;
+
+  /* Neutros y estados funcionales propuestos para la implementación. */
+  --compi-paper: #FAF7F2;
+  --compi-white: #FFFFFF;
+  --compi-ink: #242C27;
+  --compi-muted: #566158;
+  --compi-line: #D9D4C9;
+  --compi-line-strong: #737A70;
+  --compi-green-hover: #1B4C32;
+  --compi-green-active: #153E29;
+  --compi-green-soft: #E9EFE8;
+  --compi-error: #922D3B;
+  --compi-error-soft: #F8ECEF;
+  --compi-warning: #6A531C;
+  --compi-warning-soft: #F2EAD8;
+
+  /* Tokens semánticos: usar estos en componentes. */
+  --compi-color-background: var(--compi-paper);
+  --compi-color-surface: var(--compi-white);
+  --compi-color-surface-warm: var(--compi-ivory);
+  --compi-color-text: var(--compi-ink);
+  --compi-color-text-secondary: var(--compi-muted);
+  --compi-color-primary: var(--compi-green);
+  --compi-color-on-primary: var(--compi-white);
+  --compi-color-link: var(--compi-green);
+  --compi-color-focus: var(--compi-green);
+  --compi-color-border: var(--compi-line);
+  --compi-color-input-border: var(--compi-line-strong);
+
+  --compi-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --compi-font-body: "Manrope", Arial, sans-serif;
+  --compi-weight-regular: 400;
+  --compi-weight-medium: 500;
+  --compi-weight-semibold: 600;
+  --compi-text-body: 1rem;
+  --compi-text-small: .875rem;
+  --compi-text-label: .875rem;
+  --compi-text-display: clamp(2rem, 1.1rem + 3.7vw, 3.5rem);
+  --compi-text-heading: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  --compi-text-subheading: 1.5rem;
+  --compi-leading-body: 1.6;
+  --compi-leading-heading: 1.14;
+
+  --compi-space-1: .25rem;
+  --compi-space-2: .5rem;
+  --compi-space-3: .75rem;
+  --compi-space-4: 1rem;
+  --compi-space-5: 1.5rem;
+  --compi-space-6: 2rem;
+  --compi-space-7: 3rem;
+  --compi-space-8: 4rem;
+  --compi-radius-control: .5rem;
+  --compi-radius-panel: .75rem;
+  --compi-radius-large: 1rem;
+  --compi-content-max: 72rem;
+  --compi-target-min: 2.75rem;
+  --compi-shadow-subtle: 0 8px 28px rgb(36 44 39 / .06);
+  --compi-transition: 160ms ease;
+}
+
+.compi, .compi *, .compi *::before, .compi *::after { box-sizing: border-box; }
+.compi {
+  margin: 0;
+  background: var(--compi-color-background);
+  color: var(--compi-color-text);
+  font-family: var(--compi-font-body);
+  font-size: var(--compi-text-body);
+  font-weight: var(--compi-weight-regular);
+  line-height: var(--compi-leading-body);
+  font-synthesis: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+.compi p { margin: 0 0 var(--compi-space-4); }
+.compi img { max-width: 100%; }
+.compi a { color: var(--compi-color-link); text-underline-offset: .2em; }
+.compi a:hover { color: var(--compi-green-hover); }
+.compi button, .compi input, .compi select, .compi textarea { font-family: inherit; }
+.compi [hidden] { display: none !important; }
+.compi :focus-visible {
+  outline: 3px solid var(--compi-color-focus);
+  outline-offset: 3px;
+}
+.compi-surface-inverse { background: var(--compi-green); color: var(--compi-ivory); }
+.compi-surface-inverse :focus-visible { outline-color: var(--compi-paper); }
+.compi-surface-inverse a { color: var(--compi-ivory); }
+.compi-surface-inverse .compi-display, .compi-surface-inverse .compi-heading, .compi-surface-inverse .compi-subheading { color: var(--compi-ivory); }
+.compi-container { width: min(100% - 2rem, var(--compi-content-max)); margin-inline: auto; }
+.compi-section { padding-block: var(--compi-space-7); }
+.compi-stack > * + * { margin-block-start: var(--compi-space-4); }
+.compi-row { display: flex; align-items: center; flex-wrap: wrap; gap: var(--compi-space-3); }
+.compi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--compi-space-6); }
+.compi-display, .compi-heading, .compi-subheading {
+  font-family: var(--compi-font-display);
+  font-weight: var(--compi-weight-medium);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+  letter-spacing: -.025em;
+  line-height: var(--compi-leading-heading);
+  color: var(--compi-green);
+  margin: 0 0 var(--compi-space-4);
+}
+.compi-display { font-size: var(--compi-text-display); max-width: 16ch; }
+.compi-heading { font-size: var(--compi-text-heading); }
+.compi-subheading { font-size: var(--compi-text-subheading); }
+.compi-eyebrow { font-size: .75rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; color: var(--compi-plum); }
+.compi-muted { color: var(--compi-color-text-secondary); }
+.compi-small { font-size: var(--compi-text-small); }
+.compi-numeric { font-variant-numeric: lining-nums tabular-nums; }
+.compi-logo { display: block; width: 12rem; height: auto; }
+.compi-symbol { display: block; width: 4rem; height: auto; }
+.compi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-block-size: var(--compi-target-min);
+  padding: .65rem 1.1rem;
+  border: 1px solid var(--compi-green);
+  border-radius: var(--compi-radius-control);
+  background: var(--compi-green);
+  color: var(--compi-white);
+  font-size: 1rem;
+  font-weight: var(--compi-weight-semibold);
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--compi-transition), border-color var(--compi-transition);
+}
+.compi a.compi-button { color: var(--compi-white); text-decoration: none; }
+.compi-button:hover { background: var(--compi-green-hover); border-color: var(--compi-green-hover); }
+.compi-button:active { background: var(--compi-green-active); border-color: var(--compi-green-active); }
+.compi-button--secondary { background: transparent; color: var(--compi-green); }
+.compi a.compi-button--secondary { color: var(--compi-green); }
+.compi-button--secondary:hover { background: var(--compi-green-soft); border-color: var(--compi-green); }
+.compi-button--secondary:active { background: var(--compi-ivory); }
+.compi-button:disabled {
+  background: #E0E2DC;
+  border-color: #E0E2DC;
+  color: #6A7069;
+  cursor: not-allowed;
+}
+.compi-field { display: grid; gap: .45rem; }
+.compi-label { font-size: var(--compi-text-label); font-weight: 600; }
+.compi-input {
+  width: 100%;
+  min-block-size: var(--compi-target-min);
+  padding: .75rem .875rem;
+  border: 1px solid var(--compi-color-input-border);
+  border-radius: var(--compi-radius-control);
+  background: var(--compi-white);
+  color: var(--compi-ink);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.compi-input::placeholder { color: var(--compi-muted); opacity: 1; }
+.compi-input[aria-invalid="true"] { border-color: var(--compi-error); border-width: 2px; }
+.compi-help { font-size: .875rem; color: var(--compi-muted); }
+.compi-error { color: var(--compi-error); }
+.compi-table-wrap { max-width: 100%; overflow-x: auto; }
+.compi-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.compi-table caption { padding: 0 0 1rem; text-align: left; font-size: .875rem; color: var(--compi-muted); }
+.compi-table th { padding: .875rem 1rem; text-align: left; font-size: .875rem; font-weight: 600; background: var(--compi-green-soft); }
+.compi-table td { padding: 1rem; border-bottom: 1px solid var(--compi-line); vertical-align: middle; }
+.compi-table tbody th { padding: 1rem; border-bottom: 1px solid var(--compi-line); background: transparent; font-size: inherit; font-weight: 500; }
+.compi-table .compi-numeric { text-align: right; white-space: nowrap; }
+.compi-table tbody tr:hover { background: #F1F2EB; }
+.compi-status {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .3rem .65rem;
+  border-radius: .375rem;
+  background: var(--compi-green-soft);
+  color: var(--compi-green);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.compi-status--warning { background: var(--compi-warning-soft); color: var(--compi-warning); }
+.compi-status--error { background: var(--compi-error-soft); color: var(--compi-error); }
+.compi-panel { padding: var(--compi-space-6); border: 1px solid var(--compi-line); border-radius: var(--compi-radius-panel); background: var(--compi-white); }
+.compi-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.compi-sr-only:focus-visible { position: static; display: block; width: auto; height: auto; padding: .75rem 1rem; margin: 0; overflow: visible; clip-path: none; white-space: normal; background: var(--compi-paper); color: var(--compi-green); }
+.compi-skip-link:focus { position: absolute; inset: .5rem auto auto .5rem; z-index: 10; width: auto; height: auto; padding: .75rem 1rem; margin: 0; overflow: visible; clip-path: none; background: var(--compi-white); color: var(--compi-green); }
+@media (max-width: 45rem) {
+  .compi-grid { grid-template-columns: 1fr; }
+  .compi-section { padding-block: var(--compi-space-6); }
+  .compi-panel { padding: var(--compi-space-5); }
+  .compi-table th, .compi-table td, .compi-table tbody th { padding: .75rem .5rem; }
+  .compi-table { font-size: .875rem; }
+  .compi-logo { width: 11.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .compi *, .compi *::before, .compi *::after { transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,57 @@
+{
+  "reviewed_on": "2026-11-21",
+  "project_id": "dzfwdxhbldnfqowrnhxf",
+  "status": "prepared_not_deployed",
+  "new_production_origin": "https://compichef.com",
+  "preview_origin": "https://compi-web.mcgradi3000.workers.dev",
+  "files": [
+    {
+      "file": "supabase/arts-edition/functions/compi-aceptar-lab/compi-arts-aceptar-lab/index.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "a9a26cc1087f50807872ea595c139df01c686e468fd62d8ac00728181bfb293a",
+      "prepared_sha256": "ff7d8c796b34173b4834808c52f750b354ed855762567c599e73b18dc8064b20"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-arts-plaza/index.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "9aa943d10c08f90a0ed6e9c4e324473ef43ecf64e417e56fea1d50021c4e5e9f",
+      "prepared_sha256": "139df314138aa000ee3e560a1af400f40be70dce1397ccd3173b0c294d89ec23"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-asistente-ficha/compi-arts-asistente-ficha/handler.js",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "1d6ccac41e85fe13aae72555327c21cde778146360f9a7536662817c9f112523",
+      "prepared_sha256": "3c4ccd5af177e4a6cf972660d45459b9ef671e4ca3001c206f8979befc39c26b"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-descarga/_shared/guide-files.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "e64f52e74e8c0cc78c9ee4a25a11060cf65015e83aeb105c7197526bba1c9a0a",
+      "prepared_sha256": "948e8179f0a76deed2eda2fe14c62e7dd93c1feed31798d5dfe21fffcb24e37f"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-generar-ficha/compi-arts-generar-ficha/index.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "48fd2043779e7c11975ff37b21c8ae976564fc3051e8d0c329c6eedd26c6ebe7",
+      "prepared_sha256": "aa9d56c12169448ce7b76a192952ef1fdc6f8436bb6c95a0527d791fce13753e"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-marca-documental/compi-arts-marca-documental/index.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "f259baf7b705edcc9a2dbbf234f24e94cf560a3853227137567ab95b41cba0ab",
+      "prepared_sha256": "ed1c5c4bc9b3d2dd151879b57a6f51a3cd5b18bcdac8e81b90eeb5be266edfc3"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-recuperar-lab/compi-arts-recuperar-lab/index.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "3a2f4a5f62985ddba7f98d16cb0a28e0eb7cfc70edafa3b28eeeffd5e012cb67",
+      "prepared_sha256": "8a6b05f1aaff3f6f3647ee769ab1e0cfcd1ad085385d15bdf6769ec3c752d3dc"
+    },
+    {
+      "file": "supabase/arts-edition/functions/compi-subir-ficha/_shared/guide-files.ts",
+      "deployed_version_reviewed": 1,
+      "source_sha256": "2d7d3a2497a9498a872b38d5d0aa45c71cb158ebe9d80a6c82d29f4595f900ab",
+      "prepared_sha256": "46db0d67be8fc19d2ac5958c24e47489340718b1e7b08f1c292d772b2d6d1d09"
+    }
+  ]
+}

@@ -1,0 +1,526 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plating Guide recipe record v1.0",
+  "description": "Registro normalizado. Validar semántica y autorizaciones fuera del modelo. Las claves son obligatorias; null representa datos desconocidos donde procede.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
+    "dish_id": {
+      "type": "string"
+    },
+    "outlet_id": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "plating_guide"
+      ]
+    },
+    "name_es": {
+      "type": "string"
+    },
+    "name_en": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "section": {
+      "type": "string"
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name_es": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "g",
+              "kg",
+              "ml",
+              "l",
+              "unidad",
+              "porcion",
+              "cucharada",
+              "cucharadita",
+              "al_gusto",
+              "desconocida"
+            ]
+          },
+          "original_measure": {
+            "type": "string"
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "preparation": {
+            "type": "string"
+          },
+          "image_label": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence_status": {
+            "type": "string",
+            "enum": [
+              "declarado",
+              "verificado",
+              "estimado",
+              "pendiente"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name_es",
+          "quantity",
+          "unit",
+          "original_measure",
+          "optional",
+          "preparation",
+          "image_label",
+          "source_refs",
+          "evidence_status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer"
+          },
+          "action": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "number",
+          "action",
+          "observation",
+          "source_refs"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "service_info": {
+      "type": "object",
+      "properties": {
+        "es": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "en": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "es",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "portion": {
+      "type": "object",
+      "properties": {
+        "grams": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "declarada",
+            "medida",
+            "calculada",
+            "estimada",
+            "desconocida"
+          ]
+        },
+        "display": {
+          "type": "string"
+        },
+        "calculation_note": {
+          "type": "string"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "grams",
+        "basis",
+        "display",
+        "calculation_note",
+        "source_refs"
+      ],
+      "additionalProperties": false
+    },
+    "pass_minutes": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "station": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dishware": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "channel_zone": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exterior_service": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "allergens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "ingredient_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verification": {
+            "type": "string",
+            "enum": [
+              "declarado",
+              "comprobado",
+              "pendiente"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "ingredient_ids",
+          "source_refs",
+          "verification"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "traces": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "desconocido",
+            "declarado_sin_trazas",
+            "declarado_con_trazas",
+            "verificado_sin_trazas",
+            "verificado_con_trazas"
+          ]
+        },
+        "display_legacy": {
+          "type": "string"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "items",
+        "status",
+        "display_legacy",
+        "source_refs"
+      ],
+      "additionalProperties": false
+    },
+    "adaptations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "removed_ingredient_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "suitability_verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "text",
+          "removed_ingredient_ids",
+          "source_refs",
+          "suitability_verified"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "diet": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "enum": [
+            "vegetariano",
+            "vegano",
+            "ninguna_declaracion",
+            "pendiente"
+          ]
+        },
+        "verification": {
+          "type": "string",
+          "enum": [
+            "declarado",
+            "comprobado",
+            "pendiente"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "verification",
+        "source_refs"
+      ],
+      "additionalProperties": false
+    },
+    "non_allergen_restrictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "visible_version": {
+          "type": "string"
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "document_status": {
+          "type": "string",
+          "enum": [
+            "BORRADOR",
+            "REVISADO",
+            "APROBADO"
+          ]
+        },
+        "approval_evidence_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "visible_version",
+        "date",
+        "document_status",
+        "approval_evidence_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "declarado",
+              "verificado",
+              "estimado",
+              "pendiente"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "status",
+          "source_refs",
+          "note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "data_completion",
+                "allergen_clearance",
+                "content_approval",
+                "rendering",
+                "publication"
+              ]
+            }
+          }
+        },
+        "required": [
+          "path",
+          "issue",
+          "blocks"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "dish_id",
+    "outlet_id",
+    "document_type",
+    "name_es",
+    "name_en",
+    "section",
+    "ingredients",
+    "steps",
+    "service_info",
+    "portion",
+    "pass_minutes",
+    "station",
+    "dishware",
+    "channel_zone",
+    "exterior_service",
+    "allergens",
+    "traces",
+    "adaptations",
+    "diet",
+    "non_allergen_restrictions",
+    "metadata",
+    "source_refs",
+    "provenance",
+    "unresolved"
+  ],
+  "additionalProperties": false
+}
