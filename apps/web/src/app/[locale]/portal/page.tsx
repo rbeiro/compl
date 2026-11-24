@@ -13,9 +13,9 @@ export default async function PortalPage() {
 
   return (
     <>
-      <SiteHeader />
-      <main id="main" tabIndex={-1} className="mx-auto max-w-content px-5 py-12">
-        <h1 className="mb-6 text-heading">{c("myWorkspace")}</h1>
+      <SiteHeader variant="shell" />
+      <main id="main" tabIndex={-1} className="shell py-[clamp(2rem,5vw,4.35rem)] pb-20">
+        <h1>{c("myWorkspace")}</h1>
         <Suspense fallback={<p className="text-muted">…</p>}>
           <Workspace />
         </Suspense>
@@ -37,7 +37,7 @@ async function Workspace() {
       {/* TODO(port): workspace shell, guides, recipes, costs, mail, schedules, staff. */}
       <form action={signOut}>
         <input type="hidden" name="locale" value={locale} />
-        <button type="submit" className="inline-flex items-center gap-2 font-semibold text-primary">
+        <button type="submit" className="btn">
           <Icon name="logout" /> {c("signOut")}
         </button>
       </form>

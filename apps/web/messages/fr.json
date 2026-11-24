@@ -14,7 +14,9 @@
     "teamAccess": "Accès du personnel",
     "publicNav": "Navigation du site",
     "workspaceNav": "Navigation de l’espace de travail",
-    "myWorkspace": "Mon espace de travail"
+    "myWorkspace": "Mon espace de travail",
+    "chooseLanguage": "Choisir la langue",
+    "useDeviceLanguage": "Utiliser la langue de l’appareil"
   },
   "Landing": {
     "navProject": "Le projet",
@@ -39,6 +41,7 @@
     "mailBody": "Écrivez à vos collègues de l’hôtel, répondez aux messages de l’équipe de service et organisez vos échanges à l’aide des favoris et des dossiers personnels."
   },
   "Login": {
+    "metaTitle": "Connexion · CompI",
     "intro": "Connectez-vous avec votre compte professionnel pour accéder à l’espace de travail de votre hôtel.",
     "email": "Adresse e-mail de l’employé",
     "password": "Mot de passe",

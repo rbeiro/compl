@@ -2,9 +2,29 @@
 @import "./fonts.css";
 
 /*
- * CompI brand tokens, ported from legacy/public/brand/web/compi-theme.css.
- * Use the semantic names (bg-background, text-primary, border-line...) in components.
+ * CompI design system, ported 1:1 from the legacy kit:
+ *   legacy/public/brand/web/compi-theme.css  (tokens, base)
+ *   legacy/public/portal.css                 (shell, header, forms, buttons)
+ *   legacy/public/portada.css                (public landing)
+ *   legacy/public/language.css               (language picker, RTL)
+ * Values are copied as-is so the new app renders identically. Prefer these
+ * tokens/utilities over new ad-hoc values.
  */
+
+/* Legacy breakpoints are max-width based. Registration order matters:
+   Tailwind emits custom variants in this order, so the widest must come
+   first and the narrowest last (narrower rules override wider ones). */
+@custom-variant max-960 (@media (max-width: 960px));
+@custom-variant max-900 (@media (max-width: 900px));
+@custom-variant max-780 (@media (max-width: 780px));
+@custom-variant max-720 (@media (max-width: 720px));
+@custom-variant max-620 (@media (max-width: 620px));
+@custom-variant max-440 (@media (max-width: 440px));
+@custom-variant max-420 (@media (max-width: 420px));
+@custom-variant max-380 (@media (max-width: 380px));
+@custom-variant max-360 (@media (max-width: 360px));
+@custom-variant pointer-coarse (@media (pointer: coarse));
+
 @theme {
   /* Approved brand palette */
   --color-green: #23603f;
@@ -18,6 +38,7 @@
 
   /* Neutrals and states */
   --color-paper: #faf7f2;
+  --color-white: #ffffff;
   --color-ink: #242c27;
   --color-muted: #566158;
   --color-line: #d9d4c9;
@@ -27,43 +48,208 @@
   --color-warning: #6a531c;
   --color-warning-soft: #f2ead8;
 
-  /* Semantic aliases */
-  --color-background: var(--color-paper);
-  --color-surface: #ffffff;
-  --color-foreground: var(--color-ink);
-  --color-primary: var(--color-green);
-  --color-on-primary: #ffffff;
-
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: "Manrope", Arial, sans-serif;
-
-  --text-display: clamp(2rem, 1.1rem + 3.7vw, 3.5rem);
-  --text-display--line-height: 1.14;
-  --text-heading: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
-  --text-heading--line-height: 1.14;
 
   --radius-control: 0.5rem;
   --radius-panel: 0.75rem;
   --radius-large: 1rem;
+  --radius-menu: 11px;
 
-  --container-content: 72rem;
-  --spacing-target: 2.75rem; /* minimum touch target */
   --shadow-subtle: 0 8px 28px rgb(36 44 39 / 0.06);
+  --shadow-menu: 0 12px 32px #183c292b, 0 2px 6px #183c2912;
+
+  --ease-carbon: cubic-bezier(0.2, 0, 0.38, 0.9);
+
+  --animate-home-enter: home-enter 0.5s ease-out backwards;
+  --animate-home-enter-photo: home-enter 0.65s 0.06s ease-out backwards;
+  --animate-menu-open: menu-open 0.175s cubic-bezier(0.2, 0, 0.38, 0.9);
+
+  @keyframes home-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes menu-open {
+    from { opacity: 0.18; translate: 0 8px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+}
+
+:root {
+  /* Public pages use a fluid gutter (portada.css). */
+  --home-gutter: clamp(1.25rem, 5.8vw, 6.3rem);
 }
 
 @layer base {
   html {
     color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html:has([data-page="home"]) { scroll-behavior: smooth; }
   }
   body {
-    @apply bg-background font-sans text-foreground leading-[1.6] antialiased;
+    min-height: 100vh;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    font-synthesis: none;
   }
-  h1,
-  h2,
-  h3 {
-    @apply font-display font-medium text-balance;
+  img { display: inline; }
+  a {
+    color: var(--color-green);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
+  a:hover { color: var(--color-green-hover); }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary;
+    outline: 3px solid var(--color-green);
+    outline-offset: 3px;
   }
+  #main:focus, section[tabindex="-1"]:focus { outline: none; }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+    color: var(--color-green);
+    overflow-wrap: anywhere;
+  }
+  h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); margin: 0 0 1.5rem; }
+  h2 { font-size: clamp(1.75rem, 3.1vw, 2.25rem); margin: 0.5rem 0 1.4rem; }
+
+  label {
+    display: block;
+    color: var(--color-ink);
+    font-size: 0.94rem;
+    font-weight: 600;
+  }
+  input:not([type="hidden"]) {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    margin-top: 0.3rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
+    background: var(--color-white);
+    color: var(--color-ink);
+    font: 400 1rem/1.4 var(--font-sans);
+  }
+  button { cursor: pointer; }
+  button:disabled { opacity: 0.65; cursor: default; }
+
+  /* Arabic: system fonts with Arabic glyphs, no tight tracking. */
+  [lang="ar"] body {
+    --font-sans: Tahoma, "Segoe UI", Arial, sans-serif;
+    --font-display: Georgia, "Noto Naskh Arabic", Tahoma, serif;
+  }
+  [dir="rtl"] input[type="email"] { direction: ltr; text-align: start; }
+}
+
+/* Unlayered on purpose: must beat per-element tracking/leading utilities,
+   as the legacy rule did through higher specificity. */
+[lang="ar"] :is(h1, h2, h3, .kicker) { letter-spacing: normal; line-height: 1.35; }
+
+/* Workspace / auth page width (`.shell`). */
+@utility shell {
+  width: min(calc(100% - 6rem), 72rem);
+  margin-inline: auto;
+  @media (max-width: 900px) { width: calc(100% - 3rem); }
+  @media (max-width: 720px) { width: calc(100% - 2.5rem); }
+  @media (max-width: 380px) { width: calc(100% - 1.75rem); }
+}
+
+/* Public landing width (`.home-wrap`). */
+@utility home-wrap {
+  width: min(calc(100% - var(--home-gutter) * 2), 80rem);
+  margin-inline: auto;
+}
+
+/* Eyebrow label with a leading rule (`.home-kicker`). */
+@utility kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.28rem;
+  font: 700 0.72rem/1.45 var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-plum);
+  &::before {
+    content: "";
+    display: block;
+    width: 1.9rem;
+    height: 1px;
+    flex: none;
+    background: currentColor;
+  }
+  @media (max-width: 620px) { margin-bottom: 1rem; font-size: 0.65rem; }
+}
+
+/* Public call-to-action button (`.home-button`). */
+@utility btn-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.15rem;
+  min-height: 3.1rem;
+  padding: 0.72rem 1.25rem;
+  background: var(--color-green);
+  color: var(--color-white);
+  border: 1px solid var(--color-green);
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  font: 600 0.94rem/1.3 var(--font-sans);
+  &:hover { background: var(--color-green-hover); color: var(--color-white); }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.16s, border-color 0.16s, box-shadow 0.18s;
+    & svg { transition: translate 0.18s ease; }
+    &:hover svg { translate: 3px 0; }
+  }
+}
+
+/* Workspace button (`.download`); combine with `btn-primary` for the filled variant. */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-white);
+  color: var(--color-green);
+  text-decoration: none;
+  text-align: center;
+  font: 600 0.94rem/1.35 var(--font-sans);
+  &:hover:not(:disabled) { background: var(--color-green-soft); border-color: var(--color-green); }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.16s, border-color 0.16s, box-shadow 0.18s;
+  }
+}
+@utility btn-primary {
+  color: var(--color-white);
+  background: var(--color-green);
+  border-color: var(--color-green);
+  &:hover:not(:disabled) { color: var(--color-white); background: var(--color-green-hover); }
+}
+
+/* Inline error box (`.compi .error`); hidden while empty. */
+@utility alert-error {
+  margin: 0.75rem 0;
+  padding: 0.65rem 0.9rem;
+  border-inline-start: 3px solid var(--color-error);
+  background: var(--color-error-soft);
+  color: var(--color-error);
+  &:empty { display: none; }
 }

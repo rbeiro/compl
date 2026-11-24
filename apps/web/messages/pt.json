@@ -14,7 +14,9 @@
     "teamAccess": "Acesso da equipa",
     "publicNav": "Navegação do site",
     "workspaceNav": "Navegação do espaço de trabalho",
-    "myWorkspace": "O meu espaço de trabalho"
+    "myWorkspace": "O meu espaço de trabalho",
+    "chooseLanguage": "Selecionar idioma",
+    "useDeviceLanguage": "Usar o idioma do dispositivo"
   },
   "Landing": {
     "navProject": "O projeto",
@@ -39,6 +41,7 @@
     "mailBody": "Escreve aos colegas do hotel, responde aos avisos do turno e organiza as mensagens com favoritos e pastas pessoais."
   },
   "Login": {
+    "metaTitle": "Iniciar sessão · CompI",
     "intro": "Inicia sessão com a tua conta de colaborador para acederes ao espaço de trabalho do teu hotel.",
     "email": "E-mail do colaborador",
     "password": "Palavra-passe",

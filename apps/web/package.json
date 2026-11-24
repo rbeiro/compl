@@ -11,6 +11,7 @@
     "messages:import": "node scripts/import-legacy-messages.mjs"
   },
   "dependencies": {
+    "@radix-ui/react-select": "^2.4.1",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.2",
     "next": "16.4.6",

@@ -48,7 +48,11 @@ cd legacy && npm ci && npm test           # legacy build tests
 
 - Next.js 16 differs from older versions: read `apps/web/node_modules/next/dist/docs/` before using an API you are unsure of. `middleware` is now `src/proxy.ts`; `params`/`cookies()` are async; Cache Components is on (request-time reads such as the session must sit inside `<Suspense>`); the locale comes from `next/root-params` (not available in Server Actions, so pass the locale explicitly or return error codes for the client to translate).
 - Session reads go through `getCurrentUser()` in `src/lib/auth.ts` (uses `getClaims()`, never trust `getSession()` on the server).
-- Use Tailwind brand tokens from `src/app/globals.css` (`bg-primary`, `text-muted`, `border-line`, `rounded-control`, `font-display`...). Use logical properties (`ms-`, `pe-`, `start-`) so Arabic RTL works.
+- **Visual parity is a requirement**: ported screens must look and move exactly like the legacy ones. Copy values from the legacy CSS (`legacy/public/*.css`) as-is, including `clamp()` sizes, and check with `apps/web/scripts/parity/` (target: 0 differences at all widths, in `en` and `ar`).
+- Styling: Tailwind with the brand tokens in `src/app/globals.css` (`text-green`, `bg-green-soft`, `text-muted`, `border-line`, `rounded-control`, `font-display`...) and the shared utilities `shell`, `home-wrap`, `kicker`, `btn-home`, `btn` + `btn-primary`, `alert-error`. Legacy breakpoints are max-width: use the `max-960` … `max-360` variants (their order in `globals.css` matters: widest first). Use logical properties (`ms-`, `pe-`, `start-`) for RTL unless the legacy CSS used a physical one.
+- Motion: `carbon()` in `src/lib/motion.ts` is the legacy "carbon" preset (Web Animations API, respects reduced motion). Port other presets from `legacy/public/motion-choices.js` there when a screen needs them.
+- Selects: Radix Select styled like the legacy menu (see `src/components/language-picker.tsx`).
+- If a build serves stale CSS, delete `apps/web/.next` (Turbopack cache).
 - Translations: add semantic keys to `apps/web/scripts/legacy-keys.mjs` mapped to the legacy Spanish source string, then run `messages:import`. Do not hand-edit `messages/*.json`.
 - Mark unported legacy behavior with `TODO(port):`.
 

@@ -14,7 +14,9 @@
     "teamAccess": "Accesso del personale",
     "publicNav": "Navigazione del sito",
     "workspaceNav": "Navigazione dell’area di lavoro",
-    "myWorkspace": "La mia area di lavoro"
+    "myWorkspace": "La mia area di lavoro",
+    "chooseLanguage": "Seleziona la lingua",
+    "useDeviceLanguage": "Usa la lingua del dispositivo"
   },
   "Landing": {
     "navProject": "Il progetto",
@@ -39,6 +41,7 @@
     "mailBody": "Scrivi ai colleghi dell’hotel, rispondi alle comunicazioni del turno e organizza i messaggi con i preferiti e le cartelle personali."
   },
   "Login": {
+    "metaTitle": "Accedi · CompI",
     "intro": "Accedi con il tuo account di lavoro per aprire l’area di lavoro del tuo hotel.",
     "email": "Email del dipendente",
     "password": "Password",

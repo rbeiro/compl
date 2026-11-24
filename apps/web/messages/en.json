@@ -14,7 +14,9 @@
     "teamAccess": "Team sign-in",
     "publicNav": "Site navigation",
     "workspaceNav": "Workspace navigation",
-    "myWorkspace": "My workspace"
+    "myWorkspace": "My workspace",
+    "chooseLanguage": "Choose language",
+    "useDeviceLanguage": "Use device language"
   },
   "Landing": {
     "navProject": "About CompI",
@@ -39,6 +41,7 @@
     "mailBody": "Email your hotel colleagues, reply to shift updates and organise your messages with favourites and personal folders."
   },
   "Login": {
+    "metaTitle": "Sign in · CompI",
     "intro": "Sign in with your employee account to open your hotel’s workspace.",
     "email": "Employee email address",
     "password": "Password",

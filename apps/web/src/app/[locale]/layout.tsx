@@ -37,7 +37,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-control focus:bg-paper focus:px-4 focus:py-3 focus:text-primary"
+          className="fixed start-4 top-2 z-[5] -translate-y-[160%] rounded-control bg-white px-[1.1rem] py-[.7rem] focus:translate-y-0"
         >
           {t("skipToContent")}
         </a>

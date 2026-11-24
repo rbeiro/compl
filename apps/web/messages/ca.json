@@ -14,7 +14,9 @@
     "teamAccess": "Accés de l’equip",
     "publicNav": "Navegació del lloc web",
     "workspaceNav": "Navegació de l’espai de treball",
-    "myWorkspace": "El meu espai de treball"
+    "myWorkspace": "El meu espai de treball",
+    "chooseLanguage": "Tria l’idioma",
+    "useDeviceLanguage": "Utilitza l’idioma del dispositiu"
   },
   "Landing": {
     "navProject": "El projecte",
@@ -39,6 +41,7 @@
     "mailBody": "Escriu als companys de l’hotel, respon als avisos del torn i organitza els missatges amb preferits i carpetes personals."
   },
   "Login": {
+    "metaTitle": "Inicia la sessió · CompI",
     "intro": "Accedeix amb el teu compte d’empleat per obrir l’espai de treball del teu hotel.",
     "email": "Correu electrònic de l’empleat",
     "password": "Contrasenya",

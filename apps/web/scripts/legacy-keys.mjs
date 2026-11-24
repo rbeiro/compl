@@ -19,6 +19,8 @@ const legacyKeys = {
     publicNav: 'Navegación pública',
     workspaceNav: 'Navegación del entorno de trabajo',
     myWorkspace: 'Mi entorno de trabajo',
+    chooseLanguage: 'Seleccionar idioma',
+    useDeviceLanguage: 'Usar el idioma del dispositivo',
   },
   Landing: {
     navProject: 'El proyecto',
@@ -47,6 +49,7 @@ const legacyKeys = {
       'Escribe a tus compañeros del hotel, responde a los avisos del turno y organiza tus mensajes con favoritos y carpetas personales.',
   },
   Login: {
+    metaTitle: 'Iniciar sesión · CompI',
     intro: 'Entra con tu cuenta de empleado para abrir el espacio de trabajo de tu hotel.',
     email: 'Correo del empleado',
     password: 'Contraseña',
