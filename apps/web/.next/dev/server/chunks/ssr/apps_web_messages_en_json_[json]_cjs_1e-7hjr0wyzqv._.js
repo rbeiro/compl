@@ -1,0 +1,57 @@
+module.exports = [
+"[project]/apps/web/messages/en.json.[json].cjs [app-rsc] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = {
+    "Meta": {
+        "title": "CompI · Your kitchen workspace",
+        "description": "CompI brings plating guides, recipe sheets and team email together for your hotel kitchen."
+    },
+    "Common": {
+        "skipToContent": "Skip to content",
+        "homeLabel": "CompI · Home",
+        "homePageLabel": "CompI · Home page",
+        "testEnvironment": "Test environment",
+        "signIn": "Sign in",
+        "signOut": "Sign out",
+        "enterPortal": "Open the portal",
+        "teamAccess": "Team sign-in",
+        "publicNav": "Site navigation",
+        "workspaceNav": "Workspace navigation",
+        "myWorkspace": "My workspace"
+    },
+    "Landing": {
+        "navProject": "About CompI",
+        "navTools": "Tools",
+        "kicker": "For hotel kitchen teams",
+        "titleStart": "Your kitchen",
+        "titleEnd": "workspace.",
+        "lead": "Your plating guides, recipe sheets and team email, all in one place.",
+        "learnMore": "Explore the project",
+        "heroAlt": "A chef uses tweezers to garnish a plated fish with microgreens.",
+        "projectTitleStart": "A shared guide",
+        "projectTitleEnd": "for every service.",
+        "projectBody1": "In a hotel kitchen, every dish passes through several hands. With CompI, the kitchen and front-of-house teams work from the same plating guide. The photo, the choice of tableware and the service notes are all there when a question comes up at the pass.",
+        "projectBody2": "The chef organises the sheets by hotel and outlet. Each employee can access their team’s documents and use internal email to hand over service notes to the next shift.",
+        "toolsAlt": "An open kitchen notebook beside fresh herbs and cooking utensils.",
+        "toolsTitle": "Inside the portal.",
+        "platingTitle": "Plating guides",
+        "platingBody": "Browse the published guides for each outlet, check how to plate each dish and download a Word or PDF copy.",
+        "recipesTitle": "Recipe sheets",
+        "recipesBody": "If you have editing access, enter the ingredients, quantities, allergens and plating steps. Review the sheet and save it as a draft before publishing.",
+        "mailTitle": "Internal email",
+        "mailBody": "Email your hotel colleagues, reply to shift updates and organise your messages with favourites and personal folders."
+    },
+    "Login": {
+        "intro": "Sign in with your employee account to open your hotel’s workspace.",
+        "email": "Employee email address",
+        "password": "Password",
+        "forgotPassword": "Forgot your password?",
+        "errorCredentials": "Check your email address and password.",
+        "errorRateLimit": "Too many attempts. Wait a moment before signing in again.",
+        "errorNetwork": "Couldn’t connect to the sign-in service. Please try again."
+    }
+};
+}),
+];
+
+//# sourceMappingURL=apps_web_messages_en_json_%5Bjson%5D_cjs_1e-7hjr0wyzqv._.js.map

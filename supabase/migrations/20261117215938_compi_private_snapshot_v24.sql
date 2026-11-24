@@ -1,0 +1,1 @@
+insert into storage.buckets(id,name,public) values('compi-v24-snapshot-20261117','compi-v24-snapshot-20261117',false); create policy compi_private_snapshot_v24 on storage.objects as restrictive for all to anon,authenticated using(bucket_id <> 'compi-v24-snapshot-20261117') with check (bucket_id <> 'compi-v24-snapshot-20261117');;

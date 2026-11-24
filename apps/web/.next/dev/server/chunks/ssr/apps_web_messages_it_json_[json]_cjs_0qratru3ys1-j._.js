@@ -1,0 +1,57 @@
+module.exports = [
+"[project]/apps/web/messages/it.json.[json].cjs [app-rsc] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = {
+    "Meta": {
+        "title": "CompI · Il portale della tua cucina",
+        "description": "CompI riunisce le guide all’impiattamento, le schede tecniche e la posta interna della brigata di cucina del tuo hotel."
+    },
+    "Common": {
+        "skipToContent": "Vai al contenuto",
+        "homeLabel": "CompI · Home",
+        "homePageLabel": "CompI · Pagina iniziale",
+        "testEnvironment": "Ambiente di prova",
+        "signIn": "Accedi",
+        "signOut": "Esci",
+        "enterPortal": "Entra nel portale",
+        "teamAccess": "Accesso del personale",
+        "publicNav": "Navigazione del sito",
+        "workspaceNav": "Navigazione dell’area di lavoro",
+        "myWorkspace": "La mia area di lavoro"
+    },
+    "Landing": {
+        "navProject": "Il progetto",
+        "navTools": "Strumenti",
+        "kicker": "Per le brigate di cucina degli hotel",
+        "titleStart": "Il portale della",
+        "titleEnd": "tua cucina.",
+        "lead": "Le guide all’impiattamento, le schede tecniche e la posta della tua brigata, in un unico spazio.",
+        "learnMore": "Scopri il progetto",
+        "heroAlt": "Uno chef dispone i germogli con le pinze su un piatto di pesce.",
+        "projectTitleStart": "Un punto di riferimento",
+        "projectTitleEnd": "per ogni servizio.",
+        "projectBody1": "Nella cucina di un hotel, ogni piatto passa per più mani. Con CompI, cucina e sala consultano la stessa guida all’impiattamento. Al pass, la foto del piatto, le stoviglie da usare e le indicazioni di servizio sono sempre a portata di mano.",
+        "projectBody2": "Lo chef organizza le schede per hotel e punto di ristorazione. Ogni dipendente può consultare i documenti della propria squadra e inviare le consegne al turno successivo tramite la posta interna.",
+        "toolsAlt": "Un quaderno di cucina aperto accanto a erbe fresche e utensili.",
+        "toolsTitle": "Dentro il portale.",
+        "platingTitle": "Guide all’impiattamento",
+        "platingBody": "Consulta le guide pubblicate per ogni punto di ristorazione, verifica l’impiattamento e scarica la versione Word o PDF.",
+        "recipesTitle": "Schede tecniche",
+        "recipesBody": "Se hai i permessi di modifica, inserisci ingredienti, quantità, allergeni e passaggi per l’impiattamento. Controlla la scheda e salvala come bozza prima di pubblicarla.",
+        "mailTitle": "Posta interna",
+        "mailBody": "Scrivi ai colleghi dell’hotel, rispondi alle comunicazioni del turno e organizza i messaggi con i preferiti e le cartelle personali."
+    },
+    "Login": {
+        "intro": "Accedi con il tuo account di lavoro per aprire l’area di lavoro del tuo hotel.",
+        "email": "Email del dipendente",
+        "password": "Password",
+        "forgotPassword": "Hai dimenticato la password?",
+        "errorCredentials": "Verifica l’indirizzo e-mail e la password.",
+        "errorRateLimit": "Troppi tentativi. Attendi un momento prima di riprovare.",
+        "errorNetwork": "Impossibile connettersi al servizio di accesso. Riprova."
+    }
+};
+}),
+];
+
+//# sourceMappingURL=apps_web_messages_it_json_%5Bjson%5D_cjs_0qratru3ys1-j._.js.map

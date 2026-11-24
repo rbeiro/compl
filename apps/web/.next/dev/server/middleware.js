@@ -1,0 +1,10 @@
+var R=require("./chunks/[turbopack]_runtime.js")("server/middleware.js")
+R.c("server/chunks/1ymj_next_0lo0lqmdd8z7f._.js")
+R.c("server/chunks/1n9j_@supabase_auth-js_dist_module_1pvu8jicsd31u._.js")
+R.c("server/chunks/1h6z_zod_v4_classic_16nxhdq1vcbue._.js")
+R.c("server/chunks/1h6z_zod_v4_core_1lofbz9u78kdj._.js")
+R.c("server/chunks/1h6z_zod_v4_locales_1c8s6v03u13h3._.js")
+R.c("server/chunks/node_modules__pnpm_1yap-xy1jn016._.js")
+R.c("server/chunks/[root-of-the-server]__1r-1ioi20g3_q._.js")
+R.m("[project]/node_modules/.pnpm/next@16.4.6_@babel+core@7.29.13_@types+node@20.19.43_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/esm/build/templates/middleware.js { INNER_MIDDLEWARE_MODULE => \"[project]/apps/web/src/proxy.ts [middleware] (ecmascript)\" } [middleware] (ecmascript)")
+module.exports=R.m("[project]/node_modules/.pnpm/next@16.4.6_@babel+core@7.29.13_@types+node@20.19.43_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/next/dist/esm/build/templates/middleware.js { INNER_MIDDLEWARE_MODULE => \"[project]/apps/web/src/proxy.ts [middleware] (ecmascript)\" } [middleware] (ecmascript)").exports
