@@ -19,6 +19,7 @@ export function SelectField({
   onValueChange,
   options,
   className = "",
+  disabled,
   "aria-label": ariaLabel,
 }: {
   id?: string;
@@ -26,16 +27,17 @@ export function SelectField({
   onValueChange: (value: string) => void;
   options: SelectOption[];
   className?: string;
+  disabled?: boolean;
   "aria-label"?: string;
 }) {
   const current = options.find((o) => o.value === value) ?? options[0];
   return (
-    <Select.Root value={value === "" ? EMPTY : value} onValueChange={(v) => onValueChange(v === EMPTY ? "" : v)}>
+    <Select.Root value={value === "" ? EMPTY : value} onValueChange={(v) => onValueChange(v === EMPTY ? "" : v)} disabled={disabled}>
       <Select.Trigger
         id={id}
         aria-label={ariaLabel}
         className={twMerge(
-          "flex min-h-11 w-full min-w-0 cursor-pointer items-center justify-between gap-[.6rem] rounded-[8px] border border-green bg-white px-[.8rem] text-start text-green hover:shadow-[inset_0_0_0_1px_var(--color-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green data-[state=open]:shadow-[inset_0_0_0_1px_var(--color-green)]",
+          "flex min-h-11 w-full min-w-0 cursor-pointer items-center justify-between gap-[.6rem] rounded-[8px] border border-green bg-white ps-[.8rem] pe-[.82rem] text-start text-green hover:shadow-[inset_0_0_0_1px_var(--color-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green data-[state=open]:shadow-[inset_0_0_0_1px_var(--color-green)]",
           className,
         )}
       >

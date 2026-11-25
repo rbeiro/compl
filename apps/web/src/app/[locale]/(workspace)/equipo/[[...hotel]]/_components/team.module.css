@@ -1,0 +1,63 @@
+/* Copied from legacy/public/portal.css (tables, .manage, .staff-form, .table-scroll)
+   and workspace-operations.css (.team-*). Legacy `.ws-main-content X` rules are
+   written as `.root X` to keep their specificity. */
+
+/* Base elements (portal.css; `.compi p` margin). */
+:where(.root) p {margin:0 0 1rem;}
+:where(.root) .hint {color:var(--compi-muted);}
+:where(.root) table {width:100%;border-collapse:collapse;text-align:left;font-size:1rem;font-variant-numeric:tabular-nums;}
+:where(.root) :is(th,td) {padding:.85rem .8rem;border-bottom:1px solid var(--compi-line);vertical-align:top;}
+:where(.root) th {font-weight:600;background:var(--compi-green-soft);color:var(--color-green-active);}
+:where(.root) td {overflow-wrap:anywhere;}
+:where(.root) td small {display:inline-flex;align-items:center;gap:.45rem;justify-self:start;font-size:.875rem;line-height:1.5;font-weight:500;color:var(--compi-muted);display:block;margin-top:.3rem;}
+:where(.root) td :global(.download) {margin:0 .3rem .35rem 0;}
+:where(.root) tbody tr:last-child td {border-bottom:0;}
+:where(.root) :global(.danger) {color:var(--compi-error);}
+
+.manage { padding:.25rem 1.2rem; margin:1rem 0; border:1px solid var(--compi-line); background:var(--compi-white); border-radius:var(--compi-radius-panel); }
+.manage summary { padding-block:.7rem; min-height:44px; cursor:pointer; color:var(--compi-green); font-weight:600; }
+.manage[open] { padding-bottom:1rem; }
+.manage[open] summary { border-bottom:1px solid var(--compi-line); margin-bottom:1rem; }
+.staff-form { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); align-items:end; gap:.85rem 1rem; }
+.staff-form .hint,.staff-form :global(.feedback) { grid-column:1/-1; }
+.table-scroll { border:1px solid var(--compi-line); background:var(--compi-white); border-radius:var(--compi-radius-panel); overflow-x:auto; margin-top:1rem; }
+@media(max-width:900px) { .table-scroll table { min-width:54rem; } }
+@media(max-width:720px) {
+  .table-scroll table { font-size:.9rem; }
+  .table-scroll { overflow:visible; border:0; background:transparent; }
+  .table-scroll table { min-width:0; }
+  .table-scroll thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .table-scroll tbody,.table-scroll tr { display:block; }
+  .table-scroll tr { padding:1rem; border:1px solid var(--compi-line); border-radius:var(--compi-radius-panel); background:var(--compi-white); }
+  .table-scroll tr+tr { margin-top:.8rem; }
+  .table-scroll td { display:grid; grid-template-columns:minmax(5rem,.72fr) minmax(0,1.4fr); gap:.1rem .6rem; padding:.45rem 0; border:0; }
+  .table-scroll td::before { content:attr(data-label); color:var(--compi-muted); font-weight:500; }
+  .table-scroll td small { grid-column:2; }
+  .table-scroll td:last-child { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; border-top:1px solid var(--compi-line); padding:.85rem 0 0; margin-top:.4rem; }
+  .table-scroll td:last-child::before { display:none; }
+  .table-scroll td:last-child :global(.download) { margin:0; }
+}
+
+/* workspace-operations.css */
+.root .team-toolbar {display:flex;align-items:flex-end;gap:.85rem;justify-content:space-between;flex-wrap:wrap;margin:1.2rem 0}
+.team-toolbar label {width:min(100%,23rem);font-size:.86rem;color:var(--ws-muted)}
+.root .team-roster {border:0;background:transparent;overflow:visible}
+.team-roster table {display:block;width:100%;min-width:0}
+.team-roster thead {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.root .team-roster tbody {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr));gap:1rem;align-items:stretch}
+.root .team-roster tr {display:flex;flex-direction:column;align-items:stretch;min-width:0;padding:1rem 1.15rem;margin:0;border:1px solid var(--ws-line);border-radius:12px;background:var(--ws-paper)}
+.root .team-roster tr[hidden],.root .team-empty[hidden],.root .team-roster[hidden] {display:none}
+.root .team-roster td {display:block;padding:.25rem 0;border:0;overflow-wrap:anywhere;white-space:normal;font-size:.91rem}
+.root .team-roster td:first-child {display:flex;align-items:center;gap:.72rem;color:var(--ws-deep);font:500 1.35rem/1.22 var(--font-display);padding-bottom:.6rem}
+.team-initials {display:grid;place-items:center;flex:none;width:2.7rem;height:2.7rem;border-radius:50%;background:#e1eadd;color:var(--compi-green);font:650 .84rem var(--font-sans)}
+.team-roster tr:nth-child(3n + 2) .team-initials {background:#ede6d6;color:#665533}
+.team-roster tr:nth-child(3n) .team-initials {background:#ede3e7;color:#684755}
+.root .team-roster td::before {display:none}
+.root .team-roster td:nth-child(4)::before,.root .team-roster td:nth-child(5)::before {display:block;content:attr(data-label);font-size:.71rem;font-weight:600;color:var(--ws-muted)}
+.team-roster td:nth-child(2) {color:var(--ws-muted)}
+.team-roster td small {display:block}
+.root .team-roster td:last-child {display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;border-top:1px solid var(--ws-line);padding:.75rem 0 0;margin:.55rem 0 0}
+.team-roster td:last-child :global(.download) {margin:0;font-size:.81rem}
+.team-roster :global(.feedback):empty {display:none}
+.team-empty {padding:1rem;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:12px}
+@media(max-width:600px){.team-toolbar label{width:100%}}

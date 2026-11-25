@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 import { routing, rtlLocales } from "@/i18n/routing";
+import { Direction } from "@/components/direction";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -32,8 +33,9 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations("Common");
 
+  const dir = rtlLocales.has(locale) ? "rtl" : "ltr";
   return (
-    <html lang={locale} dir={rtlLocales.has(locale) ? "rtl" : "ltr"}>
+    <html lang={locale} dir={dir}>
       <body className="compi">
         <a
           href="#main"
@@ -41,7 +43,9 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
         >
           {t("skipToContent")}
         </a>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Direction dir={dir}>{children}</Direction>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

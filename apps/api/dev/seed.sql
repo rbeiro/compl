@@ -86,3 +86,6 @@ from public.compi_staff where email = 'cocinero@compichef.com';
 insert into compi_private.schedule_hours (employee, month, minutes)
 select id, (date_trunc('month', now() at time zone 'Europe/Madrid') - interval '1 month')::date, 90
 from public.compi_staff where email = 'cocinero@compichef.com';
+
+-- Code used in generated staff addresses (initial.surname.code@compichef.com).
+insert into compi_private.hotel_codes (hotel_key, code) values ('hotel-arts-barcelona', 'arts');

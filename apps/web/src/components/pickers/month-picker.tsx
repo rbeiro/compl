@@ -1,5 +1,6 @@
 "use client";
 
+import { useDirection } from "@radix-ui/react-direction";
 import * as Popover from "@radix-ui/react-popover";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState, type KeyboardEvent } from "react";
@@ -51,6 +52,7 @@ export function MonthPicker({
 }) {
   const t = useTranslations("Pickers");
   const locale = useLocale();
+  const rtl = useDirection() === "rtl";
   const [open, setOpen] = useState(false);
   const [year, setYear] = useState(0);
   const [active, setActive] = useState(0);
@@ -79,7 +81,6 @@ export function MonthPicker({
     if (focus) requestAnimationFrame(() => months.current?.querySelector<HTMLElement>('[tabindex="0"]')?.focus({ preventScroll: true }));
   };
   const onKeyDown = (event: KeyboardEvent) => {
-    const rtl = document.documentElement.dir === "rtl";
     const shifts: Record<string, number> = {
       ArrowLeft: rtl ? 1 : -1,
       ArrowRight: rtl ? -1 : 1,
@@ -112,7 +113,7 @@ export function MonthPicker({
             aria-label={t("chooseMonth")}
             className={cx("wp-dialog", "wp-month-dialog")}
             side="bottom"
-            align={typeof document !== "undefined" && document.documentElement.dir === "rtl" ? "end" : "start"}
+            align={rtl ? "end" : "start"}
             sideOffset={6}
             collisionPadding={10}
             onOpenAutoFocus={(event) => {

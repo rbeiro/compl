@@ -1,5 +1,6 @@
 "use client";
 
+import { useDirection } from "@radix-ui/react-direction";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useLocale, useTranslations } from "next-intl";
 import {
@@ -209,6 +210,7 @@ export function Schedules({ hotels }: { hotels: Hotel[] }) {
   const t = useTranslations("Schedule");
   const locale = useLocale();
   const f = useFormats(locale);
+  const rtl = useDirection() === "rtl";
   const [today] = useState(madridToday);
   const [hotel, setHotel] = useState(hotels[0]!.key);
   const [month, setMonth] = useState(() => today.slice(0, 7));
@@ -332,7 +334,6 @@ export function Schedules({ hotels }: { hotels: Hotel[] }) {
   const deptName = (key: string) => data?.departments?.find((d) => d.key === key)?.name ?? key;
 
   function head(d: ScheduleView) {
-    const rtl = typeof document !== "undefined" && document.documentElement.dir === "rtl";
     return (
       <div className={cx("sched-head")}>
         <div className={cx("sched-filters")}>
