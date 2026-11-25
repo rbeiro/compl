@@ -81,6 +81,27 @@
 }
 
 :root {
+  /* Legacy CSS variable names, used by stylesheets copied from the legacy
+     portal (CSS modules). Same values as the brand tokens above. */
+  --compi-green: var(--color-green);
+  --compi-green-hover: var(--color-green-hover);
+  --compi-green-soft: var(--color-green-soft);
+  --compi-plum: var(--color-plum);
+  --compi-ivory: var(--color-ivory);
+  --compi-paper: var(--color-paper);
+  --compi-white: var(--color-white);
+  --compi-ink: var(--color-ink);
+  --compi-muted: var(--color-muted);
+  --compi-line: var(--color-line);
+  --compi-line-strong: var(--color-line-strong);
+  --compi-error: var(--color-error);
+  --compi-radius-control: var(--radius-control);
+  --compi-radius-panel: var(--radius-panel);
+  --compi-font-body: var(--font-sans);
+  --compi-font-display: var(--font-display);
+  --select-paper: #fff;
+  --select-green: var(--color-green);
+  --select-chevron: url("/brand/select-chevron.svg");
   /* Public pages use a fluid gutter (portada.css). */
   --home-gutter: clamp(1.25rem, 5.8vw, 6.3rem);
 }
@@ -159,6 +180,45 @@
   }
   [dir="rtl"] input[type="email"] { direction: ltr; text-align: start; }
 }
+
+/* Native single-choice selects (legacy select-menu.css): green outline and
+   chevron everywhere; Chromium's customizable picker where supported. Most
+   screens use <SelectField> (Radix) instead; this covers plain <select>s.
+   Unlayered with the legacy selectors, so it wins over screen stylesheets as it did. */
+  select:not([multiple]):is(:not([size]), [size="0"], [size="1"]) {
+    appearance: none; min-width: 0; padding-inline-end: 2.3rem;
+    background-color: var(--select-paper); background-image: var(--select-chevron);
+    background-repeat: no-repeat; background-size: .77rem .62rem; background-position: right .8rem center;
+    border-color: var(--select-green); border-radius: 8px; color: var(--select-green); cursor: pointer;
+  }
+  [dir="rtl"] select:not([multiple]):is(:not([size]), [size="0"], [size="1"]) { background-position: left .8rem center; }
+  select:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--select-green); }
+  select:focus-visible { outline: 2px solid var(--select-green); outline-offset: 2px; }
+  @supports (appearance: base-select) and selector(::picker(select)) {
+    select:not([multiple]):is(:not([size]), [size="0"], [size="1"]), ::picker(select) { appearance: base-select; }
+    select:not([multiple]):is(:not([size]), [size="0"], [size="1"]) {
+      display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+      padding-inline-end: .82rem; background-image: none;
+    }
+    select::picker-icon {
+      content: ""; flex: none; width: .77rem; height: .62rem; margin-inline-start: auto;
+      background: var(--select-chevron) center/contain no-repeat; transition: rotate .19s ease;
+    }
+    select:open::picker-icon { rotate: 180deg; }
+    ::picker(select) {
+      box-sizing: border-box; width: max-content; min-width: min(anchor-size(width), calc(100vw - 16px));
+      max-width: calc(100vw - 16px); max-height: min(22.5rem, 60dvh); margin-block: .3rem; padding: .3rem;
+      border: 1px solid var(--select-green); border-radius: 11px; background: var(--select-paper); color: var(--select-green);
+      box-shadow: var(--shadow-menu); font: 500 .9rem/1.4 var(--font-sans); text-align: start; overflow: auto; overscroll-behavior: contain;
+    }
+    select option {
+      display: flex; align-items: center; gap: .65rem; min-height: 42px; padding: .52rem .72rem; border-radius: 6px;
+      white-space: normal; overflow-wrap: anywhere; text-align: start; color: var(--select-green); background: var(--select-paper);
+    }
+    select option:hover, select option:focus { outline: 1px solid var(--select-green); outline-offset: -2px; }
+    select option:checked { font-weight: 650; }
+    select option::checkmark { content: "✓"; order: 1; margin-inline-start: auto; color: var(--select-green); }
+  }
 
 /* Unlayered on purpose: must beat per-element tracking/leading utilities,
    as the legacy rule did through higher specificity. */

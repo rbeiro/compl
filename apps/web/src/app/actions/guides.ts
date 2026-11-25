@@ -49,3 +49,11 @@ export async function setReviewed(h: string, o: string, g: string, reviewed: boo
   const { data } = await api.PUT("/v1/guides/{h}/{o}/{g}/review", { params: { path: { h, o, g } }, body: { reviewed } });
   return data ? data.reviewed : null;
 }
+
+/** Current brand revision of a hotel's documents (null when unavailable). */
+export async function brandRevision(h: string): Promise<number | null> {
+  const api = await getApi();
+  if (!api || !key.test(h)) return null;
+  const { data } = await api.GET("/v1/hotels/{h}/brand/revision", { params: { path: { h } } });
+  return data ? data.revision : null;
+}

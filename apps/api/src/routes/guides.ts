@@ -286,4 +286,26 @@ export function guideRoutes(app: App, deps: Deps) {
       return bytes(c, image.bytes, image.type);
     },
   );
+
+  app.openapi(
+    createRoute({
+      method: "get",
+      path: "/v1/hotels/{h}/brand/revision",
+      tags: ["Documents"],
+      summary: "Current revision of the hotel's document brand",
+      description: "Clients poll it to refresh previews when the brand changes.",
+      security: bearer,
+      middleware: [user] as const,
+      request: { params: z.object({ h: key.openapi({ param: { name: "h", in: "path" } }) }) },
+      responses: {
+        200: { description: "Revision number.", content: json(z.object({ revision: z.number().int() })) },
+        401: error("Session ended."),
+        403: error("No access."),
+      },
+    }),
+    async (c) => {
+      const row = await one(c.var.claims, (tx) => documentBrandRevision.run({ h: c.req.valid("param").h }, tx));
+      return c.json({ revision: row?.revision ?? 0 }, 200);
+    },
+  );
 }

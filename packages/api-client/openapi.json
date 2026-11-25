@@ -2018,6 +2018,71 @@
           }
         }
       }
+    },
+    "/v1/hotels/{h}/brand/revision": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Current revision of the hotel's document brand",
+        "description": "Clients poll it to refresh previews when the brand changes.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Revision number.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "revision": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "revision"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "webhooks": {}
