@@ -1,0 +1,79 @@
+/* Copied from legacy/public/portal.css (.mail-*), language.css, motion.css and
+   workspace-shell.css (.mail-folder-dialog). Values are kept as-is for parity. */
+.root {min-width:0;}
+.root .mail-account {display:flex;align-items:end;gap:1rem;flex-wrap:wrap;margin-top:-.8rem;color:var(--compi-muted);overflow-wrap:anywhere;}
+.root .mail-account label {min-width:13rem;}
+/* Legacy `.compi p {margin:0 0 var(--compi-space-4)}` outranks the single-class paragraph rules. */
+.root .mail-status {color:var(--compi-green);margin:0 0 1rem;}
+.root .mail-status:empty {margin:0;}
+.root .mail-layout {display:grid;grid-template-columns:minmax(12rem,15rem) minmax(0,1fr);gap:clamp(1rem,3vw,2.25rem);align-items:start;margin-top:1.5rem;}
+.root .mail-nav {display:grid;gap:.25rem;align-content:start;}
+.root .mail-nav .mail-compose {margin-bottom:.65rem;}
+.root .mail-folder,.root .mail-text,.root .mail-star,.root .mail-row-open {background:transparent;border:0;color:var(--compi-green);font:inherit;}
+.root .mail-folder {display:flex;align-items:center;gap:.75rem;min-height:44px;text-align:left;padding:.55rem .85rem;border-radius:var(--compi-radius-control);overflow-wrap:anywhere;}
+.root .mail-folder[aria-current=page],.root .mail-folder:hover {background:var(--compi-green-soft);}
+.root .mail-folder[aria-current=page] {font-weight:700;}
+.root .mail-nav h2 {margin:1.2rem .85rem .35rem;padding-top:1rem;border-top:1px solid var(--compi-line);font:700 .85rem/1.4 var(--font-sans);letter-spacing:0;}
+.root .mail-newfolder {padding:.55rem .85rem;color:var(--compi-green);}
+.root .mail-newfolder summary {cursor:pointer;}
+.root .mail-newfolder form {display:grid;gap:.45rem;margin-top:.6rem;}
+.root .mail-panel {min-width:0;background:var(--compi-white);border:1px solid var(--compi-line);border-radius:var(--compi-radius-control);padding:clamp(1rem,2.5vw,2rem);}
+.root .mail-panel h2 {font-size:clamp(1.5rem,3vw,2.1rem);margin:.55rem 0 1rem;}
+.root .mail-panel-head,.root .mail-row,.root .mail-row-top,.root .mail-actions,.root .mail-move {display:flex;align-items:center;gap:.8rem;}
+.root .mail-panel-head {flex-wrap:wrap;justify-content:flex-end;padding-bottom:.7rem;border-bottom:1px solid var(--compi-line);}
+.root .mail-panel-head h2 {margin:0 auto 0 0;}
+.root .mail-text {min-height:40px;padding:.2rem .25rem;text-decoration:underline;text-underline-offset:3px;}
+.root .mail-text.danger {color:var(--compi-plum);}
+.root .mail-empty {padding:clamp(2rem,7vw,5rem) .75rem;text-align:center;color:var(--compi-muted);}
+.root .mail-empty .icon {display:inline;vertical-align:baseline;height:2rem;width:2rem;color:var(--compi-green);}
+.root .mail-empty p {margin:.65rem 0;}
+.root .mail-row {padding:.45rem 0;border-bottom:1px solid var(--compi-line);}
+.root .mail-row.unread .mail-row-top::before {content:'';height:.5rem;width:.5rem;border-radius:50%;background:var(--compi-green);flex:none;}
+.root .mail-row-open {flex:1;min-width:0;display:grid;gap:.1rem;text-align:left;padding:.35rem;color:var(--compi-ink);}
+.root .mail-row-open:hover strong {text-decoration:underline;}
+.root .mail-row-top {justify-content:space-between;gap:.55rem;font-size:.82rem;color:var(--compi-muted);}
+.root .mail-row-top span {flex:1;overflow-wrap:anywhere;}
+.root .mail-row-top time {white-space:nowrap;}
+.root .mail-row-open strong,.root .mail-snippet {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.root .mail-snippet {color:var(--compi-muted);font-size:.9rem;}
+.root .mail-star {position:relative;padding:1px 6px;display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;}
+.root .mail-star:hover {background:var(--compi-green-soft);}
+.root .mail-star span {display:none;}
+.root .mail-star > [data-motion-sparks] {display:block;}
+.root .mail-star[aria-pressed=true] svg {fill:currentColor;}
+.root .mail-actions,.root .mail-move {margin-top:1rem;flex-wrap:wrap;}
+.root .mail-meta {margin:1em 0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:.2rem .8rem;font-size:.91rem;}
+.root .mail-meta dt {font-weight:700;}.root .mail-meta dd {margin:0;overflow-wrap:anywhere;}
+.root .mail-body {white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 1rem;padding:1rem 0;border-block:1px solid var(--compi-line);}
+.root .mail-move {align-items:end;}.root .mail-move label {flex:1;max-width:19rem;min-width:8rem;}
+.root .mail-form {display:grid;gap:.8rem;}.root .mail-form .hint {margin:-.5rem 0 0;color:var(--compi-muted);font-size:smaller;}.root .mail-form .mail-actions {margin:0;}
+.root .mail-form textarea {display:block;width:100%;margin-top:.3rem;padding:.7rem .8rem;color:var(--compi-ink);font:inherit;font-weight:400;resize:vertical;background:var(--compi-white);border:1px solid var(--compi-line-strong);border-radius:var(--compi-radius-control);}
+.root .mail-save-state {margin:0 0 1rem;color:var(--compi-muted);font-size:.87rem;}
+@media (prefers-reduced-motion:no-preference) {
+  .root :is(.mail-folder,.mail-star) {transition:background-color .16s,border-color .16s,box-shadow .18s;}
+}
+@media(max-width:720px){
+  .root .mail-layout {grid-template-columns:1fr;gap:1rem;}.root .mail-nav {grid-template-columns:repeat(2,minmax(0,1fr));}
+  .root .mail-nav .mail-compose,.root .mail-nav h2,.root .mail-newfolder {grid-column:1/-1;}.root .mail-nav h2 {margin:.2rem .7rem;padding-top:.55rem;}
+  .root .mail-folder {padding:.35rem .6rem;gap:.45rem;}.root .mail-row-top {align-items:start;flex-wrap:wrap;}.root .mail-panel-head {gap:.45rem;}
+}
+/* language.css */
+[dir=rtl] .root :is(.mail-folder,.mail-row-open) {text-align:start;}
+[dir=rtl] .root .mail-panel-head h2 {margin:0;margin-inline-end:auto;}
+
+/* Folder deletion dialog (portaled out of .root). */
+.mail-folder-dialog {
+  position:fixed;top:50%;left:50%;translate:-50% -50%;z-index:1001;overflow:auto;
+  width:min(28rem,calc(100% - 2rem));
+  max-height:calc(100% - 2rem);
+  padding:clamp(1.2rem,4vw,2rem);
+  border:1px solid var(--compi-green);
+  border-radius:var(--compi-radius-control);
+  background:var(--compi-white);
+  color:var(--compi-ink);
+}
+.mail-folder-backdrop {position:fixed;inset:0;z-index:1000;background:#162c2170;}
+.mail-folder-dialog h2 {margin:0;color:var(--compi-green);font-size:clamp(1.5rem,3vw,2.1rem);}
+.mail-folder-dialog p {margin:0 0 1rem;line-height:1.55;}
+.mail-folder-dialog .mail-actions {display:flex;align-items:center;gap:.8rem;margin-top:1rem;flex-wrap:wrap;justify-content:flex-end;}
+.mail-folder-dialog .danger {color:var(--compi-error);}

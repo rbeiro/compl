@@ -59,7 +59,7 @@ export function sequence(
  * "Duo" preset (confirming buttons): a squash-and-stretch bounce with three
  * small sparks when the action is positive, a short press otherwise.
  */
-export function duo(button: HTMLElement | null | undefined, { positive = true } = {}) {
+export function duo(button: Element | null | undefined, { positive = true } = {}) {
   if (!button) return;
   const frames = positive
     ? [
@@ -71,13 +71,15 @@ export function duo(button: HTMLElement | null | undefined, { positive = true } 
     : [{ scale: ".93" }, { scale: "1" }];
   animate(button, frames, positive ? 405 : 170, 0, sequenceEase);
   if (!positive || reducedMotion()) return;
-  button.querySelectorAll("[data-motion-sparks]").forEach((layer) => layer.remove());
+  // Sparks go on the enclosing button even when only its icon bounces.
+  const host = (button.closest("button") ?? button) as HTMLElement;
+  host.querySelectorAll("[data-motion-sparks]").forEach((layer) => layer.remove());
   const layer = document.createElement("span");
   layer.dataset.motionSparks = "";
   layer.setAttribute("aria-hidden", "true");
   layer.style.cssText = "position:absolute;inset:0;pointer-events:none";
-  if (getComputedStyle(button).position === "static") button.style.position = "relative";
-  button.append(layer);
+  if (getComputedStyle(host).position === "static") host.style.position = "relative";
+  host.append(layer);
   const colors = ["#67946c", "#aa8552", "#67946c"];
   const marks = [-1, 0, 1].map((direction, i) => {
     const mark = document.createElement("i");

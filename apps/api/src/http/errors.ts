@@ -46,8 +46,9 @@ export function toApiError(error: unknown): ApiError {
   const known = pg.code ? fromPostgres[pg.code] : undefined;
   if (known) {
     const [status, code, message] = known;
-    // Business-rule messages are written for end users; forward them for 4xx only.
-    const detail = pg.code === "42501" ? undefined : pg.message;
+    // Messages raised by the CompI functions (PT4xx, 22023) are written for end
+    // users; Postgres' own messages (constraint names, types) are not forwarded.
+    const detail = pg.code?.startsWith("PT") || pg.code === "22023" ? pg.message : undefined;
     return new ApiError(status, code, message, detail);
   }
   return new ApiError(500, "internal_error", "Unexpected error.");

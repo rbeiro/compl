@@ -23,3 +23,33 @@ insert into public.compi_arts_guides (hotel_key, outlet_key, guide_key, hotel, o
   ('hotel-arts-barcelona', 'enoteca', 'arroz-de-carabinero', 'Hotel Arts Barcelona', 'Enoteca', 'Arroz de carabinero', 'ready'),
   ('hotel-arts-barcelona', 'enoteca', 'tartar-de-atun', 'Hotel Arts Barcelona', 'Enoteca', 'Tartar de atún', 'ready'),
   ('hotel-arts-barcelona', 'p41', 'ostra-y-manzana', 'Hotel Arts Barcelona', 'P41', 'Ostra y manzana', 'ready');
+
+-- Internal mail: a conversation between the two demo cooks, a draft and a folder.
+with s as (select id, email from public.compi_staff where hotel_key = 'hotel-arts-barcelona')
+insert into compi_private.mail_folders (owner, id, label)
+select id, '00000000-0000-4000-9000-000000000001', 'Proveedores' from s where email = 'cocinero@compichef.com';
+
+with s as (select id, email from public.compi_staff where hotel_key = 'hotel-arts-barcelona'),
+chef as (select id from s where email = 'chef@compichef.com'),
+cook as (select id from s where email = 'cocinero@compichef.com')
+insert into compi_private.mail_items (owner, origin, folder, starred, unread, sender, recipients, subject, body, updated_at)
+select (select id from cook), 'inbox', null::uuid, false, true, 'chef@compichef.com', 'cocinero@compichef.com',
+  'Cambio en el pase de la Enoteca', E'Hola Ana:\n\nA partir del lunes el arroz de carabinero sale con el alioli a la derecha. Revisa la guía actualizada.\n\nGracias.', '2026-11-20 09:15+01'::timestamptz
+union all
+select (select id from cook), 'inbox', null, true, false, 'chef@compichef.com', 'cocinero@compichef.com',
+  'Turnos de diciembre', E'Ya están publicados los turnos de diciembre en Horarios.', '2026-11-18 17:40+01'
+union all
+select (select id from cook), 'inbox', '00000000-0000-4000-9000-000000000001', false, false, 'chef@compichef.com', 'cocinero@compichef.com',
+  'Pedido de ostras', E'El proveedor confirma la entrega del jueves.', '2026-11-15 11:05+01'
+union all
+select (select id from cook), 'sent', null, false, false, 'cocinero@compichef.com', 'chef@compichef.com',
+  'Re: Turnos de diciembre', E'Recibido, gracias.', '2026-11-18 18:02+01'
+union all
+select (select id from cook), 'drafts', null, false, false, 'cocinero@compichef.com', 'chef@compichef.com',
+  'Vacaciones', E'Quería pedir la semana del', '2026-11-21 10:30+01'
+union all
+select (select id from chef), 'sent', null, false, false, 'chef@compichef.com', 'cocinero@compichef.com',
+  'Cambio en el pase de la Enoteca', E'Hola Ana:\n\nA partir del lunes el arroz de carabinero sale con el alioli a la derecha. Revisa la guía actualizada.\n\nGracias.', '2026-11-20 09:15+01'
+union all
+select (select id from chef), 'inbox', null, false, true, 'cocinero@compichef.com', 'chef@compichef.com',
+  'Re: Turnos de diciembre', E'Recibido, gracias.', '2026-11-18 18:02+01';
