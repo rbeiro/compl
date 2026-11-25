@@ -244,6 +244,15 @@
   &:hover:not(:disabled) { color: var(--color-white); background: var(--color-green-hover); }
 }
 
+/* Status message box (`.compi .feedback`); hidden while empty. */
+@utility alert-ok {
+  margin: 0.75rem 0;
+  padding: 0.65rem 0.9rem;
+  border-inline-start: 3px solid var(--color-green);
+  background: var(--color-green-soft);
+  &:empty { display: none; }
+}
+
 /* Inline error box (`.compi .error`); hidden while empty. */
 @utility alert-error {
   margin: 0.75rem 0;

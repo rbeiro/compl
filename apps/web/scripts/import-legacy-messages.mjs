@@ -4,6 +4,7 @@ import {readdir, writeFile} from 'node:fs/promises';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {dirname, join} from 'node:path';
 import keys from './legacy-keys.mjs';
+import newMessages from './new-messages.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const legacyLocales = join(here, '../../../legacy/public/locales');
@@ -28,6 +29,17 @@ for (const [namespace, entries] of Object.entries(keys)) {
     if (!forms) missing.push(`${namespace}.${key}`);
     output.es[namespace][key] = source;
     columns.forEach((l, i) => { output[l][namespace][key] = forms?.[i] || source; });
+  }
+}
+
+// New strings (no legacy source) come with their own translations.
+for (const [namespace, entries] of Object.entries(newMessages)) {
+  for (const [key, forms] of Object.entries(entries)) {
+    for (const l of Object.keys(output)) {
+      output[l][namespace] ??= {};
+      if (output[l][namespace][key] !== undefined) throw Error(`${namespace}.${key} is defined twice`);
+      output[l][namespace][key] = forms[l];
+    }
   }
 }
 

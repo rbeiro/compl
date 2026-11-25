@@ -5,7 +5,14 @@ import { LanguagePicker } from "./language-picker";
 
 // Port of the legacy `.masthead`. The landing page uses the wider fluid
 // `home-wrap` container and a slightly larger logo; other pages use `shell`.
-export async function SiteHeader({ variant }: { variant: "home" | "shell" }) {
+export async function SiteHeader({
+  variant,
+  nav = true,
+}: {
+  variant: "home" | "shell";
+  /** Standalone pages (invitation) show the test-environment label instead of the site links. */
+  nav?: boolean;
+}) {
   const c = await getTranslations("Common");
   const l = await getTranslations("Landing");
   const home = variant === "home";
@@ -44,21 +51,28 @@ export async function SiteHeader({ variant }: { variant: "home" | "shell" }) {
           />
         </Link>
 
-        <nav
-          aria-label={c("publicNav")}
-          className="ms-auto flex items-center gap-[clamp(1.4rem,3.4vw,3.5rem)] max-780:gap-[1.1rem]"
-        >
-          <a href={sectionHref("proyecto")} className={navLink}>
-            {l("navProject")}
-          </a>
-          <a href={sectionHref("herramientas")} className={navLink}>
-            {l("navTools")}
-          </a>
-          <Link href="/acceso" className="btn-home max-420:px-[.55rem]">
-            <span>{c("signIn")}</span>
-            <Icon name="arrow" className="w-[1.05rem] rotate-[-40deg]" />
-          </Link>
-        </nav>
+        {!nav && (
+          <span className="ml-auto inline-flex items-center gap-[.55rem] text-[.875rem] font-medium text-muted before:size-[.43rem] before:rounded-full before:bg-plum before:content-[''] max-720:text-[.8rem]">
+            {c("testEnvironment")}
+          </span>
+        )}
+        {nav && (
+          <nav
+            aria-label={c("publicNav")}
+            className="ms-auto flex items-center gap-[clamp(1.4rem,3.4vw,3.5rem)] max-780:gap-[1.1rem]"
+          >
+            <a href={sectionHref("proyecto")} className={navLink}>
+              {l("navProject")}
+            </a>
+            <a href={sectionHref("herramientas")} className={navLink}>
+              {l("navTools")}
+            </a>
+            <Link href="/acceso" className="btn-home max-420:px-[.55rem]">
+              <span>{c("signIn")}</span>
+              <Icon name="arrow" className="w-[1.05rem] rotate-[-40deg]" />
+            </Link>
+          </nav>
+        )}
 
         <LanguagePicker />
       </div>

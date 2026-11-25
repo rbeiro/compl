@@ -1,35 +1,38 @@
 import "server-only";
 import { createApiClient } from "@compi/api-client";
 import { serverEnv } from "@/lib/server-env";
-import { createClient } from "@/lib/supabase/server";
+import { accessToken } from "@/lib/session";
 
-/**
- * Typed CompI API client acting as the signed-in user, or null without a session.
- * The access token is read from the session cookie (refreshed by the proxy) and
- * forwarded as-is; the API verifies it, so it is not trusted here.
- */
-export async function getApi() {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getSession();
-  const token = data.session?.access_token;
-  return token ? apiWithToken(token) : null;
+/** Typed CompI API client. Server-side only: the tokens live in httpOnly cookies. */
+export function apiWithToken(token?: string) {
+  return createApiClient({ baseUrl: serverEnv.API_URL, accessToken: () => token });
 }
 
-export function apiWithToken(token: string) {
-  return createApiClient({ baseUrl: serverEnv.API_URL, accessToken: () => token });
+/** Client acting as the signed-in user, or null without a session. */
+export async function getApi() {
+  const token = await accessToken();
+  return token ? apiWithToken(token) : null;
 }
 
 export type Api = ReturnType<typeof apiWithToken>;
 
+export type NextStep = "second_factor" | "password_change" | "workspace";
+
+export const nextStepPath = {
+  second_factor: "/acceso/verificacion",
+  password_change: "/acceso/nueva-contrasena",
+  workspace: "/portal",
+} as const satisfies Record<NextStep, string>;
+
 /**
- * Where a signed-in user must go first, from GET /v1/session: two-step
- * verification (rank 1), the temporary-password change, or the workspace.
- * Returns null when the session is not valid for the API.
+ * Where a signed-in user must go first (GET /v1/session): two-step
+ * verification, the temporary-password change, or the workspace.
+ * Null when the session is no longer valid.
  */
 export async function sessionDestination(api: Api) {
   const { data } = await api.GET("/v1/session");
   if (!data) return null;
-  if (data.needsMfa) return "/acceso/verificacion" as const;
-  if (data.mustChangePassword) return "/acceso/nueva-contrasena" as const;
-  return "/portal" as const;
+  if (data.needsMfa) return nextStepPath.second_factor;
+  if (data.mustChangePassword) return nextStepPath.password_change;
+  return nextStepPath.workspace;
 }

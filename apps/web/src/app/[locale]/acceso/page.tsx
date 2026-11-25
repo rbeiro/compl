@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SiteHeader } from "@/components/site-header";
-import { AuthContent } from "./auth-content";
+import { Link } from "@/i18n/navigation";
+import { AuthContent } from "@/components/auth/auth-content";
 import { LoginForm } from "./login-form";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,10 +32,9 @@ export default async function LoginPage() {
               {t("intro")}
             </p>
             <LoginForm />
-            {/* TODO(port): password recovery screen (legacy #/recuperar, recovery.js). */}
-            <a href="#" className="mt-[.8rem] inline-flex min-h-11 items-center">
+            <Link href="/recuperar" className="mt-[.8rem] inline-flex min-h-11 items-center">
               {t("forgotPassword")}
-            </a>
+            </Link>
           </AuthContent>
           <div aria-hidden="true" className="overflow-hidden rounded-large bg-ivory">
             {/* eslint-disable-next-line @next/next/no-img-element -- sized by CSS like the legacy site */}

@@ -1,12 +1,13 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
-import { refreshSession } from "@/lib/supabase/proxy";
+import { refreshSession } from "@/lib/session-proxy";
 
 const handleI18n = createIntlMiddleware(routing);
 
-// Pages that need a signed-in user, without the locale prefix.
-const protectedPrefixes = ["/portal", "/acceso/verificacion", "/acceso/nueva-contrasena"];
+// Pages that need a session, without the locale prefix. The API decides what
+// each session may actually see.
+const protectedPrefixes = ["/portal", "/seguridad", "/acceso/verificacion", "/acceso/nueva-contrasena"];
 
 function stripLocale(pathname: string) {
   const [, first, ...rest] = pathname.split("/");
@@ -17,18 +18,13 @@ function stripLocale(pathname: string) {
 
 export default async function proxy(request: NextRequest) {
   const response = handleI18n(request);
-  const claims = await refreshSession(request, response);
+  const hasSession = await refreshSession(request, response);
 
   const path = stripLocale(request.nextUrl.pathname);
-  const needsAuth = protectedPrefixes.some(
-    (p) => path === p || path.startsWith(p + "/"),
-  );
+  const needsAuth = protectedPrefixes.some((p) => path === p || path.startsWith(p + "/"));
 
-  if (needsAuth && !claims) {
-    const prefix = request.nextUrl.pathname.slice(
-      0,
-      request.nextUrl.pathname.length - path.length,
-    );
+  if (needsAuth && !hasSession) {
+    const prefix = request.nextUrl.pathname.slice(0, request.nextUrl.pathname.length - path.length);
     const url = request.nextUrl.clone();
     url.pathname = `${prefix}/acceso`;
     const redirect = NextResponse.redirect(url);

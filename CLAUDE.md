@@ -19,7 +19,7 @@ The original site (`legacy/`) is plain HTML/CSS/JS with hand-built routing, i18n
 ## Repository layout
 
 ```
-apps/web/     Frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-intl, @supabase/ssr
+apps/web/     Frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-intl; talks only to the API
 apps/api/     API for web + future mobile: Hono, zod-openapi, pg + PgTyped (.sql files), Supabase Auth tokens
 packages/api-client/  Typed API client generated from the OpenAPI spec (openapi-fetch), for web and mobile
 legacy/       Original static site (reference only). Has its own package.json and tests.
@@ -37,7 +37,8 @@ Planned: `packages/shared` (domain logic such as the cost engine). Hosting: Verc
 - Supabase-specific dependencies of the schema are few (`auth.uid()/jwt()`, `auth.users`, `auth.sessions`, `storage.objects`, one Vault secret, roles): `apps/api/test/db/supabase-shim.sql` lists them and recreates them on plain Postgres.
 - Edge Functions (`supabase/arts-edition/functions/`): document generation (pdf-lib, jszip), upload validation, rebranding, AI recipe assistant, account creation, invitation/recovery helpers.
 - **API layer (`apps/api`)**: Supabase Auth issues tokens; the API verifies them and runs each request as the user in Postgres (`asUser`: role `authenticated` + `request.jwt.claims`), so the existing functions and RLS apply unchanged. Keep business rules in SQL functions; queries are `.sql` files in `apps/api/src/queries/` compiled by PgTyped into typed `*.queries.ts` (run `db:gen` after editing; no supabase-js/PostgREST on the server) so the database stays portable. Tests run against the production schema on a local Postgres. See `apps/api/README.md`.
-- **Web → API**: the web app uses Supabase only for sign-in/session cookies; all data goes through the API with the typed client (`apps/web/src/lib/api.ts`). After an API change, run `pnpm --filter @compi/api openapi:export` to update `packages/api-client`.
+- **Web → API**: the web app never talks to Supabase. Sign-in, refresh, two-step codes, recovery and invitations go through `/v1/auth/*`; the tokens live in httpOnly cookies (`src/lib/session*.ts`, refreshed in `src/proxy.ts`); all data goes through the typed client (`apps/web/src/lib/api.ts`).
+- **Auth provider**: Supabase Auth by default, behind `AuthProvider` (`apps/api/src/auth/provider.ts`, adapter `supabase-provider.ts`). Two-step verification is a 6-digit code emailed with Resend, issued/checked in Postgres (`compi_private.second_factor_*`). After an API change, run `pnpm --filter @compi/api openapi:export` to update `packages/api-client`.
 - Legacy frontend calls Supabase REST/RPC directly via `fetch` (`legacy/public/portal.js`, see `api()`), with RPC names rewritten by `legacy/public/hotel-arts-api.js`.
 
 ## Commands (pnpm workspace, Node >= 22.12)
@@ -59,13 +60,13 @@ cd legacy && npm ci && npm test           # legacy build tests
 ## Conventions (apps/web)
 
 - Next.js 16 differs from older versions: read `apps/web/node_modules/next/dist/docs/` before using an API you are unsure of. `middleware` is now `src/proxy.ts`; `params`/`cookies()` are async; Cache Components is on (request-time reads such as the session must sit inside `<Suspense>`); the locale comes from `next/root-params` (not available in Server Actions, so pass the locale explicitly or return error codes for the client to translate).
-- Session reads go through `getCurrentUser()` in `src/lib/auth.ts` (uses `getClaims()`, never trust `getSession()` on the server).
+- Data and session checks go through the API (`getApi()`, `sessionDestination()` in `src/lib/api.ts`); never decode tokens to make authorization decisions in the web app.
 - **Visual parity is a requirement**: ported screens must look and move exactly like the legacy ones. Copy values from the legacy CSS (`legacy/public/*.css`) as-is, including `clamp()` sizes, and check with `apps/web/scripts/parity/` (target: 0 differences at all widths, in `en` and `ar`).
 - Styling: Tailwind with the brand tokens in `src/app/globals.css` (`text-green`, `bg-green-soft`, `text-muted`, `border-line`, `rounded-control`, `font-display`...) and the shared utilities `shell`, `home-wrap`, `kicker`, `btn-home`, `btn` + `btn-primary`, `alert-error`. Legacy breakpoints are max-width: use the `max-960` … `max-360` variants (their order in `globals.css` matters: widest first). Use logical properties (`ms-`, `pe-`, `start-`) for RTL unless the legacy CSS used a physical one.
 - Motion: `carbon()` in `src/lib/motion.ts` is the legacy "carbon" preset (Web Animations API, respects reduced motion). Port other presets from `legacy/public/motion-choices.js` there when a screen needs them.
 - Selects: Radix Select styled like the legacy menu (see `src/components/language-picker.tsx`).
 - If a build serves stale CSS, delete `apps/web/.next` (Turbopack cache).
-- Translations: add semantic keys to `apps/web/scripts/legacy-keys.mjs` mapped to the legacy Spanish source string, then run `messages:import`. Do not hand-edit `messages/*.json`.
+- Translations: add semantic keys to `apps/web/scripts/legacy-keys.mjs` mapped to the legacy Spanish source string; strings that never existed in legacy go to `scripts/new-messages.mjs` with all 7 languages. Then run `messages:import`. Do not hand-edit `messages/*.json`.
 - Mark unported legacy behavior with `TODO(port):`.
 
 ## Rules

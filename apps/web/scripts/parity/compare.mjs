@@ -30,6 +30,17 @@ const pages = {
     submit: ['#login button', 'form button'], forgot: ['.auth-content #login + a', 'main form + a'],
     photo: ['.auth-photo', 'main div[aria-hidden]'],
   }},
+  recover: { legacy: `${L}/#/recuperar`, next: `${N}/${lang}/recuperar`, wait: 'input[name=password], input[type=password]', pairs: {
+    header: ['.masthead', 'header'], h1: ['.auth-content h1', 'main h1'], intro: ['.auth-content .intro', 'main h1 + p'],
+    emailLabel: ['.recovery-view label', 'main form label'], email: ['.recovery-view input[type=email]', 'input[name=email]'],
+    code: ['.recovery-view label:nth-of-type(2) input', 'input[name=code]'],
+    password: ['.recovery-view label:nth-of-type(3) input', 'input[name=password]'],
+    submit: ['.recovery-view form button', 'main form button'], back: ['.recovery-view > a', 'main form ~ a'],
+  }},
+  invitation: { legacy: `${L}/invitacion.html`, next: `${N}/${lang}/invitacion`, wait: '#intro', pairs: {
+    header: ['.masthead', 'header'], logo: ['.masthead .brand img', 'header img'], lab: ['.lab-context', 'header span.ml-auto'], h1: ['.auth-content h1', 'main h1'],
+    intro: ['#intro', '#intro'], back: ['#back', 'main h1 ~ a'], photo: ['.auth-photo', 'main div[aria-hidden]'],
+  }},
 };
 const props = ['fontSize','fontFamily','fontWeight','color','backgroundColor','letterSpacing','lineHeight','borderTopColor','borderTopWidth','borderRadius','textDecorationLine','paddingLeft','paddingTop'];
 async function measure(page, url, wait, sels) {
