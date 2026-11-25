@@ -6,7 +6,15 @@ import { fileURLToPath } from "node:url";
 import { createApp } from "../src/app.js";
 import type { Deps } from "../src/http/types.js";
 
-const app = createApp({ config: { corsOrigins: [] } } as unknown as Deps);
+const unused = () => {
+  throw new Error("not available while exporting the spec");
+};
+const app = createApp({
+  pool: {} as Deps["pool"],
+  auth: { verifyToken: unused, signInWithPassword: unused, refresh: unused, signOut: unused, admin: { createUser: unused, updateUser: unused } },
+  mailer: { send: unused },
+  config: { appUrl: "", serverSecret: "", corsOrigins: [] },
+});
 const spec = await (await app.request("/v1/openapi.json")).json();
 const target = fileURLToPath(new URL("../../../packages/api-client/openapi.json", import.meta.url));
 await writeFile(target, JSON.stringify(spec, null, 2) + "\n");
