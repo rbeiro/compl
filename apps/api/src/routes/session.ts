@@ -3,7 +3,7 @@ import { asUser } from "../db/client.js";
 import { requireUser } from "../http/auth.js";
 import { ErrorSchema } from "../http/errors.js";
 import type { App, Deps } from "../http/types.js";
-import { myHotels, needsMfa } from "../queries/access.js";
+import { listMyHotels, needsMfa } from "../queries/access.queries.js";
 
 const errors = {
   401: { description: "Missing, invalid or expired session.", content: { "application/json": { schema: ErrorSchema } } },
@@ -50,14 +50,14 @@ export function sessionRoutes(app: App, deps: Deps) {
     }),
     async (c) => {
       const claims = c.var.claims;
-      const mfa = await asUser(deps.sql, claims, needsMfa);
+      const [row] = await asUser(deps.pool, claims, (tx) => needsMfa.run(undefined, tx));
       const appMeta = (claims.app_metadata ?? {}) as Record<string, unknown>;
       return c.json(
         {
           userId: claims.sub,
           email: typeof claims.email === "string" ? claims.email : null,
           aal: typeof claims.aal === "string" ? claims.aal : null,
-          needsMfa: mfa,
+          needsMfa: row?.needsMfa ?? false,
           mustChangePassword: appMeta.compi_must_change === "true",
         },
         200,
@@ -77,9 +77,9 @@ export function sessionRoutes(app: App, deps: Deps) {
     }),
     async (c) => {
       const claims = c.var.claims;
-      const hotels = await asUser(deps.sql, claims, myHotels);
+      const hotels = await asUser(deps.pool, claims, (tx) => listMyHotels.run(undefined, tx));
       return c.json(
-        { userId: claims.sub, email: typeof claims.email === "string" ? claims.email : null, hotels: [...hotels] },
+        { userId: claims.sub, email: typeof claims.email === "string" ? claims.email : null, hotels },
         200,
       );
     },

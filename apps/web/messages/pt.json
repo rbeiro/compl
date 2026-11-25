@@ -40,6 +40,16 @@
     "mailTitle": "Correio interno",
     "mailBody": "Escreve aos colegas do hotel, responde aos avisos do turno e organiza as mensagens com favoritos e pastas pessoais."
   },
+  "Verification": {
+    "metaTitle": "Verificação em dois passos · CompI",
+    "title": "Verificação em dois passos",
+    "intro": "Introduza o código que aparece agora na aplicação de autenticação."
+  },
+  "PasswordChange": {
+    "metaTitle": "Altere a palavra-passe · CompI",
+    "title": "Escolha uma nova palavra-passe",
+    "intro": "Entrou com uma palavra-passe temporária. Escolha uma sua para continuar."
+  },
   "Login": {
     "metaTitle": "Iniciar sessão · CompI",
     "intro": "Inicia sessão com a tua conta de colaborador para acederes ao espaço de trabalho do teu hotel.",

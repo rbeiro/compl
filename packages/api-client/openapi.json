@@ -1,0 +1,541 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CompI API",
+    "version": "1.0.0",
+    "description": "API for the CompI web and mobile apps. Authenticate with a Supabase Auth access token."
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Supabase Auth access token of the signed-in employee."
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ]
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "aal": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "needsMfa": {
+            "type": "boolean",
+            "description": "Rank-1 accounts must verify a second factor before using the workspace."
+          },
+          "mustChangePassword": {
+            "type": "boolean",
+            "description": "Signed in with a temporary password; it must be changed first."
+          }
+        },
+        "required": [
+          "userId",
+          "email",
+          "aal",
+          "needsMfa",
+          "mustChangePassword"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "session_expired"
+              },
+              "message": {
+                "type": "string",
+                "example": "Sign in again."
+              },
+              "detail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "Me": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hotels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hotelKey": {
+                  "type": "string",
+                  "example": "hotel-arts-barcelona"
+                },
+                "accessRank": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 3,
+                  "description": "1 = executive chef, 2 = editor, 3 = staff."
+                }
+              },
+              "required": [
+                "hotelKey",
+                "accessRank"
+              ]
+            }
+          }
+        },
+        "required": [
+          "userId",
+          "email",
+          "hotels"
+        ]
+      },
+      "Outlet": {
+        "type": "object",
+        "properties": {
+          "hotelKey": {
+            "type": "string"
+          },
+          "outletKey": {
+            "type": "string"
+          },
+          "hotel": {
+            "type": "string"
+          },
+          "outlet": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hotelKey",
+          "outletKey",
+          "hotel",
+          "outlet"
+        ]
+      },
+      "GuidePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Guide"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Pass as `cursor` to get the next page; null on the last page."
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "Guide": {
+        "type": "object",
+        "properties": {
+          "hotelKey": {
+            "type": "string"
+          },
+          "outletKey": {
+            "type": "string"
+          },
+          "guideKey": {
+            "type": "string"
+          },
+          "hotel": {
+            "type": "string"
+          },
+          "outlet": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "ready",
+              "archived"
+            ]
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reviewed": {
+            "type": "boolean"
+          },
+          "canClassify": {
+            "type": "boolean"
+          },
+          "hasSource": {
+            "type": "boolean"
+          },
+          "hasImage": {
+            "type": "boolean"
+          },
+          "imageKind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hasCleanImage": {
+            "type": "boolean"
+          },
+          "station": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Partida (kitchen station)."
+          },
+          "portion": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Ración."
+          },
+          "pass": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Pase."
+          },
+          "serviceNotes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Notes for front of house (sala), Spanish."
+          },
+          "englishName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "hotelKey",
+          "outletKey",
+          "guideKey",
+          "hotel",
+          "outlet",
+          "title",
+          "state",
+          "kind",
+          "category",
+          "reviewed",
+          "canClassify",
+          "hasSource",
+          "hasImage",
+          "imageKind",
+          "hasCleanImage",
+          "station",
+          "portion",
+          "pass",
+          "serviceNotes",
+          "englishName"
+        ]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Liveness",
+        "responses": {
+          "200": {
+            "description": "The API is running.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health/ready": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Readiness (database reachable)",
+        "responses": {
+          "200": {
+            "description": "Ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Database unreachable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/session": {
+      "get": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Session status",
+        "description": "What the client must do before opening the workspace. Works for any valid token, including sessions that still need MFA or a password change.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Current user and hotel access",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The signed-in employee.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Me"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/outlets": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Outlets the user can see",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Outlets, ordered by hotel and name.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Outlet"
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Plating guides the user can see",
+        "description": "Paginated. Drafts are only visible to the executive chef and to their author.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 400
+            },
+            "required": false,
+            "name": "cursor",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 100
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of guides.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuidePage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid query parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}

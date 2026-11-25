@@ -1,13 +1,12 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { signOut } from "@/app/actions/auth";
-import { Icon } from "@/components/icon";
+import { SignOutButton } from "@/components/sign-out-button";
 import { SiteHeader } from "@/components/site-header";
 import { redirect } from "@/i18n/navigation";
-import { getCurrentUser } from "@/lib/auth";
+import { getApi, sessionDestination } from "@/lib/api";
 
-// Workspace entry point. The proxy already redirects anonymous visitors;
-// the check below is the authoritative one.
+// Workspace entry point. The proxy already redirects anonymous visitors; the
+// API (and the database rules behind it) decide what the user can see.
 export default async function PortalPage() {
   const c = await getTranslations("Common");
 
@@ -26,21 +25,43 @@ export default async function PortalPage() {
 
 async function Workspace() {
   const locale = await getLocale();
-  const user = await getCurrentUser();
-  if (!user) redirect({ href: "/acceso", locale });
+  const api = await getApi();
+  if (!api) return redirect({ href: "/acceso", locale });
 
-  const c = await getTranslations("Common");
+  // Two-step verification / temporary password come first, as in the legacy portal.
+  const destination = await sessionDestination(api);
+  if (destination !== "/portal") return redirect({ href: destination ?? "/acceso", locale });
 
+  const [me, outlets, guides] = await Promise.all([
+    api.GET("/v1/me"),
+    api.GET("/v1/outlets"),
+    api.GET("/v1/guides", { params: { query: { limit: 200 } } }),
+  ]);
+  if (me.response.status === 401) return redirect({ href: "/acceso", locale });
+  if (!me.data || !outlets.data || !guides.data) {
+    throw new Error("The workspace could not be loaded from the API.");
+  }
+
+  // TODO(port): workspace shell (legacy workspace-shell.js): guides, recipes,
+  // costs, mail, schedules, staff. This placeholder only proves the data flow.
   return (
-    <div className="space-y-6">
-      <p className="text-muted">{user?.email}</p>
-      {/* TODO(port): workspace shell, guides, recipes, costs, mail, schedules, staff. */}
-      <form action={signOut}>
-        <input type="hidden" name="locale" value={locale} />
-        <button type="submit" className="btn">
-          <Icon name="logout" /> {c("signOut")}
-        </button>
-      </form>
+    <div className="space-y-6" data-testid="workspace">
+      <p className="text-muted">{me.data.email}</p>
+      <ul className="space-y-1">
+        {me.data.hotels.map((h) => (
+          <li key={h.hotelKey}>
+            {h.hotelKey} · rank {h.accessRank}
+          </li>
+        ))}
+      </ul>
+      <ul className="space-y-1" aria-label="Outlets">
+        {outlets.data.items.map((o) => (
+          <li key={`${o.hotelKey}/${o.outletKey}`}>
+            {o.outlet} ({guides.data.items.filter((g) => g.hotelKey === o.hotelKey && g.outletKey === o.outletKey).length})
+          </li>
+        ))}
+      </ul>
+      <SignOutButton />
     </div>
   );
 }

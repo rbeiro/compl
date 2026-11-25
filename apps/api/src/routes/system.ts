@@ -3,7 +3,7 @@ import type { App, Deps } from "../http/types.js";
 
 const Health = z.object({ ok: z.boolean() }).openapi("Health");
 
-export function systemRoutes(app: App, { sql }: Deps) {
+export function systemRoutes(app: App, { pool }: Deps) {
   app.openapi(
     createRoute({
       method: "get",
@@ -28,7 +28,7 @@ export function systemRoutes(app: App, { sql }: Deps) {
     }),
     async (c) => {
       try {
-        await sql`select 1`;
+        await pool.query("select 1");
         return c.json({ ok: true }, 200);
       } catch {
         return c.json({ ok: false }, 503);

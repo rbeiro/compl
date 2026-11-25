@@ -40,6 +40,16 @@
     "mailTitle": "Internal email",
     "mailBody": "Email your hotel colleagues, reply to shift updates and organise your messages with favourites and personal folders."
   },
+  "Verification": {
+    "metaTitle": "Two-step verification · CompI",
+    "title": "Two-step verification",
+    "intro": "Enter the code currently shown in your authenticator app."
+  },
+  "PasswordChange": {
+    "metaTitle": "Change your password · CompI",
+    "title": "Choose a new password",
+    "intro": "You signed in with a temporary password. Choose your own to continue."
+  },
   "Login": {
     "metaTitle": "Sign in · CompI",
     "intro": "Sign in with your employee account to open your hotel’s workspace.",

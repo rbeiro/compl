@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { z } from "zod";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { apiWithToken, sessionDestination } from "@/lib/api";
 import { createClient } from "@/lib/supabase/server";
 
 export type SignInState = { error?: "credentials" | "rateLimit" | "network" };
@@ -28,7 +29,7 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
   if (!parsed.success) return { error: "credentials" };
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
     if (error.status === 429) return { error: "rateLimit" };
@@ -36,9 +37,14 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     return { error: "network" };
   }
 
-  // TODO(port): the legacy flow checks compi_needs_mfa (two-step verification)
-  // and compi_must_change (temporary password) before opening the workspace.
-  redirect({ href: "/portal", locale: localeFrom(formData) });
+  // Like the legacy portal, check two-step verification and temporary
+  // passwords before opening the workspace (GET /v1/session).
+  const destination = await sessionDestination(apiWithToken(data.session.access_token)).catch(() => null);
+  if (!destination) {
+    await supabase.auth.signOut({ scope: "local" });
+    return { error: "network" };
+  }
+  redirect({ href: destination, locale: localeFrom(formData) });
   return {};
 }
 

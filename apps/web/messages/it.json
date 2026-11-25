@@ -40,6 +40,16 @@
     "mailTitle": "Posta interna",
     "mailBody": "Scrivi ai colleghi dell’hotel, rispondi alle comunicazioni del turno e organizza i messaggi con i preferiti e le cartelle personali."
   },
+  "Verification": {
+    "metaTitle": "Verifica in due passaggi · CompI",
+    "title": "Verifica in due passaggi",
+    "intro": "Inserisci il codice che compare ora nella tua app di autenticazione."
+  },
+  "PasswordChange": {
+    "metaTitle": "Cambia la password · CompI",
+    "title": "Scegli una nuova password",
+    "intro": "Hai effettuato l’accesso con una password temporanea. Scegline una tua per continuare."
+  },
   "Login": {
     "metaTitle": "Accedi · CompI",
     "intro": "Accedi con il tuo account di lavoro per aprire l’area di lavoro del tuo hotel.",

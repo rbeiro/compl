@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { addStaff, bearer, createUser, ORIGIN, setupApp, tokenFor } from "./fixtures.js";
 
-const { sql, app } = setupApp();
+const { pool, app } = setupApp();
 const get = (path: string, init?: RequestInit) => app.request(path, init);
 // Response bodies are asserted field by field below, so `any` is acceptable here.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,38 +16,39 @@ let ended: Awaited<ReturnType<typeof createUser>>;
 
 beforeAll(async () => {
   [staff, chef, editor, outsider, temporary, ended] = await Promise.all([
-    createUser(sql, "staff@compichef.com"),
-    createUser(sql, "chef@compichef.com"),
-    createUser(sql, "editor@compichef.com"),
-    createUser(sql, "other@compichef.com"),
-    createUser(sql, "temp@compichef.com", { mustChange: true }),
-    createUser(sql, "ended@compichef.com", { sessionEnded: true }),
+    createUser(pool, "staff@compichef.com"),
+    createUser(pool, "chef@compichef.com"),
+    createUser(pool, "editor@compichef.com"),
+    createUser(pool, "other@compichef.com"),
+    createUser(pool, "temp@compichef.com", { mustChange: true }),
+    createUser(pool, "ended@compichef.com", { sessionEnded: true }),
   ]);
-  await addStaff(sql, staff, "hotel-arts", 3);
-  await addStaff(sql, chef, "hotel-arts", 1);
-  await addStaff(sql, editor, "hotel-arts", 2);
-  await addStaff(sql, outsider, "hotel-otro", 3);
-  await addStaff(sql, temporary, "hotel-arts", 3);
-  await addStaff(sql, ended, "hotel-arts", 3);
+  await addStaff(pool, staff, "hotel-arts", 3);
+  await addStaff(pool, chef, "hotel-arts", 1);
+  await addStaff(pool, editor, "hotel-arts", 2);
+  await addStaff(pool, outsider, "hotel-otro", 3);
+  await addStaff(pool, temporary, "hotel-arts", 3);
+  await addStaff(pool, ended, "hotel-arts", 3);
 
-  await sql`
+  await pool.query(`
     insert into public.compi_arts_outlets (hotel_key, outlet_key, hotel, outlet, archived) values
       ('hotel-arts', 'enoteca', 'Hotel Arts', 'Enoteca', false),
       ('hotel-arts', 'p41', 'Hotel Arts', 'P41', false),
       ('hotel-arts', 'cerrado', 'Hotel Arts', 'Cerrado', true),
       ('hotel-otro', 'bar', 'Hotel Otro', 'Bar', false)
-  `;
-  await sql`
-    insert into public.compi_arts_guides (hotel_key, outlet_key, guide_key, hotel, outlet, title, guide_state, created_by) values
+  `);
+  await pool.query(
+    `insert into public.compi_arts_guides (hotel_key, outlet_key, guide_key, hotel, outlet, title, guide_state, created_by) values
       ('hotel-arts', 'enoteca', 'arroz', 'Hotel Arts', 'Enoteca', 'Arroz', 'ready', null),
-      ('hotel-arts', 'enoteca', 'borrador', 'Hotel Arts', 'Enoteca', 'Borrador', 'draft', ${editor.userId}),
+      ('hotel-arts', 'enoteca', 'borrador', 'Hotel Arts', 'Enoteca', 'Borrador', 'draft', $1),
       ('hotel-arts', 'p41', 'tartar', 'Hotel Arts', 'P41', 'Tartar', 'ready', null),
       ('hotel-arts', 'cerrado', 'viejo', 'Hotel Arts', 'Cerrado', 'Viejo', 'ready', null),
-      ('hotel-otro', 'bar', 'secreto', 'Hotel Otro', 'Bar', 'Secreto', 'ready', null)
-  `;
+      ('hotel-otro', 'bar', 'secreto', 'Hotel Otro', 'Bar', 'Secreto', 'ready', null)`,
+    [editor.userId],
+  );
 });
 
-afterAll(() => sql.end());
+afterAll(() => pool.end());
 
 describe("system", () => {
   it("reports liveness and database readiness", async () => {

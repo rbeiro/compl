@@ -48,6 +48,16 @@ const legacyKeys = {
     mailBody:
       'Escribe a tus compañeros del hotel, responde a los avisos del turno y organiza tus mensajes con favoritos y carpetas personales.',
   },
+  Verification: {
+    metaTitle: 'Verificación en dos pasos · CompI',
+    title: 'Verificación en dos pasos',
+    intro: 'Introduce el código actual de tu aplicación de autenticación.',
+  },
+  PasswordChange: {
+    metaTitle: 'Cambia tu contraseña · CompI',
+    title: 'Elige una contraseña nueva',
+    intro: 'Has entrado con una contraseña temporal. Elige una propia para continuar.',
+  },
   Login: {
     metaTitle: 'Iniciar sesión · CompI',
     intro: 'Entra con tu cuenta de empleado para abrir el espacio de trabajo de tu hotel.',

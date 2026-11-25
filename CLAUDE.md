@@ -20,14 +20,15 @@ The original site (`legacy/`) is plain HTML/CSS/JS with hand-built routing, i18n
 
 ```
 apps/web/     Frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-intl, @supabase/ssr
-apps/api/     API for web + future mobile: Hono, zod-openapi, postgres.js (plain SQL), Supabase Auth tokens
+apps/api/     API for web + future mobile: Hono, zod-openapi, pg + PgTyped (.sql files), Supabase Auth tokens
+packages/api-client/  Typed API client generated from the OpenAPI spec (openapi-fetch), for web and mobile
 legacy/       Original static site (reference only). Has its own package.json and tests.
 supabase/     migrations/ (29, recovered from production history), inventory/remote_schema.sql
               (full current schema dump), arts-edition/ (Edge Functions + older SQL), config.toml
 legacy/deployment/  Pending SQL proposals and test scripts from the previous owner (never applied)
 ```
 
-Planned: `packages/shared` (zod schemas, domain logic such as the cost engine), generated API client for web/mobile.
+Planned: `packages/shared` (domain logic such as the cost engine). Hosting: Vercel (web and API, two projects) + Supabase.
 
 ## Backend (Supabase)
 
@@ -35,7 +36,8 @@ Planned: `packages/shared` (zod schemas, domain logic such as the cost engine), 
 - Schema in the repo: `supabase/migrations/` (production migration history) and `supabase/inventory/remote_schema.sql` (current dump of `public` + `compi_private`). Re-dump with `supabase db dump --remote -f supabase/inventory/remote_schema.sql` after schema changes; changes made outside migrations show up as a diff there.
 - Supabase-specific dependencies of the schema are few (`auth.uid()/jwt()`, `auth.users`, `auth.sessions`, `storage.objects`, one Vault secret, roles): `apps/api/test/db/supabase-shim.sql` lists them and recreates them on plain Postgres.
 - Edge Functions (`supabase/arts-edition/functions/`): document generation (pdf-lib, jszip), upload validation, rebranding, AI recipe assistant, account creation, invitation/recovery helpers.
-- **API layer (`apps/api`)**: Supabase Auth issues tokens; the API verifies them and runs each request as the user in Postgres (`asUser`: role `authenticated` + `request.jwt.claims`), so the existing functions and RLS apply unchanged. Keep business rules in SQL functions and queries in `apps/api/src/queries/` (plain SQL, no supabase-js/PostgREST on the server) so the database stays portable. Tests run against the production schema on a local Postgres. See `apps/api/README.md`.
+- **API layer (`apps/api`)**: Supabase Auth issues tokens; the API verifies them and runs each request as the user in Postgres (`asUser`: role `authenticated` + `request.jwt.claims`), so the existing functions and RLS apply unchanged. Keep business rules in SQL functions; queries are `.sql` files in `apps/api/src/queries/` compiled by PgTyped into typed `*.queries.ts` (run `db:gen` after editing; no supabase-js/PostgREST on the server) so the database stays portable. Tests run against the production schema on a local Postgres. See `apps/api/README.md`.
+- **Web → API**: the web app uses Supabase only for sign-in/session cookies; all data goes through the API with the typed client (`apps/web/src/lib/api.ts`). After an API change, run `pnpm --filter @compi/api openapi:export` to update `packages/api-client`.
 - Legacy frontend calls Supabase REST/RPC directly via `fetch` (`legacy/public/portal.js`, see `api()`), with RPC names rewritten by `legacy/public/hotel-arts-api.js`.
 
 ## Commands (pnpm workspace, Node >= 22.12)
@@ -46,7 +48,10 @@ pnpm dev                                  # apps/web on :3000
 pnpm dev:api                              # apps/api on :8787 (docs at /docs)
 pnpm build | pnpm lint | pnpm typecheck | pnpm test
 pnpm clean                                # delete build caches (fixes stale CSS)
-pnpm --filter @compi/api db:local         # local Postgres DB with the production schema
+pnpm --filter @compi/api db:local         # local Postgres DB: production schema + demo users
+pnpm --filter @compi/api db:gen           # regenerate typed queries from src/queries/*.sql
+pnpm --filter @compi/api dev:auth         # local fake Supabase Auth (dev only) — see apps/api/README.md
+pnpm --filter @compi/api openapi:export   # update packages/api-client from the API spec
 pnpm --filter @compi/web messages:import  # regenerate translations from legacy catalogs
 cd legacy && npm ci && npm test           # legacy build tests
 ```

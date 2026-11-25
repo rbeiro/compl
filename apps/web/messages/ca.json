@@ -40,6 +40,16 @@
     "mailTitle": "Correu intern",
     "mailBody": "Escriu als companys de l’hotel, respon als avisos del torn i organitza els missatges amb preferits i carpetes personals."
   },
+  "Verification": {
+    "metaTitle": "Verificació en dos passos · CompI",
+    "title": "Verificació en dos passos",
+    "intro": "Introdueix el codi que mostra ara l’aplicació d’autenticació."
+  },
+  "PasswordChange": {
+    "metaTitle": "Canvia la contrasenya · CompI",
+    "title": "Tria una contrasenya nova",
+    "intro": "Has entrat amb una contrasenya temporal. Tria’n una de pròpia per continuar."
+  },
   "Login": {
     "metaTitle": "Inicia la sessió · CompI",
     "intro": "Accedeix amb el teu compte d’empleat per obrir l’espai de treball del teu hotel.",

@@ -6,7 +6,7 @@ import { refreshSession } from "@/lib/supabase/proxy";
 const handleI18n = createIntlMiddleware(routing);
 
 // Pages that need a signed-in user, without the locale prefix.
-const protectedPrefixes = ["/portal"];
+const protectedPrefixes = ["/portal", "/acceso/verificacion", "/acceso/nueva-contrasena"];
 
 function stripLocale(pathname: string) {
   const [, first, ...rest] = pathname.split("/");

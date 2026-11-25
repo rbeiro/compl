@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  // Workspace package shipped as TypeScript source.
+  transpilePackages: ["@compi/api-client"],
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

@@ -9,19 +9,26 @@
     "start": "node --env-file-if-exists=.env dist/node.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "db:local": "tsx test/db/create-db.ts"
+    "db:local": "tsx test/db/create-db.ts",
+    "db:gen": "DATABASE_URL=${DATABASE_URL:-postgres://postgres:postgres@127.0.0.1:5432/compi_dev} pgtyped -c pgtyped.config.json",
+    "openapi:export": "tsx scripts/export-openapi.ts && pnpm --filter @compi/api-client generate",
+    "dev:auth": "tsx dev/fake-supabase-auth.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.11",
     "@hono/zod-openapi": "^1.6.3",
+    "@pgtyped/runtime": "^2.4.2",
     "@scalar/hono-api-reference": "^0.12.24",
+    "@vercel/functions": "^3.11.3",
     "hono": "^4.13.22",
     "jose": "^6.2.18",
-    "postgres": "^4.1.1",
+    "pg": "^8.23.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@pgtyped/cli": "^2.4.3",
     "@types/node": "^20.19.43",
+    "@types/pg": "^8.23.1",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vitest": "^5.1.1"

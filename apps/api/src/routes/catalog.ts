@@ -3,7 +3,9 @@ import { asUser } from "../db/client.js";
 import { requireUser } from "../http/auth.js";
 import { ApiError, ErrorSchema } from "../http/errors.js";
 import type { App, Deps } from "../http/types.js";
-import { guides, outlets, type GuideCursor } from "../queries/catalog.js";
+import { listGuides, listOutlets } from "../queries/catalog.queries.js";
+
+type GuideCursor = { hotelKey: string; outletKey: string; guideKey: string };
 
 const json = (schema: z.ZodType) => ({ "application/json": { schema } });
 const errors = {
@@ -15,6 +17,8 @@ const Outlet = z
   .object({ hotelKey: z.string(), outletKey: z.string(), hotel: z.string(), outlet: z.string() })
   .openapi("Outlet");
 
+const GuideState = z.enum(["draft", "ready", "archived"]);
+
 const Guide = z
   .object({
     hotelKey: z.string(),
@@ -23,7 +27,7 @@ const Guide = z
     hotel: z.string(),
     outlet: z.string(),
     title: z.string(),
-    state: z.enum(["draft", "ready", "archived"]),
+    state: GuideState,
     kind: z.string().nullable(),
     category: z.string().nullable(),
     reviewed: z.boolean(),
@@ -84,8 +88,8 @@ export function catalogRoutes(app: App, deps: Deps) {
       },
     }),
     async (c) => {
-      const rows = await asUser(deps.sql, c.var.claims, outlets);
-      return c.json({ items: [...rows] }, 200);
+      const items = await asUser(deps.pool, c.var.claims, (tx) => listOutlets.run(undefined, tx));
+      return c.json({ items }, 200);
     },
   );
 
@@ -103,9 +107,16 @@ export function catalogRoutes(app: App, deps: Deps) {
     }),
     async (c) => {
       const { cursor, limit } = c.req.valid("query");
-      const rows = await asUser(deps.sql, c.var.claims, (tx) => guides(tx, decodeCursor(cursor), limit));
-      const last = rows.at(-1);
-      return c.json({ items: [...rows], nextCursor: rows.length === limit && last ? encodeCursor(last) : null }, 200);
+      const after = decodeCursor(cursor);
+      const rows = await asUser(deps.pool, c.var.claims, (tx) =>
+        listGuides.run(
+          { afterHotel: after?.hotelKey ?? "", afterOutlet: after?.outletKey ?? "", afterGuide: after?.guideKey ?? "", limit },
+          tx,
+        ),
+      );
+      const items = rows.map((row) => ({ ...row, state: GuideState.parse(row.state) }));
+      const last = items.at(-1);
+      return c.json({ items, nextCursor: items.length === limit && last ? encodeCursor(last) : null }, 200);
     },
   );
 }
