@@ -31,7 +31,12 @@ class GoTrueError extends Error {
   }
 }
 
-export async function startFakeSupabaseAuth(options: { port?: number; databaseUrl: string }) {
+export async function startFakeSupabaseAuth(options: {
+  port?: number;
+  databaseUrl: string;
+  /** Assurance level put in tokens. "aal2" makes sessions count as MFA-verified (legacy UI checks). */
+  aal?: "aal1" | "aal2";
+}) {
   const pool = new pg.Pool({ connectionString: options.databaseUrl, max: 3 });
   const { publicKey, privateKey } = await generateKeyPair("ES256");
   const kid = randomUUID();
@@ -58,7 +63,7 @@ export async function startFakeSupabaseAuth(options: { port?: number; databaseUr
     const accessToken = await new SignJWT({
       email: user.email,
       role: "authenticated",
-      aal: "aal1",
+      aal: options.aal ?? "aal1",
       session_id: sessionId,
       amr: [{ method: "password", timestamp: signedInAt.get(sessionId) ?? Math.floor(Date.now() / 1000) }],
       app_metadata: user.raw_app_meta_data,

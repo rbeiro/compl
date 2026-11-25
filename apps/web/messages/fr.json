@@ -41,6 +41,46 @@
     "mailTitle": "Messagerie interne",
     "mailBody": "Écrivez à vos collègues de l’hôtel, répondez aux messages de l’équipe de service et organisez vos échanges à l’aide des favoris et des dossiers personnels."
   },
+  "Workspace": {
+    "home": "Accueil",
+    "schedules": "Plannings",
+    "team": "Équipe",
+    "recipes": "Recettes",
+    "costs": "Coûts des recettes",
+    "plating": "Guides de dressage",
+    "generate": "Génération de recettes",
+    "archive": "Archives",
+    "mail": "Messagerie",
+    "security": "Sécurité",
+    "archiveTitle": "Mes documents",
+    "securityTitle": "Récupération du compte",
+    "closeMenu": "Fermer le menu",
+    "openMenu": "Ouvrir le menu",
+    "mainNav": "Navigation principale",
+    "pageTitle": "{section} · Portail CompI",
+    "restricted": "Accès restreint",
+    "noHotel": "Votre compte n’a pas encore accès à un hôtel.",
+    "loading": "Chargement…"
+  },
+  "Home": {
+    "title": "Votre cuisine, en harmonie.",
+    "intro": "Consultez l’activité et les fiches de votre équipe.",
+    "createSheet": "Créer une fiche",
+    "viewRecipes": "Voir le recueil de recettes",
+    "yourSpace": "Votre espace de travail",
+    "outletOne": "{count} point de restauration",
+    "outletMany": "{count} points de restauration",
+    "viewSchedules": "Voir les plannings",
+    "summary": "Aperçu du catalogue",
+    "hotels": "Hôtels",
+    "outlets": "Points de restauration",
+    "sheets": "Fiches techniques",
+    "drafts": "Brouillons",
+    "inRecipes": "Dans votre recueil de recettes",
+    "noDocuments": "Aucun document n’est encore disponible pour votre compte.",
+    "sheetState": "État des fiches",
+    "published": "Publiées"
+  },
   "Verification": {
     "metaTitle": "Vérification en deux étapes · CompI",
     "title": "Vérification en deux étapes",
@@ -112,7 +152,7 @@
     "copyNow": "Copiez ce code maintenant. Il s’affiche uniquement sur cet écran.",
     "reauth": "Par sécurité, déconnectez-vous puis reconnectez-vous avec votre mot de passe avant de générer le code.",
     "failed": "Le code n’a pas pu être généré. Réessayez.",
-    "back": "Revenir à mon espace de travail"
+    "back": "Retour à mon espace de travail"
   },
   "Login": {
     "metaTitle": "Connexion · CompI",

@@ -7,7 +7,10 @@ const handleI18n = createIntlMiddleware(routing);
 
 // Pages that need a session, without the locale prefix. The API decides what
 // each session may actually see.
-const protectedPrefixes = ["/portal", "/seguridad", "/acceso/verificacion", "/acceso/nueva-contrasena"];
+const protectedPrefixes = [
+  "/portal", "/horarios", "/equipo", "/recetas", "/escandallos", "/plating", "/generar", "/marca", "/empresa",
+  "/correo", "/seguridad", "/acceso/verificacion", "/acceso/nueva-contrasena",
+];
 
 function stripLocale(pathname: string) {
   const [, first, ...rest] = pathname.split("/");

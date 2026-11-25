@@ -55,6 +55,7 @@ export function LanguagePicker() {
   return (
     <Select.Root value={value} onValueChange={choose} dir={rtlLocales.has(locale) ? "rtl" : "ltr"}>
       <Select.Trigger
+        data-language-picker
         aria-label={t("chooseLanguage")}
         title={t("chooseLanguage")}
         className="relative inline-flex min-h-11 min-w-11 flex-none cursor-pointer items-center justify-center gap-[.42rem] rounded-control border border-green bg-white px-[.7rem] py-[.35rem] text-green outline-offset-2 hover:shadow-[inset_0_0_0_1px_var(--color-green)] focus-visible:shadow-[inset_0_0_0_1px_var(--color-green)] focus-visible:outline-2 data-[state=open]:shadow-[inset_0_0_0_1px_var(--color-green)] max-960:p-[.35rem]"

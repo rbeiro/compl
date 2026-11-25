@@ -14,11 +14,16 @@
 /* Legacy breakpoints are max-width based. Registration order matters:
    Tailwind emits custom variants in this order, so the widest must come
    first and the narrowest last (narrower rules override wider ones). */
+@custom-variant max-1190 (@media (max-width: 1190px));
 @custom-variant max-960 (@media (max-width: 960px));
 @custom-variant max-900 (@media (max-width: 900px));
+@custom-variant max-850 (@media (max-width: 850px));
 @custom-variant max-780 (@media (max-width: 780px));
+@custom-variant max-760 (@media (max-width: 760px));
 @custom-variant max-720 (@media (max-width: 720px));
 @custom-variant max-620 (@media (max-width: 620px));
+@custom-variant max-580 (@media (max-width: 580px));
+@custom-variant max-460 (@media (max-width: 460px));
 @custom-variant max-440 (@media (max-width: 440px));
 @custom-variant max-420 (@media (max-width: 420px));
 @custom-variant max-380 (@media (max-width: 380px));
@@ -158,6 +163,21 @@
 /* Unlayered on purpose: must beat per-element tracking/leading utilities,
    as the legacy rule did through higher specificity. */
 [lang="ar"] :is(h1, h2, h3, .kicker) { letter-spacing: normal; line-height: 1.35; }
+
+/* Signed-in workspace palette and rail width (legacy workspace-shell.css). */
+@utility ws-vars {
+  --ws-rail-width: 232px;
+  --ws-paper: #fffefa;
+  --ws-line: #e3ded4;
+  --ws-rail: #f4f0e8;
+  --ws-deep: #194930;
+  --ws-muted: #626d64;
+  --ws-duration: 310ms;
+  --ws-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  @media (max-width: 1190px) { --ws-rail-width: 205px; }
+  @media (max-width: 760px) { --ws-rail-width: 0px; }
+  @media (prefers-reduced-motion: reduce) { --ws-duration: 0ms; }
+}
 
 /* Workspace / auth page width (`.shell`). */
 @utility shell {

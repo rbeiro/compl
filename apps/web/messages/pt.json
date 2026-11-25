@@ -41,6 +41,46 @@
     "mailTitle": "Correio interno",
     "mailBody": "Escreve aos colegas do hotel, responde aos avisos do turno e organiza as mensagens com favoritos e pastas pessoais."
   },
+  "Workspace": {
+    "home": "Início",
+    "schedules": "Horários",
+    "team": "Equipa",
+    "recipes": "Receitas",
+    "costs": "Custos das receitas",
+    "plating": "Guias de empratamento",
+    "generate": "Geração de receitas",
+    "archive": "Arquivo",
+    "mail": "Correio",
+    "security": "Segurança",
+    "archiveTitle": "Os meus documentos",
+    "securityTitle": "Recuperação de conta",
+    "closeMenu": "Fechar menu",
+    "openMenu": "Abrir menu",
+    "mainNav": "Navegação principal",
+    "pageTitle": "{section} · Portal CompI",
+    "restricted": "Acesso restrito",
+    "noHotel": "A tua conta ainda não tem acesso a nenhum hotel.",
+    "loading": "A carregar…"
+  },
+  "Home": {
+    "title": "A tua cozinha, em harmonia.",
+    "intro": "Consulta a atividade e as fichas da tua equipa.",
+    "createSheet": "Criar ficha",
+    "viewRecipes": "Ver o receituário",
+    "yourSpace": "O teu espaço de trabalho",
+    "outletOne": "{count} ponto de restauração",
+    "outletMany": "{count} pontos de restauração",
+    "viewSchedules": "Ver horários",
+    "summary": "Resumo do catálogo",
+    "hotels": "Hotéis",
+    "outlets": "Pontos de restauração",
+    "sheets": "Fichas técnicas",
+    "drafts": "Rascunhos",
+    "inRecipes": "No teu receituário",
+    "noDocuments": "Ainda não há documentos disponíveis para a tua conta.",
+    "sheetState": "Estado das fichas",
+    "published": "Publicadas"
+  },
   "Verification": {
     "metaTitle": "Verificação em dois passos · CompI",
     "title": "Verificação em dois passos",
@@ -112,7 +152,7 @@
     "copyNow": "Copie o código agora. Só é apresentado neste ecrã.",
     "reauth": "Por segurança, termine a sessão e volte a entrar com a sua palavra-passe antes de gerar o código.",
     "failed": "Não foi possível gerar o código. Tente novamente.",
-    "back": "Voltar à minha área de trabalho"
+    "back": "Voltar ao meu espaço de trabalho"
   },
   "Login": {
     "metaTitle": "Iniciar sessão · CompI",

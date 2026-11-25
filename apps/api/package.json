@@ -12,7 +12,8 @@
     "db:local": "tsx test/db/create-db.ts",
     "db:gen": "DATABASE_URL=${DATABASE_URL:-postgres://postgres:postgres@127.0.0.1:5432/compi_dev} pgtyped -c pgtyped.config.json",
     "openapi:export": "tsx scripts/export-openapi.ts && pnpm --filter @compi/api-client generate",
-    "dev:auth": "tsx dev/fake-supabase-auth.ts"
+    "dev:auth": "tsx dev/fake-supabase-auth.ts",
+    "dev:legacy-backend": "tsx dev/legacy-backend.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.11",

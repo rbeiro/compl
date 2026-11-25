@@ -11,11 +11,21 @@ const legacyLocales = join(here, '../../../legacy/public/locales');
 const messagesDir = join(here, '../messages');
 const columns = ['en', 'ca', 'it', 'pt', 'fr', 'ar'];
 
+// Same merge as legacy i18n.js: `{...kitchenTerms, ...workspacePickers, ...}`,
+// later catalogs override earlier ones for the same Spanish source.
+const legacyOrder = [
+  'kitchen-terms', 'workspace-pickers', 'pdf-reader', 'workspace-costs', 'workspace-recipes', 'landing',
+  'schedules', 'mail', 'staff', 'guide', 'guide-help', 'guide-assistant', 'auth', 'portal', 'document-brand',
+  'workspace-shell', 'workspace-operations', 'workspace-plating',
+];
+const files = (await readdir(legacyLocales)).filter(f => f.endsWith('.js')).map(f => f.slice(0, -3));
+const unknown = files.filter(f => !legacyOrder.includes(f));
+if (unknown.length) throw Error('Add these legacy catalogs to legacyOrder: ' + unknown.join(', '));
 const catalog = new Map();
-for (const file of (await readdir(legacyLocales)).filter(f => f.endsWith('.js')).sort()) {
-  const entries = (await import(pathToFileURL(join(legacyLocales, file)))).default;
+for (const file of legacyOrder) {
+  const entries = (await import(pathToFileURL(join(legacyLocales, file + '.js')))).default;
   for (const [source, forms] of Object.entries(entries)) {
-    if (!catalog.has(source) && Array.isArray(forms)) catalog.set(source, forms);
+    if (Array.isArray(forms)) catalog.set(source, forms);
   }
 }
 
