@@ -7,7 +7,7 @@
 --   roles anon / authenticated / service_role
 --   auth.uid(), auth.jwt()            -- read the JWT claims set per transaction
 --   auth.users, auth.sessions         -- columns used by the schema only
---   storage.objects                   -- existence checks on uploaded files
+--   storage.buckets / storage.objects -- buckets, existence checks on uploaded files
 --   vault.decrypted_secrets           -- one secret lookup
 --   extensions.pgcrypto / uuid-ossp
 -- Mirrors Supabase behavior; it is NOT a security boundary by itself.
@@ -60,6 +60,12 @@ create table if not exists auth.sessions (
   aal text,
   not_after timestamptz,
   created_at timestamptz not null default now()
+);
+
+create table if not exists storage.buckets (
+  id text primary key,
+  name text not null,
+  public boolean not null default false
 );
 
 create table if not exists storage.objects (

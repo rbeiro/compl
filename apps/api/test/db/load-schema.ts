@@ -1,11 +1,11 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import pg from "pg";
 
 const here = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const SHIM = here("./supabase-shim.sql");
-// The production schema as dumped from Supabase (public + compi_private).
-const SCHEMA = here("../../../../supabase/inventory/remote_schema.sql");
+// The same migrations a new Supabase project gets (`supabase db push`).
+const MIGRATIONS = here("../../../../supabase/migrations/");
 
 async function withClient<T>(url: string, fn: (c: pg.Client) => Promise<T>) {
   const client = new pg.Client({ connectionString: url });
@@ -17,7 +17,7 @@ async function withClient<T>(url: string, fn: (c: pg.Client) => Promise<T>) {
   }
 }
 
-/** Recreates `dbName` from scratch: Supabase shim + production schema. */
+/** Recreates `dbName` from scratch: Supabase shim + every migration in order. */
 export async function recreateDatabase(adminUrl: string, dbName: string) {
   await withClient(adminUrl, async (admin) => {
     await admin.query(`drop database if exists "${dbName}" with (force)`);
@@ -29,10 +29,17 @@ export async function recreateDatabase(adminUrl: string, dbName: string) {
   await withClient(url.toString(), async (db) => {
     // A query without parameters may hold many statements (simple protocol).
     await db.query(await readFile(SHIM, "utf8"));
-    const schema = (await readFile(SCHEMA, "utf8"))
-      // Supabase Vault is replaced by the shim's vault.decrypted_secrets view.
-      .replace(/^CREATE EXTENSION IF NOT EXISTS "supabase_vault".*$/m, "");
-    await db.query(schema);
+    const files = (await readdir(MIGRATIONS)).filter((f) => f.endsWith(".sql")).sort();
+    for (const file of files) {
+      const sql = (await readFile(MIGRATIONS + file, "utf8"))
+        // Supabase Vault is provided by the shim's vault.decrypted_secrets view.
+        .replace(/^CREATE EXTENSION IF NOT EXISTS "supabase_vault".*$/m, "");
+      try {
+        await db.query(sql);
+      } catch (error) {
+        throw new Error(`Migration ${file} failed: ${(error as Error).message}`);
+      }
+    }
   });
   return url.toString();
 }
