@@ -11,6 +11,14 @@ const screens = {
     '.ws-metrics', '.ws-metric', '.ws-metric-top', '.ws-metric strong', '.ws-metric:nth-child(3)', '.ws-metric:nth-child(4)', '.ws-panels', '.ws-panel', '.ws-panel h2', '.ws-guide-link',
     '.ws-guide-link strong', '.ws-panel:nth-child(2)', '.ws-state-row', '.ws-state-row dd',
   ]},
+  plating: { legacy: '#/plating/hotel-arts-barcelona/enoteca/arroz-de-carabinero', next: '/plating/hotel-arts-barcelona/enoteca/arroz-de-carabinero', wait: '.kit-guide-workspace', sels: [
+    '.kit-page-head', '.kit-page-head .kit-eyebrow', '.kit-page-title', '.kit-page-desc', '.kit-review', '.kit-guide-filter',
+    '.kit-filter-field', '.kit-filter-field:nth-child(2)', '.kit-search-field', '.kit-guide-search', '#kit-plating-search', '.kit-filter-info',
+    '.kit-guide-workspace', '.kit-guide-top', '.kit-guide-top h2', '.kit-guide-top .kit-eyebrow', '.kit-document', '.kit-label-toggle', '.kit-switch',
+    '.kit-guide-columns', '.kit-guide-picture', '.kit-guide-picture img', '.kit-guide-instructions', '.kit-guide-step-header',
+    '.kit-step', '.kit-step.current .kit-step-number', '.kit-step:nth-child(2)', '.kit-step strong', '.kit-step-description',
+    '.kit-guide-progress', '.kit-guide-navigation', '.kit-plain-icon', '.kit-guide-navigation .kit-btn', '.kit-guide-footer', '.kit-footer-reference',
+  ]},
 };
 const props = ['fontSize','fontFamily','fontWeight','color','backgroundColor','letterSpacing','lineHeight','borderTopColor','borderTopWidth','borderRadius','paddingLeft','paddingTop'];
 const cfg = screens[screen];

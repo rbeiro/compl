@@ -162,7 +162,9 @@
 
 /* Unlayered on purpose: must beat per-element tracking/leading utilities,
    as the legacy rule did through higher specificity. */
-[lang="ar"] :is(h1, h2, h3, .kicker) { letter-spacing: normal; line-height: 1.35; }
+/* Same selector (and specificity) as legacy language.css, so it also wins over
+   screen stylesheets such as the plating module. */
+[lang="ar"] .compi :is(h1, h2, h3, .kicker, .home-kicker, .workspace-hotel) { letter-spacing: normal; line-height: 1.35; }
 
 /* Signed-in workspace palette and rail width (legacy workspace-shell.css). */
 @utility ws-vars {

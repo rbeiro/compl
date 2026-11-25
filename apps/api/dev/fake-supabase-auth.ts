@@ -12,7 +12,10 @@
 import { randomBytes, randomUUID } from "node:crypto";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { fileURLToPath } from "node:url";
-import { exportJWK, generateKeyPair, jwtVerify, SignJWT } from "jose";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { exportJWK, generateKeyPair, importJWK, jwtVerify, SignJWT, type JWK } from "jose";
+
+type SigningKey = Awaited<ReturnType<typeof importJWK>>;
 import pg from "pg";
 
 export const FAKE_SERVICE_KEY = "fake-service-role-key";
@@ -36,11 +39,15 @@ export async function startFakeSupabaseAuth(options: {
   databaseUrl: string;
   /** Assurance level put in tokens. "aal2" makes sessions count as MFA-verified (legacy UI checks). */
   aal?: "aal1" | "aal2";
+  /** Sign with this key (shared between fake servers) instead of a new one. */
+  key?: SharedKey;
+  /** Token issuer; defaults to this server's own /auth/v1 URL. */
+  issuer?: string;
 }) {
   const pool = new pg.Pool({ connectionString: options.databaseUrl, max: 3 });
-  const { publicKey, privateKey } = await generateKeyPair("ES256");
-  const kid = randomUUID();
-  const jwks = { keys: [{ ...(await exportJWK(publicKey)), kid, alg: "ES256", use: "sig" }] };
+  const shared = options.key ?? (await newSharedKey());
+  const { publicKey, privateKey, kid } = await importSharedKey(shared);
+  const jwks = { keys: [{ ...shared.publicJwk, kid, alg: "ES256", use: "sig" }] };
   const refreshTokens = new Map<string, { userId: string; sessionId: string }>();
   // Password sign-in time per session, reported in the `amr` claim like Supabase.
   const signedInAt = new Map<string, number>();
@@ -235,7 +242,7 @@ export async function startFakeSupabaseAuth(options: {
   const address = server.address();
   const port = typeof address === "object" && address ? address.port : options.port;
   const url = `http://127.0.0.1:${port}`;
-  issuer = `${url}/auth/v1`;
+  issuer = options.issuer ?? `${url}/auth/v1`;
 
   return {
     url,
@@ -258,9 +265,33 @@ export async function startFakeSupabaseAuth(options: {
   };
 }
 
+export type SharedKey = { kid: string; privateJwk: JWK; publicJwk: JWK };
+
+async function newSharedKey(): Promise<SharedKey> {
+  const { publicKey, privateKey } = await generateKeyPair("ES256", { extractable: true });
+  return { kid: randomUUID(), privateJwk: await exportJWK(privateKey), publicJwk: await exportJWK(publicKey) };
+}
+
+async function importSharedKey(key: SharedKey) {
+  return {
+    kid: key.kid,
+    privateKey: (await importJWK(key.privateJwk, "ES256")) as SigningKey,
+    publicKey: (await importJWK(key.publicJwk, "ES256")) as SigningKey,
+  };
+}
+
+/** A signing key kept on disk so several fake servers (and restarts) agree. Dev only. */
+export async function devSharedKey(file = ".fake-auth-key.json"): Promise<SharedKey> {
+  if (existsSync(file)) return JSON.parse(readFileSync(file, "utf8")) as SharedKey;
+  const key = await newSharedKey();
+  writeFileSync(file, JSON.stringify(key), { mode: 0o600 });
+  return key;
+}
+
 // CLI: pnpm --filter @compi/api dev:auth
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const auth = await startFakeSupabaseAuth({
+    key: await devSharedKey(),
     port: Number(process.env.FAKE_AUTH_PORT ?? 9999),
     databaseUrl: process.env.DATABASE_URL ?? "postgres://postgres:postgres@127.0.0.1:5432/compi_dev",
   });

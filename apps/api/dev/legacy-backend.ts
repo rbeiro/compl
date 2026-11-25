@@ -12,12 +12,32 @@
 //   pnpm --filter @compi/api dev:legacy-backend     # http://127.0.0.1:9998
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import pg from "pg";
-import { startFakeSupabaseAuth } from "./fake-supabase-auth.js";
+import { devSharedKey, startFakeSupabaseAuth } from "./fake-supabase-auth.js";
 
 const PORT = Number(process.env.LEGACY_BACKEND_PORT ?? 9998);
 const databaseUrl = process.env.DATABASE_URL ?? "postgres://postgres:postgres@127.0.0.1:5432/compi_dev";
 const pool = new pg.Pool({ connectionString: databaseUrl, max: 5 });
-const auth = await startFakeSupabaseAuth({ databaseUrl, aal: "aal2" });
+// Same key and issuer as `dev:auth` (port 9999), so the new API also accepts
+// these tokens; aal2 so the legacy UI skips its authenticator-app screen.
+const API_URL = process.env.LEGACY_API_URL ?? "http://127.0.0.1:8787";
+const auth = await startFakeSupabaseAuth({
+  databaseUrl,
+  aal: "aal2",
+  key: await devSharedKey(),
+  issuer: process.env.LEGACY_AUTH_ISSUER ?? "http://127.0.0.1:9999/auth/v1",
+});
+
+// Legacy Edge Function file paths → the new API's equivalent endpoints.
+function apiPathFor(pathname: string, search: URLSearchParams) {
+  const match = /^\/functions\/v1\/compi-arts-descarga\/([a-z0-9-]+)\/([a-z0-9-]+)\/([a-z0-9-]+)\/([a-z-]+)$/.exec(pathname);
+  if (!match) return null;
+  const [, h, o, g, fmt] = match;
+  const base = `/v1/guides/${h}/${o}/${g}`;
+  if (fmt === "workspace-approved") return `${base}/media/approved`;
+  if (fmt === "workspace-clean") return `${base}/media/clean`;
+  if (fmt === "pdf" || fmt === "docx") return `${base}/files/${fmt}${search.get("original") === "1" ? "?original=1" : ""}`;
+  return null;
+}
 
 const ident = (name: string) => {
   if (!/^[a-z_][a-z0-9_]*$/.test(name)) throw Object.assign(new Error("bad identifier"), { status: 400 });
@@ -135,6 +155,17 @@ createServer(async (req, res) => {
       const text = await upstream.text();
       res.writeHead(upstream.status, { "content-type": "application/json", "access-control-allow-origin": "*" });
       return res.end(text);
+    }
+    const apiPath = apiPathFor(url.pathname, url.searchParams);
+    if (apiPath) {
+      const upstream = await fetch(API_URL + apiPath, { headers: { authorization: req.headers.authorization ?? "" } });
+      const headers: Record<string, string> = { "access-control-allow-origin": "*" };
+      for (const name of ["content-type", "x-compi-brand-revision", "x-compi-drive-original"]) {
+        const value = upstream.headers.get(name);
+        if (value) headers[name] = value;
+      }
+      res.writeHead(upstream.status, headers);
+      return res.end(Buffer.from(await upstream.arrayBuffer()));
     }
     const rpcMatch = /^\/rest\/v1\/rpc\/([a-z_0-9]+)$/.exec(url.pathname);
     if (rpcMatch && req.method === "POST") return send(res, 200, await rpc(req, rpcMatch[1]!, await readBody(req)));

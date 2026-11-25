@@ -49,7 +49,7 @@ pnpm dev                                  # apps/web on :3000
 pnpm dev:api                              # apps/api on :8787 (docs at /docs)
 pnpm build | pnpm lint | pnpm typecheck | pnpm test
 pnpm clean                                # delete build caches (fixes stale CSS)
-pnpm --filter @compi/api db:local         # local Postgres DB: production schema + demo users
+pnpm --filter @compi/api db:local         # local Postgres DB: production schema + demo users and guide files
 pnpm --filter @compi/api db:gen           # regenerate typed queries from src/queries/*.sql
 pnpm --filter @compi/api dev:auth         # local fake Supabase Auth (dev only) — see apps/api/README.md
 pnpm --filter @compi/api openapi:export   # update packages/api-client from the API spec
@@ -63,7 +63,9 @@ cd legacy && npm ci && npm test           # legacy build tests
 - Data and session checks go through the API (`getApi()`, `sessionDestination()` in `src/lib/api.ts`); never decode tokens to make authorization decisions in the web app.
 - **Visual parity is a requirement**: ported screens must look and move exactly like the legacy ones. Copy values from the legacy CSS (`legacy/public/*.css`) as-is, including `clamp()` sizes, and check with `apps/web/scripts/parity/` (target: 0 differences at all widths, in `en` and `ar`).
 - Styling: Tailwind with the brand tokens in `src/app/globals.css` (`text-green`, `bg-green-soft`, `text-muted`, `border-line`, `rounded-control`, `font-display`...) and the shared utilities `shell`, `home-wrap`, `kicker`, `btn-home`, `btn` + `btn-primary`, `alert-error`. Legacy breakpoints are max-width: use the `max-960` … `max-360` variants (their order in `globals.css` matters: widest first). Use logical properties (`ms-`, `pe-`, `start-`) for RTL unless the legacy CSS used a physical one.
-- Motion: `carbon()` in `src/lib/motion.ts` is the legacy "carbon" preset (Web Animations API, respects reduced motion). Port other presets from `legacy/public/motion-choices.js` there when a screen needs them.
+- Screens with large, self-contained legacy stylesheets (e.g. Plating Guides) use a CSS Module next to the component, copied from the legacy CSS with its class names (scope class → `.root`); components add the legacy class names unhashed too (helper `cx`) so parity selectors match. Shell, auth and simple screens use Tailwind.
+- Files and images: the browser loads them from `/api/guides/...` (route handler that adds the session token and forwards allow-listed paths to the API).
+- Motion: `carbon()` in `src/lib/motion.ts` is the legacy "carbon" preset; `sequence()` is "secuencia", `duo()` is "duo" (Web Animations API, respect reduced motion). Port other presets from `legacy/public/motion-choices.js` there when a screen needs them.
 - Selects: Radix Select styled like the legacy menu (see `src/components/language-picker.tsx`).
 - If a build serves stale CSS, delete `apps/web/.next` (Turbopack cache).
 - Translations: add semantic keys to `apps/web/scripts/legacy-keys.mjs` mapped to the legacy Spanish source string; strings that never existed in legacy go to `scripts/new-messages.mjs` with all 7 languages. Then run `messages:import`. Do not hand-edit `messages/*.json`.

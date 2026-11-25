@@ -34,7 +34,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
 
   return (
     <html lang={locale} dir={rtlLocales.has(locale) ? "rtl" : "ltr"}>
-      <body>
+      <body className="compi">
         <a
           href="#main"
           className="fixed start-4 top-2 z-[5] -translate-y-[160%] rounded-control bg-white px-[1.1rem] py-[.7rem] focus:translate-y-0"
