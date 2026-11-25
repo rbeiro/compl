@@ -11,7 +11,7 @@ const unused = () => {
 };
 const app = createApp({
   pool: {} as Deps["pool"],
-  auth: { verifyToken: unused, signInWithPassword: unused, refresh: unused, signOut: unused, admin: { createUser: unused, updateUser: unused } },
+  auth: { verifyToken: unused, signInWithPassword: unused, refresh: unused, signOut: unused, admin: { createUser: unused, updateUser: unused, deleteUser: unused } },
   mailer: { send: unused },
   store: { get: unused, put: unused },
   config: { appUrl: "", serverSecret: "", corsOrigins: [] },

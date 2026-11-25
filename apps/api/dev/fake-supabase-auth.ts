@@ -214,6 +214,10 @@ export async function startFakeSupabaseAuth(options: {
       }
       if (method === "PUT" && id) return [200, publicUser(await updateUser(id, await body(req)))];
       if (method === "GET" && id) return [200, publicUser(await user(id))];
+      if (method === "DELETE" && id) {
+        await pool.query("delete from auth.users where id = $1", [id]);
+        return [200, {}];
+      }
     }
 
     throw new GoTrueError(404, "not_found", "Not found");

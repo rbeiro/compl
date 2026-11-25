@@ -17,6 +17,8 @@ export interface AuthProvider {
   admin: {
     createUser(input: { email: string; password: string; emailConfirmed: boolean; appMetadata?: Record<string, unknown> }): Promise<{ id: string }>;
     updateUser(id: string, input: { password?: string; emailConfirmed?: boolean; appMetadata?: Record<string, unknown> }): Promise<void>;
+    /** Deletes a user; used to undo an account whose CompI registration failed. */
+    deleteUser(id: string): Promise<void>;
   };
 }
 

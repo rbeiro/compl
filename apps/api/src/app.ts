@@ -9,6 +9,7 @@ import { catalogRoutes } from "./routes/catalog.js";
 import { guideRoutes } from "./routes/guides.js";
 import { mailRoutes } from "./routes/mail.js";
 import { scheduleRoutes } from "./routes/schedule.js";
+import { staffRoutes } from "./routes/staff.js";
 import { sessionRoutes } from "./routes/session.js";
 import { systemRoutes } from "./routes/system.js";
 
@@ -49,6 +50,7 @@ export function createApp(deps: Deps) {
   guideRoutes(app, deps);
   mailRoutes(app, deps);
   scheduleRoutes(app, deps);
+  staffRoutes(app, deps);
 
   app.doc31("/v1/openapi.json", {
     openapi: "3.1.0",

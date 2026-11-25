@@ -55,6 +55,10 @@ export function createSupabaseAuthProvider(options: {
         });
         if (error) throw toError(error, "unavailable");
       },
+      async deleteUser(id) {
+        const { error } = await client.auth.admin.deleteUser(id);
+        if (error && error.status !== 404) throw toError(error, "unavailable");
+      },
     },
   };
 }
