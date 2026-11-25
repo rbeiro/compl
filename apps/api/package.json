@@ -23,6 +23,7 @@
     "@scalar/hono-api-reference": "^0.12.24",
     "@supabase/supabase-js": "^2.119.2",
     "@vercel/functions": "^3.11.3",
+    "@xmldom/xmldom": "^0.9.12",
     "hono": "^4.13.22",
     "jose": "^6.2.18",
     "jszip": "^3.10.2",

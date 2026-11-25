@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { createRoute, z } from "@hono/zod-openapi";
 import type { Context } from "hono";
 import { asUser, type Claims } from "../db/client.js";
+import { readLegacyGuide } from "../documents/legacy-guide.js";
 import { mediaType } from "../documents/media-type.js";
 // Legacy modules (JS), shared with the former Edge Functions.
 import { rebrandLegacy, UnsupportedLegacyTemplate } from "../documents/legacy/rebrand.js";
@@ -224,6 +225,65 @@ export function guideRoutes(app: App, deps: Deps) {
         return bytes(c, rendered, documentTypes[fmt], { "X-CompI-Brand-Revision": String(brand.revision) });
       }
       throw new ApiError(409, "conflict", "The brand changed while preparing the document; retry.");
+    },
+  );
+
+  /** The stored Word file of a published guide, verified against its recorded digest. */
+  async function storedWord(claims: Claims, h: string, o: string, g: string) {
+    const info = AccessInfo.parse((await one(claims, (tx) => fileAccess.run({ h, o, g, fmt: "docx", editing: false }, tx)))?.access);
+    const object = await store.get("compi-arts-catalog", info.path);
+    if (!object) return null;
+    if (info.digest && sha256(object.data) !== info.digest) throw new ApiError(409, "conflict", "The document changed; retry.");
+    return readLegacyGuide(object.data);
+  }
+
+  app.openapi(
+    createRoute({
+      method: "get",
+      path: "/v1/guides/{h}/{o}/{g}/legacy",
+      tags: ["Catalog"],
+      summary: "Steps and service data read from the guide's Word file",
+      description: "For guides that only exist as a Word file. `hasImage` tells whether `/legacy/image` has the dish photo.",
+      security: bearer,
+      middleware: [user] as const,
+      request: { params: GuideParams },
+      responses: {
+        200: {
+          description: "Data found in the document (null when it is not a readable guide).",
+          content: json(z.object({ data: z.record(z.string(), z.unknown()).nullable(), hasImage: z.boolean() })),
+        },
+        401: error("Session ended."),
+        403: error("No access."),
+      },
+    }),
+    async (c) => {
+      const { h, o, g } = c.req.valid("param");
+      const guide = await storedWord(c.var.claims, h, o, g);
+      return c.json({ data: guide?.data ?? null, hasImage: !!guide?.image }, 200);
+    },
+  );
+
+  app.openapi(
+    createRoute({
+      method: "get",
+      path: "/v1/guides/{h}/{o}/{g}/legacy/image",
+      tags: ["Files"],
+      summary: "Dish photo embedded in the guide's Word file",
+      security: bearer,
+      middleware: [user] as const,
+      request: { params: GuideParams },
+      responses: {
+        200: { description: "The photo.", content: { ...binary("image/png"), ...binary("image/jpeg") } },
+        401: error("Session ended."),
+        403: error("No access."),
+        404: error("The document has no dish photo."),
+      },
+    }),
+    async (c) => {
+      const { h, o, g } = c.req.valid("param");
+      const image = (await storedWord(c.var.claims, h, o, g))?.image;
+      if (!image) throw new ApiError(404, "not_found", "Not found.");
+      return bytes(c, image.bytes, image.type);
     },
   );
 }
