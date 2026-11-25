@@ -96,3 +96,14 @@ export function duo(button: Element | null | undefined, { positive = true } = {}
   });
   void Promise.allSettled(marks).then(() => layer.remove());
 }
+
+/**
+ * "Tactil" preset (controls that change a value in place, e.g. hours digits):
+ * a quick press-and-release scale.
+ */
+export function tactil(...nodes: (Element | null | undefined)[]) {
+  for (const node of nodes) {
+    if (!node) continue;
+    animate(node, [{ scale: ".985" }, { scale: ".95", offset: 0.22 }, { scale: "1.022", offset: 0.52 }, { scale: "1" }], 370, 0, sequenceEase);
+  }
+}
