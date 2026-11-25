@@ -1936,6 +1936,420 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/hotels/{h}/schedule": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Roster, shifts, leave and hours balances of one month */
+        get: {
+            parameters: {
+                query: {
+                    month: string;
+                    /** @description Department name; defaults to the user's own. */
+                    department?: string;
+                };
+                header?: never;
+                path: {
+                    /** @description Hotel key */
+                    h: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description The month. */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ScheduleView"];
+                    };
+                };
+                /** @description Session ended. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not allowed (only the executive chef edits; staff see their own department). */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Changed elsewhere, or conflicts with approved leave or an earlier request. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not valid (the detail explains). */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/hotels/{h}/schedule/shifts/{employee}/{day}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set, mark as day off, or clear one shift (executive chef) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Hotel key */
+                    h: string;
+                    employee: string;
+                    day: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        kind: "work" | "off" | "clear";
+                        /** @example 08:00 */
+                        start?: string | null;
+                        /** @example 08:00 */
+                        end?: string | null;
+                        /**
+                         * Format: uuid
+                         * @description Revision of the shift being replaced.
+                         */
+                        previous?: string | null;
+                    };
+                };
+            };
+            responses: {
+                /** @description Saved. */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Session ended. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not allowed (only the executive chef edits; staff see their own department). */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Changed elsewhere, or conflicts with approved leave or an earlier request. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not valid (the detail explains). */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/hotels/{h}/schedule/balances/{employee}/{month}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set the hours adjustment of one month (executive chef) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Hotel key */
+                    h: string;
+                    employee: string;
+                    month: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        minutes: number;
+                        /** Format: uuid */
+                        previous?: string | null;
+                    };
+                };
+            };
+            responses: {
+                /** @description Saved. */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Session ended. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not allowed (only the executive chef edits; staff see their own department). */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Changed elsewhere, or conflicts with approved leave or an earlier request. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not valid (the detail explains). */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/hotels/{h}/schedule/leave/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Request leave days (idempotent for the same id and days) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Hotel key */
+                    h: string;
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        days: string[];
+                    };
+                };
+            };
+            responses: {
+                /** @description Saved. */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Session ended. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not allowed (only the executive chef edits; staff see their own department). */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Changed elsewhere, or conflicts with approved leave or an earlier request. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not valid (the detail explains). */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/hotels/{h}/schedule/leave/{id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Approve or reject a leave request (executive chef) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Hotel key */
+                    h: string;
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        decision: "approved" | "rejected";
+                    };
+                };
+            };
+            responses: {
+                /** @description Saved. */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Session ended. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not allowed (only the executive chef edits; staff see their own department). */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Changed elsewhere, or conflicts with approved leave or an earlier request. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Not valid (the detail explains). */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2071,6 +2485,71 @@ export interface components {
             revision?: number;
             /** @default false */
             sent: boolean;
+        };
+        ScheduleView: {
+            /** Format: uuid */
+            me: string;
+            admin: boolean;
+            /** @description Department shown (lowercase key). */
+            dept: string;
+            departments: {
+                key: string;
+                name: string;
+            }[] | null;
+            people: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                position: string;
+                rank: number;
+                department: string;
+            }[];
+            shifts: {
+                /** Format: uuid */
+                employee: string;
+                /** Format: date */
+                day: string;
+                /** @enum {string} */
+                kind: "work" | "off";
+                starts: string | null;
+                ends: string | null;
+                /** Format: uuid */
+                revision: string;
+            }[];
+            vacations: {
+                /** Format: uuid */
+                employee: string;
+                /** Format: date */
+                day: string;
+            }[];
+            balances: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                position: string;
+                rank: number;
+                department: string;
+                total: number;
+                adjustment: number;
+                /** Format: uuid */
+                revision: string | null;
+            }[];
+            mine: {
+                /** Format: uuid */
+                id: string;
+                days: string[];
+                /** @enum {string} */
+                state: "pending" | "approved" | "rejected";
+            }[];
+            requests: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                department: string;
+                days: string[];
+                /** @enum {string} */
+                state: "pending" | "approved" | "rejected";
+            }[];
         };
     };
     responses: never;
