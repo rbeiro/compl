@@ -21,6 +21,17 @@ const schema = z
     APP_URL: z.url().default("http://localhost:3000"),
     /** Random secret (32+ chars) for rate-limit hashes and the invitation relay key. */
     SERVER_SECRET: z.string().min(32),
+    /**
+     * File storage. "s3": Supabase Storage through its S3 endpoint (or any S3
+     * service). "local": files on disk, for development and tests only.
+     */
+    STORAGE_DRIVER: z.enum(["s3", "local"]).default("local"),
+    /** e.g. https://<project-ref>.supabase.co/storage/v1/s3 */
+    S3_ENDPOINT: z.url().optional(),
+    S3_REGION: z.string().default("eu-west-1"),
+    S3_ACCESS_KEY_ID: z.string().optional(),
+    S3_SECRET_ACCESS_KEY: z.string().optional(),
+    LOCAL_STORAGE_DIR: z.string().default(".storage"),
     /** Comma-separated browser origins allowed to call the API. */
     CORS_ORIGINS: z
       .string()
@@ -32,6 +43,14 @@ const schema = z
   .refine((env) => env.NODE_ENV !== "production" || env.RESEND_API_KEY, {
     message: "RESEND_API_KEY is required in production",
     path: ["RESEND_API_KEY"],
+  })
+  .refine((env) => env.NODE_ENV !== "production" || env.STORAGE_DRIVER === "s3", {
+    message: "STORAGE_DRIVER must be s3 in production",
+    path: ["STORAGE_DRIVER"],
+  })
+  .refine((env) => env.STORAGE_DRIVER !== "s3" || (env.S3_ENDPOINT && env.S3_ACCESS_KEY_ID && env.S3_SECRET_ACCESS_KEY), {
+    message: "S3_ENDPOINT, S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY are required with STORAGE_DRIVER=s3",
+    path: ["S3_ENDPOINT"],
   });
 
 export type Env = z.infer<typeof schema>;

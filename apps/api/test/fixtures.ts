@@ -5,7 +5,11 @@ import { FAKE_SERVICE_KEY, startFakeSupabaseAuth } from "../dev/fake-supabase-au
 import { createApp } from "../src/app.js";
 import { createSupabaseAuthProvider } from "../src/auth/supabase-provider.js";
 import { createPool, type Pool } from "../src/db/client.js";
+import { mkdtemp } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createMemoryMailer } from "../src/email/mailer.js";
+import { createLocalStore } from "../src/storage/local-store.js";
 
 export const ORIGIN = "http://localhost:3000";
 export const PASSWORD = "compi-dev-password";
@@ -19,8 +23,10 @@ export async function setupApp() {
   const pool = createPool(databaseUrl);
   const fakeAuth = await startFakeSupabaseAuth({ databaseUrl });
   const mailer = createMemoryMailer();
+  const store = createLocalStore(await mkdtemp(join(tmpdir(), "compi-store-")), pool);
   const app = createApp({
     pool,
+    store,
     auth: createSupabaseAuthProvider({ supabaseUrl: fakeAuth.url, secretKey: FAKE_SERVICE_KEY }),
     mailer,
     config: { appUrl: "http://app.test", serverSecret: "test-server-secret-test-server-secret", corsOrigins: [ORIGIN] },
@@ -73,7 +79,7 @@ export async function setupApp() {
     await pool.end();
   }
 
-  return { app, pool, mailer, createUser, addStaff, tokenFor, close };
+  return { app, pool, mailer, store, createUser, addStaff, tokenFor, close };
 }
 
 export const bearer = (token: string) => ({ headers: { Authorization: `Bearer ${token}` } });

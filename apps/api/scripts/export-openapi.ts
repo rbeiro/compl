@@ -13,6 +13,7 @@ const app = createApp({
   pool: {} as Deps["pool"],
   auth: { verifyToken: unused, signInWithPassword: unused, refresh: unused, signOut: unused, admin: { createUser: unused, updateUser: unused } },
   mailer: { send: unused },
+  store: { get: unused, put: unused },
   config: { appUrl: "", serverSecret: "", corsOrigins: [] },
 });
 const spec = await (await app.request("/v1/openapi.json")).json();

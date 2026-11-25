@@ -6,6 +6,7 @@ import { ApiError, errorResponse } from "./http/errors.js";
 import type { AppEnv, Deps } from "./http/types.js";
 import { authRoutes } from "./routes/auth.js";
 import { catalogRoutes } from "./routes/catalog.js";
+import { guideRoutes } from "./routes/guides.js";
 import { sessionRoutes } from "./routes/session.js";
 import { systemRoutes } from "./routes/system.js";
 
@@ -26,6 +27,7 @@ export function createApp(deps: Deps) {
     cors({
       origin: deps.config.corsOrigins,
       allowHeaders: ["Authorization", "Content-Type"],
+      exposeHeaders: ["X-CompI-Brand-Revision", "X-CompI-Drive-Original"],
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       maxAge: 600,
     }),
@@ -42,6 +44,7 @@ export function createApp(deps: Deps) {
   authRoutes(app, deps);
   sessionRoutes(app, deps);
   catalogRoutes(app, deps);
+  guideRoutes(app, deps);
 
   app.doc31("/v1/openapi.json", {
     openapi: "3.1.0",

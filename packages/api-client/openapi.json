@@ -1248,6 +1248,582 @@
           }
         }
       }
+    },
+    "/v1/guides/{h}/{o}/{g}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Guide detail (steps, service notes…)",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Hotel key"
+            },
+            "required": true,
+            "description": "Hotel key",
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Outlet key"
+            },
+            "required": true,
+            "description": "Outlet key",
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Guide key"
+            },
+            "required": true,
+            "description": "Guide key",
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The guide's workspace data (null when it has none).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "additionalProperties": {}
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/review": {
+      "put": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Mark a guide as reviewed (per user)",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Hotel key"
+            },
+            "required": true,
+            "description": "Hotel key",
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Outlet key"
+            },
+            "required": true,
+            "description": "Outlet key",
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Guide key"
+            },
+            "required": true,
+            "description": "Guide key",
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reviewed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "reviewed"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reviewed": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "reviewed"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/classification": {
+      "put": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Classify a guide (kind and category)",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Hotel key"
+            },
+            "required": true,
+            "description": "Hotel key",
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Outlet key"
+            },
+            "required": true,
+            "description": "Outlet key",
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Guide key"
+            },
+            "required": true,
+            "description": "Guide key",
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "plato",
+                      "elaboracion",
+                      null
+                    ]
+                  },
+                  "category": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "desayunos",
+                      "entrantes",
+                      "principales",
+                      "postres",
+                      "fondos",
+                      "salsas",
+                      "bases",
+                      "guarniciones",
+                      "otros",
+                      null
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "category"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Saved."
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Editors only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/media/{variant}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Guide image: approved (annotated) or clean watercolor",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Hotel key"
+            },
+            "required": true,
+            "description": "Hotel key",
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Outlet key"
+            },
+            "required": true,
+            "description": "Outlet key",
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Guide key"
+            },
+            "required": true,
+            "description": "Guide key",
+            "name": "g",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "approved",
+                "clean"
+              ]
+            },
+            "required": true,
+            "name": "variant",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The image.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The guide has no such image.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The image changed while reading; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/files/{fmt}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Download the guide as PDF or Word, with the hotel's current brand",
+        "description": "Re-applies the hotel's document brand to the stored file. `original=1` returns the stored file unchanged when its legacy template cannot be re-branded.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Hotel key"
+            },
+            "required": true,
+            "description": "Hotel key",
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Outlet key"
+            },
+            "required": true,
+            "description": "Outlet key",
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$",
+              "description": "Guide key"
+            },
+            "required": true,
+            "description": "Guide key",
+            "name": "g",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pdf",
+                "docx"
+              ]
+            },
+            "required": true,
+            "name": "fmt",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1"
+              ]
+            },
+            "required": false,
+            "name": "original",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The document. `X-CompI-Brand-Revision` tells which brand revision it carries.",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such file.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The document or brand changed while preparing it; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The stored template cannot be re-branded (code BRAND_TEMPLATE_UNSUPPORTED).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "webhooks": {}

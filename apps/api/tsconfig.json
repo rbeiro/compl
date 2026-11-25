@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "lib": ["ES2023"],
+    "lib": [
+      "ES2023"
+    ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
@@ -11,7 +13,15 @@
     "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "allowJs": true,
+    "checkJs": false
   },
-  "include": ["src", "test", "scripts", "dev", "vitest.config.ts"]
+  "include": [
+    "src",
+    "test",
+    "scripts",
+    "dev",
+    "vitest.config.ts"
+  ]
 }
