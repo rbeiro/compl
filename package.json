@@ -2,11 +2,16 @@
   "name": "compi",
   "private": true,
   "packageManager": "pnpm@10.28.0",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "pnpm --filter @compi/web dev",
+    "dev:api": "pnpm --filter @compi/api dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "clean": "rm -rf apps/*/.next apps/*/dist"
   }
 }

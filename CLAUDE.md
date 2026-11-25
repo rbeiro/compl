@@ -19,19 +19,23 @@ The original site (`legacy/`) is plain HTML/CSS/JS with hand-built routing, i18n
 ## Repository layout
 
 ```
-apps/web/     New frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-intl, @supabase/ssr
+apps/web/     Frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-intl, @supabase/ssr
+apps/api/     API for web + future mobile: Hono, zod-openapi, postgres.js (plain SQL), Supabase Auth tokens
 legacy/       Original static site (reference only). Has its own package.json and tests.
-supabase/     Backend source we have: Edge Functions (Deno) + partial SQL for the Arts catalog
+supabase/     migrations/ (29, recovered from production history), inventory/remote_schema.sql
+              (full current schema dump), arts-edition/ (Edge Functions + older SQL), config.toml
 legacy/deployment/  Pending SQL proposals and test scripts from the previous owner (never applied)
 ```
 
-Planned: `apps/api` (independent API, Hono + zod-openapi, for web and a future mobile app), `packages/shared` (zod schemas, domain logic such as the cost engine), `packages/db` (migrations + generated Supabase types).
+Planned: `packages/shared` (zod schemas, domain logic such as the cost engine), generated API client for web/mobile.
 
 ## Backend (Supabase)
 
 - Production project: `dzfwdxhbldnfqowrnhxf` (`chefi-laboratorio`). Most business logic lives in Postgres: `public.compi_*` RPCs (SECURITY DEFINER wrappers) calling `compi_private.*` functions, plus row-level security.
-- **The repo does not contain the full schema.** RPCs for staff, mail, schedules, MFA and invitations are called by the frontend but not defined here. First backend task: `supabase db dump` into `supabase/migrations/` and set up a separate dev project.
+- Schema in the repo: `supabase/migrations/` (production migration history) and `supabase/inventory/remote_schema.sql` (current dump of `public` + `compi_private`). Re-dump with `supabase db dump --remote -f supabase/inventory/remote_schema.sql` after schema changes; changes made outside migrations show up as a diff there.
+- Supabase-specific dependencies of the schema are few (`auth.uid()/jwt()`, `auth.users`, `auth.sessions`, `storage.objects`, one Vault secret, roles): `apps/api/test/db/supabase-shim.sql` lists them and recreates them on plain Postgres.
 - Edge Functions (`supabase/arts-edition/functions/`): document generation (pdf-lib, jszip), upload validation, rebranding, AI recipe assistant, account creation, invitation/recovery helpers.
+- **API layer (`apps/api`)**: Supabase Auth issues tokens; the API verifies them and runs each request as the user in Postgres (`asUser`: role `authenticated` + `request.jwt.claims`), so the existing functions and RLS apply unchanged. Keep business rules in SQL functions and queries in `apps/api/src/queries/` (plain SQL, no supabase-js/PostgREST on the server) so the database stays portable. Tests run against the production schema on a local Postgres. See `apps/api/README.md`.
 - Legacy frontend calls Supabase REST/RPC directly via `fetch` (`legacy/public/portal.js`, see `api()`), with RPC names rewritten by `legacy/public/hotel-arts-api.js`.
 
 ## Commands (pnpm workspace, Node >= 22.12)
@@ -39,7 +43,10 @@ Planned: `apps/api` (independent API, Hono + zod-openapi, for web and a future m
 ```bash
 pnpm install
 pnpm dev                                  # apps/web on :3000
-pnpm build | pnpm lint | pnpm typecheck
+pnpm dev:api                              # apps/api on :8787 (docs at /docs)
+pnpm build | pnpm lint | pnpm typecheck | pnpm test
+pnpm clean                                # delete build caches (fixes stale CSS)
+pnpm --filter @compi/api db:local         # local Postgres DB with the production schema
 pnpm --filter @compi/web messages:import  # regenerate translations from legacy catalogs
 cd legacy && npm ci && npm test           # legacy build tests
 ```
