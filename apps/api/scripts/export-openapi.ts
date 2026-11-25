@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { createApp } from "../src/app.js";
 import type { Deps } from "../src/http/types.js";
 
-const app = createApp({} as Deps);
+const app = createApp({ config: { corsOrigins: [] } } as unknown as Deps);
 const spec = await (await app.request("/v1/openapi.json")).json();
 const target = fileURLToPath(new URL("../../../packages/api-client/openapi.json", import.meta.url));
 await writeFile(target, JSON.stringify(spec, null, 2) + "\n");
