@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
 import { ApiError, errorResponse } from "./http/errors.js";
 import type { AppEnv, Deps } from "./http/types.js";
+import { authRoutes } from "./routes/auth.js";
 import { catalogRoutes } from "./routes/catalog.js";
 import { sessionRoutes } from "./routes/session.js";
 import { systemRoutes } from "./routes/system.js";
@@ -23,7 +24,7 @@ export function createApp(deps: Deps) {
   app.use(
     "/v1/*",
     cors({
-      origin: deps.corsOrigins,
+      origin: deps.config.corsOrigins,
       allowHeaders: ["Authorization", "Content-Type"],
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       maxAge: 600,
@@ -38,6 +39,7 @@ export function createApp(deps: Deps) {
   });
 
   systemRoutes(app, deps);
+  authRoutes(app, deps);
   sessionRoutes(app, deps);
   catalogRoutes(app, deps);
 

@@ -47,3 +47,26 @@ export async function asUser<T>(pool: Pool, claims: Claims, fn: (tx: Tx) => Prom
     client.release(broken);
   }
 }
+
+/**
+ * Runs `fn` in a transaction with the API's own database role (no RLS), for
+ * server-only functions such as issuing two-step codes or invitation delivery.
+ * When `claims` is given, auth.uid()/auth.jwt() still identify the user.
+ * Only call it after the API has authorized the request.
+ */
+export async function asService<T>(pool: Pool, claims: Claims | null, fn: (tx: Tx) => Promise<T>): Promise<T> {
+  const client = await pool.connect();
+  let broken: Error | undefined;
+  try {
+    await client.query("begin");
+    if (claims) await client.query("select set_config('request.jwt.claims', $1, true)", [JSON.stringify(claims)]);
+    const result = await fn(client);
+    await client.query("commit");
+    return result;
+  } catch (error) {
+    await client.query("rollback").catch((e: Error) => (broken = e));
+    throw error;
+  } finally {
+    client.release(broken);
+  }
+}

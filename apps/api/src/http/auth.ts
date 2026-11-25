@@ -3,9 +3,9 @@ import type { VerifyToken } from "../auth/verify-token.js";
 import type { Claims } from "../db/client.js";
 import { ApiError } from "./errors.js";
 
-export type AuthVariables = { claims: Claims };
+export type AuthVariables = { claims: Claims; accessToken: string };
 
-/** Requires `Authorization: Bearer <Supabase access token>`. */
+/** Requires `Authorization: Bearer <access token>` issued by the auth provider. */
 export function requireUser(verifyToken: VerifyToken) {
   return createMiddleware<{ Variables: AuthVariables }>(async (c, next) => {
     const header = c.req.header("authorization") ?? "";
@@ -15,6 +15,7 @@ export function requireUser(verifyToken: VerifyToken) {
     }
     try {
       c.set("claims", await verifyToken(token));
+      c.set("accessToken", token);
     } catch {
       throw new ApiError(401, "unauthenticated", "Invalid or expired access token.");
     }

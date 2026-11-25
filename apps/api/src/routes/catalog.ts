@@ -7,7 +7,7 @@ import { listGuides, listOutlets } from "../queries/catalog.queries.js";
 
 type GuideCursor = { hotelKey: string; outletKey: string; guideKey: string };
 
-const json = (schema: z.ZodType) => ({ "application/json": { schema } });
+const json = <T extends z.ZodType>(schema: T) => ({ "application/json": { schema } });
 const errors = {
   401: { description: "Missing, invalid or expired session.", content: json(ErrorSchema) },
   422: { description: "Invalid query parameters.", content: json(ErrorSchema) },
@@ -72,7 +72,7 @@ function decodeCursor(value: string | undefined): GuideCursor | null {
 }
 
 export function catalogRoutes(app: App, deps: Deps) {
-  const auth = requireUser(deps.verifyToken);
+  const auth = requireUser(deps.auth.verifyToken);
 
   app.openapi(
     createRoute({

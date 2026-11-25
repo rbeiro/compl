@@ -1,11 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { addStaff, bearer, createUser, ORIGIN, setupApp, tokenFor } from "./fixtures.js";
+import { bearer, json, ORIGIN, setupApp } from "./fixtures.js";
 
-const { pool, app } = setupApp();
+const { app, pool, createUser, addStaff, tokenFor, close } = await setupApp();
 const get = (path: string, init?: RequestInit) => app.request(path, init);
-// Response bodies are asserted field by field below, so `any` is acceptable here.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const json = async (res: Response | Promise<Response>): Promise<any> => (await res).json();
 
 let staff: Awaited<ReturnType<typeof createUser>>;
 let chef: Awaited<ReturnType<typeof createUser>>;
@@ -16,19 +13,19 @@ let ended: Awaited<ReturnType<typeof createUser>>;
 
 beforeAll(async () => {
   [staff, chef, editor, outsider, temporary, ended] = await Promise.all([
-    createUser(pool, "staff@compichef.com"),
-    createUser(pool, "chef@compichef.com"),
-    createUser(pool, "editor@compichef.com"),
-    createUser(pool, "other@compichef.com"),
-    createUser(pool, "temp@compichef.com", { mustChange: true }),
-    createUser(pool, "ended@compichef.com", { sessionEnded: true }),
+    createUser("staff@compichef.com"),
+    createUser("chef@compichef.com"),
+    createUser("editor@compichef.com"),
+    createUser("other@compichef.com"),
+    createUser("temp@compichef.com", { mustChange: true }),
+    createUser("ended@compichef.com", { sessionEnded: true }),
   ]);
-  await addStaff(pool, staff, "hotel-arts", 3);
-  await addStaff(pool, chef, "hotel-arts", 1);
-  await addStaff(pool, editor, "hotel-arts", 2);
-  await addStaff(pool, outsider, "hotel-otro", 3);
-  await addStaff(pool, temporary, "hotel-arts", 3);
-  await addStaff(pool, ended, "hotel-arts", 3);
+  await addStaff(staff, "hotel-arts", 3);
+  await addStaff(chef, "hotel-arts", 1);
+  await addStaff(editor, "hotel-arts", 2);
+  await addStaff(outsider, "hotel-otro", 3);
+  await addStaff(temporary, "hotel-arts", 3);
+  await addStaff(ended, "hotel-arts", 3);
 
   await pool.query(`
     insert into public.compi_arts_outlets (hotel_key, outlet_key, hotel, outlet, archived) values
@@ -48,7 +45,7 @@ beforeAll(async () => {
   );
 });
 
-afterAll(() => pool.end());
+afterAll(close);
 
 describe("system", () => {
   it("reports liveness and database readiness", async () => {
@@ -86,7 +83,7 @@ describe("authentication", () => {
   });
 
   it("rejects tokens signed with another key, expired tokens and non-user tokens", async () => {
-    const forged = await tokenFor(staff, {}, { secret: "another-secret-another-secret-0123456789" });
+    const forged = await tokenFor(staff, {}, { forged: true });
     const expired = await tokenFor(staff, {}, { expiresIn: "-1m" });
     const anonKey = await tokenFor(staff, { role: "anon" });
     for (const token of [forged, expired, anonKey, "not-a-jwt"]) {

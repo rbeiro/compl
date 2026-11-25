@@ -4,15 +4,9 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { createApp } from "../src/app.js";
-import type { Pool } from "../src/db/client.js";
+import type { Deps } from "../src/http/types.js";
 
-const app = createApp({
-  pool: {} as Pool,
-  verifyToken: async () => {
-    throw new Error("unused");
-  },
-  corsOrigins: [],
-});
+const app = createApp({} as Deps);
 const spec = await (await app.request("/v1/openapi.json")).json();
 const target = fileURLToPath(new URL("../../../packages/api-client/openapi.json", import.meta.url));
 await writeFile(target, JSON.stringify(spec, null, 2) + "\n");

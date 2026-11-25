@@ -1,14 +1,14 @@
 -- Demo data for local development (pnpm --filter @compi/api db:local).
--- Sign in with any of these emails and the fake auth password ("compi-dev").
-insert into auth.users (id, email, email_confirmed_at, raw_app_meta_data) values
-  ('00000000-0000-4000-8000-000000000001', 'chef@compichef.test', now(), '{}'),
-  ('00000000-0000-4000-8000-000000000002', 'cocinero@compichef.test', now(), '{}'),
-  ('00000000-0000-4000-8000-000000000003', 'temporal@compichef.test', now(), '{"compi_must_change": "true"}');
+-- Every demo user signs in with the password "compi-dev".
+insert into auth.users (id, email, email_confirmed_at, raw_app_meta_data, encrypted_password) values
+  ('00000000-0000-4000-8000-000000000001', 'chef@compichef.com', now(), '{}', extensions.crypt('compi-dev', extensions.gen_salt('bf', 4))),
+  ('00000000-0000-4000-8000-000000000002', 'cocinero@compichef.com', now(), '{}', extensions.crypt('compi-dev', extensions.gen_salt('bf', 4))),
+  ('00000000-0000-4000-8000-000000000003', 'temporal@compichef.com', now(), '{"compi_must_change": "true"}', extensions.crypt('compi-dev', extensions.gen_salt('bf', 4)));
 
 insert into public.compi_staff (hotel_key, user_id, email, employee_name, position_name, outlet_name, access_rank) values
-  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000001', 'chef@compichef.test', 'Chef Ejecutivo', 'Chef ejecutivo', 'Cocina central', 1),
-  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000002', 'cocinero@compichef.test', 'Ana Cocinera', 'Cocinera', 'Enoteca', 3),
-  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000003', 'temporal@compichef.test', 'Nuevo Empleado', 'Ayudante', 'P41', 3);
+  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000001', 'chef@compichef.com', 'Chef Ejecutivo', 'Chef ejecutivo', 'Cocina central', 1),
+  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000002', 'cocinero@compichef.com', 'Ana Cocinera', 'Cocinera', 'Enoteca', 3),
+  ('hotel-arts-barcelona', '00000000-0000-4000-8000-000000000003', 'temporal@compichef.com', 'Nuevo Empleado', 'Ayudante', 'P41', 3);
 
 insert into public.compi_memberships (user_id, hotel_key) values
   ('00000000-0000-4000-8000-000000000001', 'hotel-arts-barcelona'),

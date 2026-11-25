@@ -34,7 +34,7 @@ const Me = z
   .openapi("Me");
 
 export function sessionRoutes(app: App, deps: Deps) {
-  const auth = requireUser(deps.verifyToken);
+  const auth = requireUser(deps.auth.verifyToken);
 
   app.openapi(
     createRoute({

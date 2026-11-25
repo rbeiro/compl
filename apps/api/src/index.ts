@@ -3,17 +3,11 @@
 // Local development uses src/node.ts instead.
 import { attachDatabasePool } from "@vercel/functions";
 import { createApp } from "./app.js";
-import { createTokenVerifier } from "./auth/verify-token.js";
-import { createPool } from "./db/client.js";
+import { depsFromEnv } from "./deps.js";
 import { loadEnv } from "./env.js";
 
-const env = loadEnv();
-const pool = createPool(env.DATABASE_URL);
+const deps = depsFromEnv(loadEnv());
 // Lets the function instance close idle connections before it is suspended.
-attachDatabasePool(pool);
+attachDatabasePool(deps.pool);
 
-export default createApp({
-  pool,
-  verifyToken: createTokenVerifier({ supabaseUrl: env.SUPABASE_URL, jwtSecret: env.SUPABASE_JWT_SECRET }),
-  corsOrigins: env.CORS_ORIGINS,
-});
+export default createApp(deps);
