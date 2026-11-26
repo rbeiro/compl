@@ -32,3 +32,6 @@ SELECT public.compi_document_brand_revision(:h!) AS "revision!";
 
 /* @name imageLabels */
 SELECT public.compi_arts_image_labels(:h!, :o!, :g!) AS "labels";
+
+/* @name catalogChange */
+SELECT public.compi_arts_catalog_change(:h!, :o!, :g!, :op!, :label!) AS "key";

@@ -328,3 +328,34 @@ const imageLabelsIR: any = {"usedParamSet":{"h":true,"o":true,"g":true},"params"
 export const imageLabels = new PreparedQuery<ImageLabelsParams,ImageLabelsResult>(imageLabelsIR);
 
 
+/** 'CatalogChange' parameters type */
+export interface CatalogChangeParams {
+  g: string;
+  h: string;
+  label: string;
+  o: string;
+  op: string;
+}
+
+/** 'CatalogChange' return type */
+export interface CatalogChangeResult {
+  key: string | null;
+}
+
+/** 'CatalogChange' query type */
+export interface CatalogChangeQuery {
+  params: CatalogChangeParams;
+  result: CatalogChangeResult;
+}
+
+const catalogChangeIR: any = {"usedParamSet":{"h":true,"o":true,"g":true,"op":true,"label":true},"params":[{"name":"h","required":true,"transform":{"type":"scalar"},"locs":[{"a":40,"b":42}]},{"name":"o","required":true,"transform":{"type":"scalar"},"locs":[{"a":45,"b":47}]},{"name":"g","required":true,"transform":{"type":"scalar"},"locs":[{"a":50,"b":52}]},{"name":"op","required":true,"transform":{"type":"scalar"},"locs":[{"a":55,"b":58}]},{"name":"label","required":true,"transform":{"type":"scalar"},"locs":[{"a":61,"b":67}]}],"statement":"SELECT public.compi_arts_catalog_change(:h!, :o!, :g!, :op!, :label!) AS \"key\""};
+
+/**
+ * Query generated from SQL:
+ * ```
+ * SELECT public.compi_arts_catalog_change(:h!, :o!, :g!, :op!, :label!) AS "key"
+ * ```
+ */
+export const catalogChange = new PreparedQuery<CatalogChangeParams,CatalogChangeResult>(catalogChangeIR);
+
+
