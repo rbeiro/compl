@@ -97,6 +97,9 @@ two-step verification), `temporal@` (temporary password).
 
 ## Deploying (Vercel)
 
+Full steps, including every environment variable: [`docs/deploy.md`](../../docs/deploy.md).
+
+
 - Create a Vercel project with **Root Directory `apps/api`**. Vercel's Hono preset
   deploys the default export of `src/index.ts` as a Node.js function; no
   `vercel.json` is needed. `src/node.ts` is only for running locally or on other hosts.

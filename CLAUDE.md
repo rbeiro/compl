@@ -23,8 +23,9 @@ apps/web/     Frontend: Next.js 16 (App Router), TypeScript, Tailwind v4, next-i
 apps/api/     API for web + future mobile: Hono, zod-openapi, pg + PgTyped (.sql files), Supabase Auth tokens
 packages/api-client/  Typed API client generated from the OpenAPI spec (openapi-fetch), for web and mobile
 legacy/       Original static site (reference only). Has its own package.json and tests.
-supabase/     migrations/ (29, recovered from production history), inventory/remote_schema.sql
+supabase/     migrations/ (baseline of the production schema + 3 follow-ups), inventory/remote_schema.sql
               (full current schema dump), arts-edition/ (Edge Functions + older SQL), config.toml
+docs/deploy.md  New Supabase project, data copy from legacy, Vercel setup
 legacy/deployment/  Pending SQL proposals and test scripts from the previous owner (never applied)
 ```
 
@@ -33,7 +34,7 @@ Planned: `packages/shared` (domain logic such as the cost engine). Hosting: Verc
 ## Backend (Supabase)
 
 - Production project: `dzfwdxhbldnfqowrnhxf` (`chefi-laboratorio`). Most business logic lives in Postgres: `public.compi_*` RPCs (SECURITY DEFINER wrappers) calling `compi_private.*` functions, plus row-level security.
-- Schema in the repo: `supabase/migrations/` (production migration history) and `supabase/inventory/remote_schema.sql` (current dump of `public` + `compi_private`). Re-dump with `supabase db dump --remote -f supabase/inventory/remote_schema.sql` after schema changes; changes made outside migrations show up as a diff there.
+- Schema in the repo: `supabase/migrations/` (baseline dump of production + follow-ups; `supabase db push` builds a new project) and `supabase/inventory/remote_schema.sql` (current dump of `public` + `compi_private`). Re-dump with `supabase db dump --remote -f supabase/inventory/remote_schema.sql` after schema changes; changes made outside migrations show up as a diff there.
 - Supabase-specific dependencies of the schema are few (`auth.uid()/jwt()`, `auth.users`, `auth.sessions`, `storage.objects`, one Vault secret, roles): `apps/api/test/db/supabase-shim.sql` lists them and recreates them on plain Postgres.
 - Edge Functions (`supabase/arts-edition/functions/`): document generation (pdf-lib, jszip), upload validation, rebranding, AI recipe assistant, account creation, invitation/recovery helpers.
 - **API layer (`apps/api`)**: Supabase Auth issues tokens; the API verifies them and runs each request as the user in Postgres (`asUser`: role `authenticated` + `request.jwt.claims`), so the existing functions and RLS apply unchanged. Keep business rules in SQL functions; queries are `.sql` files in `apps/api/src/queries/` compiled by PgTyped into typed `*.queries.ts` (run `db:gen` after editing; no supabase-js/PostgREST on the server) so the database stays portable. Tests run against the production schema on a local Postgres. See `apps/api/README.md`.
