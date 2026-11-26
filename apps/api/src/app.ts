@@ -12,6 +12,7 @@ import { scheduleRoutes } from "./routes/schedule.js";
 import { staffRoutes } from "./routes/staff.js";
 import { costRoutes } from "./routes/costs.js";
 import { editingRoutes } from "./routes/editing.js";
+import { generatorRoutes } from "./routes/generator.js";
 import { sessionRoutes } from "./routes/session.js";
 import { systemRoutes } from "./routes/system.js";
 
@@ -55,6 +56,7 @@ export function createApp(deps: Deps) {
   staffRoutes(app, deps);
   costRoutes(app, deps);
   editingRoutes(app, deps);
+  generatorRoutes(app, deps);
 
   app.doc31("/v1/openapi.json", {
     openapi: "3.1.0",

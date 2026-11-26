@@ -28,6 +28,17 @@ export function depsFromEnv(env: Env): Deps {
     mailer: env.RESEND_API_KEY
       ? createResendMailer({ apiKey: env.RESEND_API_KEY, from: env.EMAIL_FROM })
       : createConsoleMailer(),
-    config: { appUrl: env.APP_URL, serverSecret: env.SERVER_SECRET, corsOrigins: env.CORS_ORIGINS },
+    config: {
+      appUrl: env.APP_URL,
+      serverSecret: env.SERVER_SECRET,
+      corsOrigins: env.CORS_ORIGINS,
+      assistant: {
+        OPENAI_API_KEY: env.OPENAI_API_KEY,
+        COMPI_COMPOSITOR_URL: env.COMPI_COMPOSITOR_URL,
+        COMPI_COMPOSITOR_TOKEN: env.COMPI_COMPOSITOR_TOKEN,
+        COMPI_VISION_MODEL: env.COMPI_VISION_MODEL,
+        COMPI_IMAGE_MODEL: env.COMPI_IMAGE_MODEL,
+      },
+    },
   };
 }

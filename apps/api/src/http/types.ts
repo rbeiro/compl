@@ -12,5 +12,13 @@ export type Deps = {
   auth: AuthProvider;
   mailer: Mailer;
   store: ObjectStore;
-  config: { appUrl: string; serverSecret: string; corsOrigins: string[] };
+  config: {
+    appUrl: string;
+    serverSecret: string;
+    corsOrigins: string[];
+    /** Recipe assistant settings (OPENAI_API_KEY, COMPI_COMPOSITOR_URL…); missing ones are read from the database. */
+    assistant?: Record<string, string | undefined>;
+  };
+  /** Outbound HTTP for the assistant's providers (replaced in tests). */
+  fetch?: typeof fetch;
 };

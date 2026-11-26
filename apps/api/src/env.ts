@@ -37,6 +37,16 @@ const schema = z
       .string()
       .default("http://localhost:3000")
       .transform((v) => v.split(",").map((o) => o.trim()).filter(Boolean)),
+    /**
+     * Recipe assistant (watercolour, labels, composition). Optional: without
+     * them the generator offers photos only. They can also be kept in the
+     * database (Supabase Vault, read by compi_assistant_settings).
+     */
+    OPENAI_API_KEY: z.string().optional(),
+    COMPI_COMPOSITOR_URL: z.url().optional(),
+    COMPI_COMPOSITOR_TOKEN: z.string().optional(),
+    COMPI_VISION_MODEL: z.string().optional(),
+    COMPI_IMAGE_MODEL: z.string().optional(),
     PORT: z.coerce.number().int().positive().default(8787),
     NODE_ENV: z.string().default("development"),
   })

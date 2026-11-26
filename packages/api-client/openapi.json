@@ -1004,6 +1004,33 @@
           "sha256",
           "ruta"
         ]
+      },
+      "DocumentBrand": {
+        "type": "object",
+        "properties": {
+          "accent": {
+            "type": "string"
+          },
+          "logo_png": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "revision": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "accent",
+          "logo_png",
+          "configured",
+          "revision"
+        ],
+        "additionalProperties": {}
       }
     },
     "parameters": {}
@@ -6522,6 +6549,870 @@
           },
           "422": {
             "description": "Not a valid file or name (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/outlets/{h}/{o}/documents": {
+      "post": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "Render a recipe sheet as Word and PDF (editors of the outlet)",
+        "description": "Returns both files base64-encoded with the hotel's current brand. `rendition=master` renders the neutral master that is stored with drafts.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "master"
+              ]
+            },
+            "required": false,
+            "name": "rendition",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {},
+                "description": "Recipe fields (legacy generator schema)."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The files.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "docx": {
+                      "type": "string"
+                    },
+                    "pdf": {
+                      "type": "string"
+                    },
+                    "brand_revision": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "docx",
+                    "pdf",
+                    "brand_revision"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/outlets/{h}/{o}/drafts": {
+      "post": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "Reserve the draft guide a generated recipe is saved to",
+        "description": "Idempotent per `ticket`: retries return the same guide.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ticket": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "label": {
+                    "type": "string",
+                    "maxLength": 200
+                  },
+                  "fingerprint": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "ticket",
+                  "label",
+                  "fingerprint"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The reserved guide.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/source": {
+      "get": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "The editable source of a generated guide",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source and revision (null for guides not made with the generator).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "revision": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "source": {
+                      "type": "object",
+                      "additionalProperties": {}
+                    }
+                  },
+                  "required": [
+                    "revision",
+                    "source"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "Save a draft's source with its staged Word and PDF",
+        "description": "Upload the pictures (`source/{slot}`) and both files (`stage/{fmt}`) first; this makes them visible together.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  },
+                  "docx": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "pdf": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "previous": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "source",
+                  "docx",
+                  "pdf",
+                  "previous"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "revision": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  },
+                  "required": [
+                    "revision"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/outlets/{h}/{o}/assistant/{op}": {
+      "post": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "Recipe assistant: status, watercolor, annotations, compose, prepare",
+        "description": "Port of the legacy assistant. Uses OpenAI and the image compositor configured for the deployment; responds with `{ error: code }` on failure (codes: provider_quota, provider_unavailable, invalid_image, timeout…).",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "status",
+                "watercolor",
+                "annotations",
+                "compose",
+                "prepare"
+              ]
+            },
+            "required": true,
+            "name": "op",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operation result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hotels/{h}/brand": {
+      "get": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "The hotel's document brand (accent colour and logo)",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The brand.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentBrand"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Generator"
+        ],
+        "summary": "Change the document brand (executive chef)",
+        "description": "`logo_png` is a base64 PNG (re-encoded on the server) or null; `expected_revision` is the revision that was opened.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accent": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{6}$"
+                  },
+                  "logo_png": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "expected_revision": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2147483646
+                  }
+                },
+                "required": [
+                  "accent",
+                  "logo_png",
+                  "expected_revision"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentBrand"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No editing permission in this outlet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Changed elsewhere; retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Too large.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid (the detail explains).",
             "content": {
               "application/json": {
                 "schema": {
