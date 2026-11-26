@@ -5,7 +5,7 @@ import { accessToken } from "@/lib/session";
 
 /** Typed CompI API client. Server-side only: the tokens live in httpOnly cookies. */
 export function apiWithToken(token?: string) {
-  return createApiClient({ baseUrl: serverEnv.API_URL, accessToken: () => token });
+  return createApiClient({ baseUrl: serverEnv.API_URL, accessToken: token });
 }
 
 /** Client acting as the signed-in user, or null without a session. */

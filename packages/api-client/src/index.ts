@@ -14,13 +14,21 @@ export type ApiError = Schemas["Error"]["error"];
  */
 export function createApiClient(options: {
   baseUrl: string;
-  accessToken?: () => string | undefined | Promise<string | undefined>;
+  /** The token, or a function returning the current one (refreshed between requests). */
+  accessToken?: string | (() => string | undefined | Promise<string | undefined>);
   fetch?: typeof fetch;
 }) {
+  if (typeof options.accessToken !== "function") {
+    // A fixed token is sent as a header; no middleware (servers render with it,
+    // and middleware ids would use Math.random during prerendering).
+    const headers = options.accessToken ? { Authorization: `Bearer ${options.accessToken}` } : undefined;
+    return createClient<paths>({ baseUrl: options.baseUrl, fetch: options.fetch, headers });
+  }
+  const current = options.accessToken;
   const client = createClient<paths>({ baseUrl: options.baseUrl, fetch: options.fetch });
   const auth: Middleware = {
     async onRequest({ request }) {
-      const token = await options.accessToken?.();
+      const token = await current();
       if (token) request.headers.set("Authorization", `Bearer ${token}`);
       return request;
     },

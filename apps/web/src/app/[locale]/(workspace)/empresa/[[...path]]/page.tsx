@@ -6,11 +6,11 @@ import { SectionGate, sectionMetadata } from "@/components/workspace/section";
 import { Link } from "@/i18n/navigation";
 import { loadAllGuides, loadWorkspace } from "@/lib/workspace";
 import { ArchiveDownload } from "./archive-download";
+import { FolderControls, GuideControls } from "./archive-controls";
 
 export const generateMetadata = () => sectionMetadata("archivo");
 
 // Port of the legacy document archive (portal.js, #/empresa/<hotel>/<outlet>/Plating Guides/<guide>).
-// TODO(port): editor controls on folders and guides (management.js folderControls/guideControls).
 
 const route = (parts: string[]) => `/empresa/${parts.map(encodeURIComponent).join("/")}`.replace(/\/$/, "");
 const h1 = "m-0 mb-[1.1rem] text-[clamp(2rem,2.9vw,2.7rem)] text-(--ws-deep)";
@@ -68,6 +68,8 @@ async function Archive({ params }: { params: PageProps<"/[locale]/empresa/[[...p
   const ctx = available[0] ?? (company ? { hotelKey: company.hotelKey, hotel: parts[0]!, outletKey: "" } : null);
   if (parts.length && !available.length && !(company && parts.length === 1)) return unavailable();
   const editors = new Set(access.filter((a) => a.accessRank === 1 || a.accessRank === 2).map((a) => a.hotelKey));
+  const rankIn = (hotelKey: string) => access.find((a) => a.hotelKey === hotelKey)?.accessRank ?? 3;
+  const controlsCtx = ctx && { hotelKey: ctx.hotelKey, outletKey: ctx.outletKey, hotel: ctx.hotel, outlet: "outlet" in ctx ? ctx.outlet : undefined };
 
   if (parts.length < 3) {
     const names = new Set(available.map((r) => folder(r)[parts.length]!));
@@ -110,6 +112,7 @@ async function Archive({ params }: { params: PageProps<"/[locale]/empresa/[[...p
         ) : (
           <p>{t("noDocuments")}</p>
         )}
+        {controlsCtx && parts.length > 0 && <FolderControls key={parts.join("/")} level={parts.length} ctx={controlsCtx} rank={rankIn(controlsCtx.hotelKey)} parts={parts} />}
       </>
     );
   }
@@ -154,6 +157,7 @@ async function Archive({ params }: { params: PageProps<"/[locale]/empresa/[[...p
         ) : (
           <p>{t("emptyFolder")}</p>
         )}
+        {controlsCtx && <FolderControls key={parts.join("/")} level={3} ctx={controlsCtx} rank={rankIn(controlsCtx.hotelKey)} parts={parts} />}
       </>
     );
   }
@@ -168,6 +172,7 @@ async function Archive({ params }: { params: PageProps<"/[locale]/empresa/[[...p
         {row.title}
       </h1>
       <span className={statusCls(draft)}>{draft ? t("draft") : t("published")}</span>
+      <GuideControls key={parts.join("/")} row={row} rank={rankIn(row.hotelKey)} parts={parts} />
       {draft ? (
         editors.has(row.hotelKey) && row.hasSource && (
           <p>
