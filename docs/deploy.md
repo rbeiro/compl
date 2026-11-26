@@ -51,8 +51,10 @@ npx supabase link --project-ref NEW_REF
 ```
 
 ```bash
-npx supabase db push
+npx supabase db push --remote
 ```
+
+Always pass `--remote`: without it, recent CLI versions target the local Docker stack (the first output line says `Target: local stack`). With `--remote` it says `Target: … (NEW_REF)`.
 
 `db push` applies the four files in `supabase/migrations/`:
 
@@ -127,7 +129,7 @@ What is not copied: sessions and refresh tokens (everyone signs in again once), 
 
 ### 2.1 Before you start
 
-- Do the copy at a quiet time. Changes made in the legacy site after the dump are not in the new project. If the legacy site stays live during the switch, repeat the copy at cut-over (on a freshly re-created new project: run `npx supabase db reset --linked`, then `npx supabase db push`, then sections 2.2–2.4 again; `db reset` erases the new project's data, so never run it while linked to the legacy project).
+- Do the copy at a quiet time. Changes made in the legacy site after the dump are not in the new project. If the legacy site stays live during the switch, repeat the copy at cut-over (on a freshly re-created new project: run `npx supabase db reset --remote`, which re-applies the migrations, then sections 2.2–2.4 again; `db reset --remote` erases the linked project's data, so check `npx supabase projects list` shows the new project as linked, never the legacy one).
 - The new project must have the schema (1.2) and **no data**. Do not do 1.5.
 
 ### 2.2 Dump the data (read-only on the legacy project)
