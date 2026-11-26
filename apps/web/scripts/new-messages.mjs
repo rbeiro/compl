@@ -4,6 +4,10 @@
 const t = (es, en, ca, it, pt, fr, ar) => ({ es, en, ca, it, pt, fr, ar });
 
 const newMessages = {
+  Costs: {
+    // Used by the legacy tariff picker without a translation.
+    noTariffMatches: t('Sin coincidencias', 'No matches', 'Cap coincidència', 'Nessun risultato', 'Sem correspondências', 'Aucun résultat', 'لا توجد نتائج'),
+  },
   Verification: {
     // Two-step codes are now emailed (legacy used an authenticator app).
     intro: t(

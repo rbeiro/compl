@@ -3,7 +3,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   // Workspace package shipped as TypeScript source.
-  transpilePackages: ["@compi/api-client"],
+  transpilePackages: ["@compi/api-client", "@compi/shared"],
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

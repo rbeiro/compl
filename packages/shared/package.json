@@ -1,0 +1,20 @@
+{
+  "name": "@compi/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Domain logic shared by the web app, the API and a future mobile app (cost engine).",
+  "exports": {
+    ".": "./src/index.ts",
+    "./costs": "./src/costs.ts",
+    "./plaza": "./src/plaza.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.1"
+  }
+}

@@ -92,6 +92,11 @@ export async function seedFiles(databaseUrl: string, storageDir: string) {
             { accion: "Colocar el carabinero en el centro", control: "Cabeza hacia el pase" },
             { accion: "Terminar con el alioli", control: "Tres puntos a la derecha" },
           ],
+          ingredientes: [
+            { nombre: "Arroz bomba", cantidad: "80", unidad: "g" },
+            { nombre: "Carabinero", cantidad: "1", unidad: "ud" },
+            { nombre: "Fumet de marisco", cantidad: "250", unidad: "ml" },
+          ],
           pase: "12 min",
           racion: "1 ud",
           version: "2",
