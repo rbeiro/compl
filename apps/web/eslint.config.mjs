@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Copied from pdfjs-dist by scripts/copy-pdf-assets.mjs.
     "public/pdfjs/**",
+    // Bergamot translation engine, vendored from legacy/public/vendor.
+    "public/vendor/**",
   ]),
 ]);
 
