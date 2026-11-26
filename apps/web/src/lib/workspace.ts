@@ -78,7 +78,7 @@ export const loadAllGuides = cache(async () => {
   return items
     .map((g) => ({
       ...g,
-      kind: g.kind && g.kind in guideKinds ? g.kind : null,
+      kind: (g.kind && g.kind in guideKinds ? g.kind : null) as keyof typeof guideKinds | null,
       category: g.category && g.category in guideCategories ? g.category : null,
     }))
     .sort((a, b) => a.hotel.localeCompare(b.hotel) || a.outlet.localeCompare(b.outlet) || a.title.localeCompare(b.title));

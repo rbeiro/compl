@@ -57,3 +57,20 @@ export async function brandRevision(h: string): Promise<number | null> {
   const { data } = await api.GET("/v1/hotels/{h}/brand/revision", { params: { path: { h } } });
   return data ? data.revision : null;
 }
+
+/** Saves a guide's kind and category (editors). False when it could not be saved. */
+export async function classifyGuide(
+  h: string,
+  o: string,
+  g: string,
+  kind: "plato" | "elaboracion" | null,
+  category: string | null,
+): Promise<boolean> {
+  const api = await getApi();
+  if (!api || !valid(h, o, g)) return false;
+  const { response } = await api.PUT("/v1/guides/{h}/{o}/{g}/classification", {
+    params: { path: { h, o, g } },
+    body: { kind, category: category as never },
+  });
+  return response.ok;
+}

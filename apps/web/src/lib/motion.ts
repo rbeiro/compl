@@ -107,3 +107,22 @@ export function tactil(...nodes: (Element | null | undefined)[]) {
     animate(node, [{ scale: ".985" }, { scale: ".95", offset: 0.22 }, { scale: "1.022", offset: 0.52 }, { scale: "1" }], 370, 0, sequenceEase);
   }
 }
+
+/**
+ * "panel" (carbon, sideways): side panels slide 24px in, or fade out when
+ * `leaving`. Resolves when the animation ends (immediately with reduced motion).
+ */
+export function panel(node: Element | null | undefined, { leaving = false, backwards = false } = {}): Promise<void> {
+  if (!node || !node.isConnected || !("animate" in node) || reducedMotion()) return Promise.resolve();
+  const entry = { opacity: 0.6, translate: backwards ? "-24px 0" : "24px 0" };
+  const rest = { opacity: 1, translate: "0 0" };
+  const animation = node.animate(leaving ? [rest, { ...entry, opacity: 0 }] : [entry, rest], {
+    duration: leaving ? 145 : 210,
+    easing: carbonEase,
+    fill: leaving ? "forwards" : "backwards",
+  });
+  return animation.finished.then(
+    () => undefined,
+    () => undefined,
+  );
+}
