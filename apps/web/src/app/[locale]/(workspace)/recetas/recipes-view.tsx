@@ -7,6 +7,7 @@ import { classifyGuide, loadGuide, type GuideData } from "@/app/actions/guides";
 import { SelectField } from "@/components/select-field";
 import { Link } from "@/i18n/navigation";
 import { duo, panel, sequence } from "@/lib/motion";
+import { approveTranslation, keepNames } from "@/lib/content-language";
 import styles from "./recipes.module.css";
 
 // Port of legacy/public/workspace-recipes.js (#/recetas): the recipe book with
@@ -123,6 +124,11 @@ export function RecipesView({
   const afterRender = useRef<(() => void) | null>(null);
   const cardButtons = useRef(new Map<string, HTMLButtonElement>());
   const storage = `compi.recipe-favorites.${favoriteScope}`;
+  // Legacy portal.js: hotel and outlet names stay as written; approved English names win over the machine.
+  useEffect(() => {
+    keepNames(rows.flatMap((r) => [r.hotel, r.outlet]));
+    for (const r of rows) approveTranslation(r.title, r.englishName);
+  }, [rows]);
 
   useLayoutEffect(() => {
     const run = afterRender.current;
@@ -326,7 +332,7 @@ export function RecipesView({
                           <span dir="auto">{row.pass}</span>
                         </>
                       )}
-                      <span className={cx("ws-rec-outlet")} dir="auto">
+                      <span className={cx("ws-rec-outlet")} dir="auto" translate="no">
                         {[row.hotel, row.outlet].filter(Boolean).join(" · ")}
                       </span>
                       <Icon name="arrow" />

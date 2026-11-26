@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { loadGuide, setReviewed, type LoadedGuide } from "@/app/actions/guides";
 import { SelectField } from "@/components/select-field";
 import { duo, sequence } from "@/lib/motion";
+import { approveTranslation, keepNames } from "@/lib/content-language";
 import styles from "./plating.module.css";
 
 // Port of legacy/public/workspace-plating.js `renderPlating`.
@@ -59,6 +60,11 @@ export function PlatingView({ rows: initialRows, selectedKey }: { rows: PlatingR
   const t = useTranslations("Plating");
   const tc = useTranslations("Categories");
   const [rows, setRows] = useState(initialRows);
+  // Legacy portal.js: hotel and outlet names stay as written; approved English names win over the machine.
+  useEffect(() => {
+    keepNames(rows.flatMap((r) => [r.hotel, r.outlet]));
+    for (const r of rows) approveTranslation(r.title, r.englishName);
+  }, [rows]);
   const [index, setIndex] = useState(() => Math.max(0, initialRows.findIndex((r) => identity(r) === selectedKey)));
   const [step, setStep] = useState(0);
   const [showLabels, setShowLabels] = useState(true);

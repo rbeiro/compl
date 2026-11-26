@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense, type ReactNode } from "react";
+import { ContentLanguage } from "@/components/content-language";
 import { WorkspaceShell } from "@/components/workspace/workspace-shell";
 import { redirect } from "@/i18n/navigation";
 import { loadWorkspace } from "@/lib/workspace";
@@ -19,6 +20,7 @@ async function Frame({ children }: { children: ReactNode }) {
   return (
     <WorkspaceShell links={workspace.links} hotel={workspace.hotelLabel}>
       {children}
+      <ContentLanguage />
     </WorkspaceShell>
   );
 }

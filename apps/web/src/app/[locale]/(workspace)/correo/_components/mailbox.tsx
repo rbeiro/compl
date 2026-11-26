@@ -441,9 +441,9 @@ export function Mailbox({ hotels }: { hotels: Hotel[] }) {
         {item.subject ? <h2 dir="auto">{item.subject}</h2> : <h2>{t("noSubject")}</h2>}
         <dl className={cx("mail-meta")}>
           <dt>{t("from")}</dt>
-          <dd dir="auto">{item.sender}</dd>
+          <dd dir="auto" translate="no">{item.sender}</dd>
           <dt>{t("toField")}</dt>
-          <dd dir="auto">{item.recipients}</dd>
+          <dd dir="auto" translate="no">{item.recipients}</dd>
           <dt>{t("date")}</dt>
           <dd>
             <MailDate date={item.updated_at} />

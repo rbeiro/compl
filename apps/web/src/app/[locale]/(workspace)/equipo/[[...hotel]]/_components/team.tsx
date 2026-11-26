@@ -283,20 +283,20 @@ function Row({
   const pending = !s.hasAccount && !restore;
   return (
     <tr ref={row} data-member-id={s.id} hidden={hidden}>
-      <td dir="auto" data-label={columns[0]}>
+      <td dir="auto" translate="no" data-label={columns[0]}>
         <span className={cx("team-initials")} aria-hidden="true">
           {initials(s.name)}
         </span>
         {s.name}
       </td>
-      <td dir="auto" data-label={columns[1]}>
+      <td dir="auto" translate="no" data-label={columns[1]}>
         {s.email}
         {restore ? <small>{t("accessWithdrawn")}</small> : !s.hasAccount && <small>{t(inviteLabel(s))}</small>}
       </td>
-      <td dir="auto" data-label={columns[2]}>
+      <td dir="auto" translate="no" data-label={columns[2]}>
         {positionName(s.position)}
       </td>
-      <td dir="auto" data-label={columns[3]}>
+      <td dir="auto" translate="no" data-label={columns[3]}>
         {s.outlet}
       </td>
       <td data-label={columns[4]}>
