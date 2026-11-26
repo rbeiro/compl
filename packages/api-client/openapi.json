@@ -891,6 +891,104 @@
           "mustChange"
         ],
         "description": "The temporary password is returned once and never stored."
+      },
+      "RecipeCost": {
+        "type": "object",
+        "properties": {
+          "revision": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/CostSettings"
+          },
+          "ingredientes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {}
+            },
+            "description": "Ingredients of the recipe sheet, to start from."
+          }
+        },
+        "required": [
+          "revision",
+          "settings",
+          "ingredientes"
+        ]
+      },
+      "CostSettings": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "servings": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "baseServings": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "salePrice": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "priceUnit": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "quantity",
+                "unit",
+                "price",
+                "priceUnit"
+              ]
+            },
+            "maxItems": 40
+          }
+        },
+        "required": [
+          "servings",
+          "baseServings",
+          "salePrice",
+          "ingredients"
+        ],
+        "description": "Null until the first save."
       }
     },
     "parameters": {}
@@ -4593,6 +4691,464 @@
           },
           "429": {
             "description": "Too many accounts created recently.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/guides/{h}/{o}/{g}/cost": {
+      "get": {
+        "tags": [
+          "Costs"
+        ],
+        "summary": "A recipe's cost sheet",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The cost sheet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeCost"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Executive chef (rank 1) of the hotel only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Saved elsewhere since it was opened.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Costs"
+        ],
+        "summary": "Save a recipe's cost sheet",
+        "description": "`previous` is the revision that was opened (null for the first save).",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "h",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "o",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]{1,200}$"
+            },
+            "required": true,
+            "name": "g",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "settings": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/CostSettings"
+                      },
+                      {
+                        "description": "Quantities belong to `baseServings` portions; prices are per purchase unit, without VAT."
+                      }
+                    ]
+                  },
+                  "previous": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "settings",
+                  "previous"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "revision": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  },
+                  "required": [
+                    "revision"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Executive chef (rank 1) of the hotel only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Saved elsewhere since it was opened.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/costs/overview": {
+      "post": {
+        "tags": [
+          "Costs"
+        ],
+        "summary": "Cost status of up to 200 recipes",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "guides": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "h": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9-]{1,200}$"
+                        },
+                        "o": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9-]{1,200}$"
+                        },
+                        "g": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9-]{1,200}$"
+                        }
+                      },
+                      "required": [
+                        "h",
+                        "o",
+                        "g"
+                      ]
+                    },
+                    "minItems": 1,
+                    "maxItems": 200
+                  }
+                },
+                "required": [
+                  "guides"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "One item per guide.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "hotelKey": {
+                            "type": "string"
+                          },
+                          "outletKey": {
+                            "type": "string"
+                          },
+                          "guideKey": {
+                            "type": "string"
+                          },
+                          "settings": {
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/CostSettings"
+                              },
+                              {
+                                "description": "Quantities belong to `baseServings` portions; prices are per purchase unit, without VAT."
+                              }
+                            ]
+                          },
+                          "ingredientCount": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "hotelKey",
+                          "outletKey",
+                          "guideKey",
+                          "settings",
+                          "ingredientCount"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Executive chef (rank 1) of the hotel only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Saved elsewhere since it was opened.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/costs/plaza": {
+      "get": {
+        "tags": [
+          "Costs"
+        ],
+        "summary": "Plaza costing template (Hotel Arts)",
+        "description": "Recipes, ingredients, purchase tariffs and standards extracted from the kitchen's spreadsheet. Executive chef of Hotel Arts only.",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The template (JSON).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session ended.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Executive chef (rank 1) of the hotel only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The template is not stored in this environment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Saved elsewhere since it was opened.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Not valid.",
             "content": {
               "application/json": {
                 "schema": {
